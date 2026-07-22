@@ -92,34 +92,35 @@ header{
 }
 .hero-radar{
   position:absolute;top:50%;right:-60px;transform:translateY(-50%);
-  width:420px;height:420px;opacity:0.5;pointer-events:none;
+  width:420px;height:420px;opacity:0.72;pointer-events:none;
+  filter:drop-shadow(0 0 12px rgba(34,211,238,0.26));
 }
-[data-theme="light"] .hero-radar{opacity:0.28;}
-.radar-ring{fill:none;stroke:var(--accent);stroke-width:1;opacity:0.35;}
-.radar-cross{stroke:var(--accent);stroke-width:1;opacity:0.18;}
+[data-theme="light"] .hero-radar{opacity:0.38;}
+.radar-ring{fill:none;stroke:var(--accent);stroke-width:1.2;opacity:0.48;}
+.radar-cross{stroke:var(--accent);stroke-width:1.1;opacity:0.28;}
 .radar-sweep{transform-origin:200px 200px;animation:radar-spin 5s linear infinite;}
 @keyframes radar-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .hero-jet-img{
-  position:absolute;top:-40px;left:-60px;width:340px;height:auto;
-  mix-blend-mode:screen;opacity:0.85;pointer-events:none;
-  mask-image:radial-gradient(ellipse 220px 180px at 55% 55%, black 45%, transparent 80%);
-  -webkit-mask-image:radial-gradient(ellipse 220px 180px at 55% 55%, black 45%, transparent 80%);
+  position:absolute;top:-20px;left:-60px;width:340px;height:auto;
+  mix-blend-mode:screen;opacity:0.5;pointer-events:none;
+  mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
 }
-[data-theme="light"] .hero-jet-img{opacity:0.4;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
-.hero-inner{position:relative;max-width:1400px;margin:0 auto;}
+[data-theme="light"] .hero-jet-img{opacity:0.25;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
+.hero-inner{position:relative;max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .hero-eyebrow{
   font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:2.4px;
-  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .hero-title{
   font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.3px;
-  font-size:2.5rem;line-height:1.15;color:var(--white);max-width:680px;
+  font-size:2.5rem;line-height:1.15;color:var(--white);max-width:680px;margin:0 auto;
 }
 .hero-title span{
   background:linear-gradient(90deg,var(--accent),var(--violet) 60%,var(--gold));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero-sub{font-size:0.98rem;color:var(--muted);max-width:520px;margin-top:14px;line-height:1.6;}
+.hero-sub{font-size:0.98rem;color:var(--muted);max-width:520px;margin:14px auto 0;line-height:1.6;}
 
 /* ===== Buttons ===== */
 .btn{
@@ -169,15 +170,18 @@ header{
 
 .sidebar{position:sticky;top:90px;align-self:start;}
 .sidebar-toggle-mobile{
-  display:flex;width:100%;justify-content:space-between;align-items:center;
+  display:none;width:100%;justify-content:space-between;align-items:center;
   background:var(--card);border:1px solid var(--border);border-radius:10px;
   padding:12px 15px;color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:700;
   font-size:0.9rem;cursor:pointer;margin-bottom:10px;
 }
 .sidebar-toggle-arrow{transition:transform .2s;color:var(--accent);}
 .sidebar-toggle-mobile.open .sidebar-toggle-arrow{transform:rotate(180deg);}
-.sidebar-content{display:none;}
-.sidebar-content.open{display:block;}
+.sidebar-content{display:block;}
+.sidebar-desktop-label{
+  font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:11px;padding-left:4px;
+}
 .sidebar-title{font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:11px;padding-left:4px;}
 .module-list{display:flex;flex-direction:column;gap:5px;}
 .module-item{
@@ -219,10 +223,29 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   max-width:1400px;margin:0 auto;padding:20px 20px 50px;
 }
 .module-tile{
-  position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:22px 20px;cursor:pointer;transition:border-color .15s, transform .15s, box-shadow .15s;
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.075) 48%, rgba(129,140,248,0.10) 100%);
+  border:1px solid rgba(255,255,255,0.30);border-radius:16px;
+  padding:22px 20px;cursor:pointer;
+  box-shadow:0 14px 38px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.34), inset 0 -1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);
+  transition:border-color .15s, transform .15s, box-shadow .15s, background .15s;
 }
-.module-tile:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.25);}
+.module-tile::before{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(115deg, rgba(255,255,255,0.19) 0%, rgba(255,255,255,0.045) 26%, transparent 46%),
+             radial-gradient(circle at 8% 0%, rgba(34,211,238,0.32), transparent 43%),
+             radial-gradient(circle at 100% 100%, rgba(129,140,248,0.24), transparent 48%);
+}
+.module-tile:hover{
+  border-color:rgba(175,240,255,0.70);transform:translateY(-4px) scale(1.01);
+  background:linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0.10) 50%, rgba(129,140,248,0.16));
+  box-shadow:0 20px 44px rgba(0,0,0,0.30), 0 0 24px rgba(34,211,238,0.16), inset 0 1px 0 rgba(255,255,255,0.48);
+}
+[data-theme="light"] .module-tile{
+  background:linear-gradient(135deg, rgba(255,255,255,0.82), rgba(232,247,255,0.48));
+  border-color:rgba(8,145,178,0.25);box-shadow:0 14px 36px rgba(39,61,97,0.13), inset 0 1px 0 rgba(255,255,255,0.92);
+}
 .module-tile-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:6px;padding-right:20px;}
 .module-tile-count{color:var(--muted);font-size:0.83rem;margin-bottom:14px;}
 .module-tile-pct{color:var(--muted);font-size:0.76rem;margin-top:8px;}
@@ -245,36 +268,54 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 .subtopic-name{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--gold);letter-spacing:0.4px;}
 .subtopic-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
 
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:15px;margin-bottom:15px;}
+.card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px;}
+@media (max-width:1180px){ .card-grid{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:860px){ .card-grid{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:520px){ .card-grid{grid-template-columns:1fr;} }
 .subcategory-heading{
-  font-family:'Rajdhani',sans-serif;font-size:0.86rem;font-weight:600;letter-spacing:0.3px;
-  color:var(--muted);margin:0 0 10px 17px;padding-left:10px;border-left:2px solid var(--border);
+  font-family:'Rajdhani',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.3px;
+  color:var(--muted);margin:0 0 8px 14px;padding-left:9px;border-left:2px solid var(--border);
 }
 .quiz-card{
   background:linear-gradient(160deg, var(--card), var(--panel));
-  border:1px solid var(--border);border-radius:14px;padding:17px;
-  display:flex;flex-direction:column;gap:10px;position:relative;
+  border:1px solid var(--border);border-radius:12px;padding:12px;
+  display:flex;flex-direction:column;gap:7px;position:relative;
   transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  font-size:0.92em;
 }
 .quiz-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.35), 0 0 0 1px var(--glow);}
 .quiz-card.selected{outline:2px solid var(--accent);outline-offset:1px;}
-.quiz-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
-.quiz-card-title{font-size:0.95rem;font-weight:600;color:var(--white);line-height:1.4;}
-.card-select-box{width:17px;height:17px;flex-shrink:0;margin-top:2px;accent-color:var(--accent);}
-.pin-btn{background:none;border:none;cursor:pointer;font-size:1.05rem;color:var(--muted);flex-shrink:0;line-height:1;transition:transform .15s, color .15s;}
+.quiz-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;}
+.quiz-card-title{font-size:0.84rem;font-weight:600;color:var(--white);line-height:1.32;}
+.card-select-box{width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--accent);}
+.pin-btn{background:none;border:none;cursor:pointer;font-size:0.95rem;color:var(--muted);flex-shrink:0;line-height:1;transition:transform .15s, color .15s;}
 .pin-btn:hover{transform:scale(1.15);}
 .pin-btn.pinned{color:var(--gold);text-shadow:0 0 10px rgba(251,146,60,0.5);}
-.quiz-card-meta{display:flex;gap:6px;flex-wrap:wrap;font-size:0.7rem;color:var(--muted);}
-.meta-chip{background:var(--panel);padding:3px 9px;border-radius:10px;border:1px solid var(--border);font-weight:500;}
+.quiz-card-meta{display:flex;gap:4px;flex-wrap:wrap;font-size:0.62rem;color:var(--muted);}
+.meta-chip{background:var(--panel);padding:2px 7px;border-radius:9px;border:1px solid var(--border);font-weight:500;}
 .meta-chip.review{background:rgba(241,85,76,0.12);border-color:rgba(241,85,76,0.35);color:var(--wrong);}
 .meta-chip.broken{background:rgba(241,85,76,0.12);border-color:rgba(241,85,76,0.35);color:var(--wrong);}
-.tag-chip{background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.3);color:var(--accent);padding:2px 9px;border-radius:10px;font-size:0.68rem;font-weight:500;}
-.progress-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;position:relative;}
+.tag-chip{background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.3);color:var(--accent);padding:1px 7px;border-radius:9px;font-size:0.6rem;font-weight:500;}
+.progress-track{height:6px;background:var(--border);border-radius:4px;overflow:hidden;position:relative;}
 .progress-fill{height:100%;border-radius:4px;transition:width .4s ease;box-shadow:0 0 8px currentColor;}
-.card-progress-label{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);font-weight:500;}
-.notes-preview{font-size:0.74rem;color:var(--muted);font-style:italic;background:var(--panel);padding:7px 9px;border-radius:7px;border-left:2px solid var(--gold);}
-.quiz-card-actions{display:flex;gap:7px;margin-top:3px;}
-.quiz-card-actions .btn{flex:1;justify-content:center;}
+.card-progress-label{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--muted);font-weight:500;}
+.notes-preview{font-size:0.68rem;color:var(--muted);font-style:italic;background:var(--panel);padding:6px 8px;border-radius:6px;border-left:2px solid var(--gold);}
+.quiz-card-actions{display:flex;gap:5px;margin-top:2px;}
+.quiz-card-actions .btn{flex:1;justify-content:center;padding:5px 8px;font-size:0.74rem;}
+.quiz-card-actions .icon-btn{width:26px;height:26px;font-size:0.85rem;}
+
+/* ===== Collapsible category groups ===== */
+.subtopic-heading{cursor:pointer;user-select:none;}
+.subtopic-toggle{
+  background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.75rem;
+  width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .2s ease, color .15s ease;
+}
+.subtopic-toggle:hover{color:var(--accent);}
+.subtopic-group.collapsed .subtopic-toggle{transform:rotate(-90deg);}
+.subtopic-body{overflow:hidden;}
+.subtopic-group.collapsed .subtopic-body{display:none;}
+.subtopic-count{font-size:0.72rem;color:var(--muted);font-weight:500;background:var(--panel);border:1px solid var(--border);padding:2px 9px;border-radius:10px;}
 
 .empty-state{text-align:center;padding:80px 20px;color:var(--muted);}
 .empty-state-icon{font-size:2.8rem;margin-bottom:16px;opacity:0.55;}
@@ -323,6 +364,14 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
      becomes a normal, non-sticky block that flows above the quiz cards. */
   .sidebar{position:static;}
 
+  /* Tools panel: plain and always-visible on desktop (see base rules above),
+     but collapsed behind a tap-to-expand toggle on mobile to save vertical
+     space, since phones don't have the horizontal room desktop does. */
+  .sidebar-toggle-mobile{display:flex;}
+  .sidebar-content{display:none;}
+  .sidebar-content.open{display:block;}
+  .sidebar-desktop-label{display:none;}
+
   /* Modules become a horizontally-scrollable chip row instead of a tall
      vertical list, which is the standard mobile pattern and avoids pushing
      all your quizzes far down the page. */
@@ -360,17 +409,17 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 }
 .footer-text{
   position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;
-  text-align:left;padding:0 20px;max-width:340px;
+  text-align:left;padding:0 20px;max-width:440px;
 }
-.footer-brand{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);letter-spacing:0.5px;}
+.footer-brand{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);letter-spacing:0.5px;}
 .footer-brand span{color:var(--accent);}
-.footer-tagline{font-size:0.8rem;color:var(--muted);margin-top:6px;line-height:1.5;}
+.footer-tagline{font-size:1rem;color:var(--muted);margin-top:8px;line-height:1.55;max-width:420px;}
 
 @media(max-width:480px){
   .footer-img-wrap{height:200px;}
   .footer-img-fade{background:linear-gradient(90deg, var(--navy) 0%, rgba(3,5,10,0.8) 35%, rgba(3,5,10,0.2) 62%, transparent 78%);}
   .footer-text{max-width:78%;}
-  .footer-tagline{font-size:0.75rem;}
+  .footer-tagline{font-size:0.85rem;}
   .hero-jet-img{display:none;}
   .hero-radar{width:220px;height:220px;right:-100px;}
   .hero-title{font-size:1.5rem;}
@@ -404,6 +453,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
       </div>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark">🌙</button>
       <button class="btn btn-ghost btn-sm" onclick="surpriseMe()">🎲 Surprise Me</button>
+      <button class="btn btn-ghost btn-sm" onclick="openQuizGenerator()">⚗ Quiz Generator</button>
       <button class="btn btn-primary" onclick="openAddModal()">+ Add CBT</button>
     </div>
   </div>
@@ -454,6 +504,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
       <span>⚙ Tools</span><span class="sidebar-toggle-arrow" id="sidebar-toggle-arrow">▾</span>
     </button>
     <div class="sidebar-content" id="sidebar-content">
+      <div class="sidebar-desktop-label">⚙ Tools</div>
       <div class="filter-tags-row" id="tag-filter-row"></div>
       <div class="sidebar-tools">
         <button class="btn btn-ghost btn-sm" onclick="exportLibrary()">⭳ Export Library</button>
@@ -461,6 +512,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importLibrary(event)"/>
         <button class="btn btn-ghost btn-sm" onclick="copyShareLink()">🔗 Copy Share Link</button>
         <button class="btn btn-ghost btn-sm" onclick="checkAllLinks()">✅ Check Links</button>
+        <button class="btn btn-ghost btn-sm" onclick="openAnswerMappingModal()">⚙ Answer Mapping</button>
         <div class="sidebar-hint">Export/Import back up this list (.json) — to add a quiz itself, use <strong>+ Add CBT</strong> above. "Check Links" only works once this dashboard is hosted online (not as a local file).</div>
       </div>
     </div>
@@ -482,6 +534,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
           <option value="count_asc">Fewest questions</option>
           <option value="lastOpened">Recently opened</option>
         </select>
+        <button class="btn btn-ghost btn-sm" id="collapse-all-btn" onclick="toggleCollapseAll()">▾ Collapse all</button>
         <button class="btn btn-ghost btn-sm" id="bulk-toggle-btn" onclick="toggleBulkMode()">☑ Select</button>
       </div>
     </div>
@@ -511,7 +564,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   </div>
   <div class="footer-text">
     <div class="footer-brand">CBT <span>Technical Library</span></div>
-    <div class="footer-tagline">Built for engineers who study like they fly — precise, prepared, always instrumented.</div>
+    <div class="footer-tagline">Every question you clear here is a step closer to your license. Keep grinding — the engineers who study like they fly, precise and unhurried, are the ones who pass first attempt.</div>
   </div>
 </footer>
 
@@ -607,6 +660,56 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeShareModal()">Close</button>
       <button class="btn btn-primary" onclick="copyShareText()">Copy Link</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="answer-mapping-modal-overlay">
+  <div class="modal" style="max-width:540px;">
+    <div class="modal-title">Correct Quiz Answer Mapping</div>
+    <div class="field-hint" style="margin:-8px 0 18px;">Choose a quiz from this module, then export a corrected copy of its HTML template. The original file remains untouched.</div>
+    <div class="field">
+      <label>Quiz in this module</label>
+      <select id="mapping-quiz"></select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Question number</label>
+        <input id="mapping-question" type="number" min="1" step="1" placeholder="e.g. 42"/>
+      </div>
+      <div class="field">
+        <label>Correct option</label>
+        <select id="mapping-answer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Source quiz HTML file</label>
+      <input id="mapping-file" type="file" accept=".html,text/html"/>
+      <div class="field-hint">Choose the same quiz template selected above. Browsers require this file selection before they can export an updated copy.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeAnswerMappingModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="exportCorrectedQuiz()">Export corrected HTML</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="quiz-generator-modal-overlay">
+  <div class="modal" style="max-width:760px;">
+    <div class="modal-title">Mixed Quiz Generator</div>
+    <div class="field-hint" style="margin:-8px 0 18px;">Select any number of CBTs across modules and categories. Add the corresponding HTML template for each selection, then generate one shuffled quiz containing every question.</div>
+    <div class="field">
+      <label>Select quizzes to mix</label>
+      <div id="generator-quiz-list" style="max-height:250px;overflow:auto;padding:4px 2px;"></div>
+    </div>
+    <div class="field">
+      <label>Selected quiz templates</label>
+      <div id="generator-file-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <div class="field-hint">You can add more quizzes at any time. Select the matching source HTML file for every quiz you include.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeQuizGenerator()">Cancel</button>
+      <button class="btn btn-primary" onclick="generateMixedQuiz()">Generate &amp; Start Quiz</button>
     </div>
   </div>
 </div>
@@ -939,9 +1042,12 @@ function importLibrary(evt){
 
 function mergeImportedEntries(data, moduleNames){
   const existingIds = new Set(library.map(x=>x.id));
-  let added=0;
+  const existingLinks = new Set(library.map(x=>(x.link||'').trim().toLowerCase()));
+  let added=0, skipped=0;
   data.forEach(item=>{
     if(item && item.title && item.link){
+      const linkKey = item.link.trim().toLowerCase();
+      if(existingLinks.has(linkKey)){ skipped++; return; } // already have a CBT pointing at this exact file
       if(!item.id || existingIds.has(item.id)) item.id = uid();
       if(item.pinned===undefined) item.pinned=false;
       if(!item.tags) item.tags=[];
@@ -950,6 +1056,7 @@ function mergeImportedEntries(data, moduleNames){
       if(item.lastOpened===undefined) item.lastOpened=null;
       if(item.subcategory===undefined) item.subcategory='';
       library.push(item);
+      existingLinks.add(linkKey);
       added++;
     }
   });
@@ -960,7 +1067,7 @@ function mergeImportedEntries(data, moduleNames){
   persist();
   activeModule = null; // land on the module picker so new/changed modules are visible
   refresh();
-  showToast('Imported '+added+' quiz(zes)');
+  showToast(skipped>0 ? `Imported ${added}, skipped ${skipped} duplicate(s)` : `Imported ${added} quiz(zes)`);
 }
 
 // ===================== SHARE LINK =====================
@@ -1232,12 +1339,17 @@ function renderMain(){
   Object.keys(byCategory).sort(naturalSort).forEach(cat=>{
     const group = byCategory[cat];
     const color = TCOLORS[group[0].color % TCOLORS.length] || TCOLORS[0];
-    html += `<div class="subtopic-group">
-      <div class="subtopic-heading">
+    const catKey = activeModule+'::'+cat;
+    const isCollapsed = collapsedCats.has(catKey);
+    html += `<div class="subtopic-group ${isCollapsed?'collapsed':''}" id="group-${cssId(catKey)}">
+      <div class="subtopic-heading" onclick="toggleCategory('${escJs(catKey)}')">
+        <button class="subtopic-toggle" title="Expand/collapse">▾</button>
         <div class="subtopic-tab" style="background:${color}"></div>
         <div class="subtopic-name">${escHtml(cat)}</div>
         <div class="subtopic-line"></div>
-      </div>`;
+        <div class="subtopic-count">${group.length}</div>
+      </div>
+      <div class="subtopic-body">`;
 
     const bySub = {};
     group.forEach(it=>{
@@ -1257,10 +1369,51 @@ function renderMain(){
       html += `</div>`;
     });
 
-    html += `</div>`;
+    html += `</div></div>`;
   });
 
   area.innerHTML = html;
+
+  const collapseBtn = document.getElementById('collapse-all-btn');
+  if(collapseBtn){
+    const catKeys = Object.keys(byCategory).map(c=>activeModule+'::'+c);
+    const allCollapsed = catKeys.length>0 && catKeys.every(k=>collapsedCats.has(k));
+    collapseBtn.textContent = allCollapsed ? '▸ Expand all' : '▾ Collapse all';
+  }
+}
+
+// ===== Collapsible category state (persisted per browser) =====
+const COLLAPSED_KEY = 'cbt_collapsed_cats_v1';
+let collapsedCats = new Set();
+try{ collapsedCats = new Set(JSON.parse(localStorage.getItem(COLLAPSED_KEY)||'[]')); }catch(e){}
+function saveCollapsedCats(){
+  try{ localStorage.setItem(COLLAPSED_KEY, JSON.stringify([...collapsedCats])); }catch(e){}
+}
+function toggleCategory(catKey){
+  if(collapsedCats.has(catKey)) collapsedCats.delete(catKey);
+  else collapsedCats.add(catKey);
+  saveCollapsedCats();
+  const el = document.getElementById('group-'+cssId(catKey));
+  if(el) el.classList.toggle('collapsed');
+  const collapseBtn = document.getElementById('collapse-all-btn');
+  if(collapseBtn && activeModule!==null){
+    const catKeys = [...new Set(library.filter(x=>x.module===activeModule).map(x=>x.subtopic||'General'))].map(c=>activeModule+'::'+c);
+    const allCollapsed = catKeys.length>0 && catKeys.every(k=>collapsedCats.has(k));
+    collapseBtn.textContent = allCollapsed ? '▸ Expand all' : '▾ Collapse all';
+  }
+}
+function cssId(str){ return str.replace(/[^a-zA-Z0-9_-]/g,'_'); }
+function escJs(str){ return String(str).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function toggleCollapseAll(){
+  if(activeModule===null) return;
+  const cats = [...new Set(library.filter(x=>x.module===activeModule).map(x=>x.subtopic || 'General'))];
+  const keys = cats.map(c=>activeModule+'::'+c);
+  const allCollapsed = keys.length>0 && keys.every(k=>collapsedCats.has(k));
+  keys.forEach(k=>{ if(allCollapsed) collapsedCats.delete(k); else collapsedCats.add(k); });
+  saveCollapsedCats();
+  document.getElementById('collapse-all-btn').textContent = allCollapsed ? '▾ Collapse all' : '▸ Expand all';
+  renderMain();
 }
 
 function renderCard(it){
@@ -1298,12 +1451,146 @@ function renderCard(it){
   </div>`;
 }
 
+// ===================== ANSWER-MAPPING EXPORTER =====================
+function openAnswerMappingModal(){
+  const quizzes=library.filter(item=>item.module===activeModule);
+  const select=document.getElementById('mapping-quiz');
+  select.innerHTML=quizzes.length ? quizzes.map(item=>`<option value="${item.id}">${escHtml(item.title)}</option>`).join('') : '<option value="">No quizzes in this module</option>';
+  document.getElementById('mapping-question').value='';
+  document.getElementById('mapping-answer').value='0';
+  document.getElementById('mapping-file').value='';
+  document.getElementById('answer-mapping-modal-overlay').classList.add('show');
+}
+function closeAnswerMappingModal(){ document.getElementById('answer-mapping-modal-overlay').classList.remove('show'); }
+function updateQuestionAnswerInHtml(html, questionIndex, answerIndex){
+  const start=html.search(/(?:const|let|var)\s+questions\s*=\s*\[/);
+  if(start<0) throw new Error('questions data not found');
+  const arrayStart=html.indexOf('[',start);
+  const objects=[];
+  let depth=0, objectStart=-1, quote='', escaped=false;
+  for(let i=arrayStart+1;i<html.length;i++){
+    const ch=html[i];
+    if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
+    if(ch==='"' || ch==="'" || ch==='`'){ quote=ch; continue; }
+    if(ch==='{'){ if(depth===0)objectStart=i; depth++; }
+    else if(ch==='}' && depth){ depth--; if(depth===0){ objects.push([objectStart,i+1]); if(objects.length>questionIndex) break; } }
+  }
+  const range=objects[questionIndex];
+  if(!range) throw new Error('question number is outside this quiz');
+  const questionBlock=html.slice(range[0],range[1]);
+  if(!/\bans\s*:\s*\d+/.test(questionBlock)) throw new Error('answer mapping not found for this question');
+  const updated=questionBlock.replace(/\bans\s*:\s*\d+/,`ans:${answerIndex}`);
+  return html.slice(0,range[0])+updated+html.slice(range[1]);
+}
+function exportCorrectedQuiz(){
+  const quizId=document.getElementById('mapping-quiz').value;
+  const questionNumber=Number(document.getElementById('mapping-question').value);
+  const answerIndex=Number(document.getElementById('mapping-answer').value);
+  const file=document.getElementById('mapping-file').files[0];
+  if(!quizId){ showToast('Select a quiz first'); return; }
+  if(!Number.isInteger(questionNumber) || questionNumber<1){ showToast('Enter a valid question number'); return; }
+  if(!file){ showToast('Choose the quiz HTML file to export'); return; }
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const corrected=updateQuestionAnswerInHtml(String(reader.result),questionNumber-1,answerIndex);
+      const blob=new Blob([corrected],{type:'text/html'});
+      const link=document.createElement('a');
+      const base=file.name.replace(/\.html?$/i,'');
+      link.href=URL.createObjectURL(blob); link.download=base+'-corrected.html';
+      link.click(); URL.revokeObjectURL(link.href);
+      closeAnswerMappingModal(); showToast(`Question ${questionNumber} updated to option ${'ABCD'[answerIndex]}`);
+    }catch(error){ showToast(error.message || 'Could not update this quiz file'); }
+  };
+  reader.readAsText(file);
+}
+
+// ===================== MIXED QUIZ GENERATOR =====================
+const generatorSelectedIds=new Set();
+const generatorFiles={};
+function openQuizGenerator(){
+  generatorSelectedIds.clear();
+  Object.keys(generatorFiles).forEach(key=>delete generatorFiles[key]);
+  renderQuizGenerator();
+  document.getElementById('quiz-generator-modal-overlay').classList.add('show');
+}
+function closeQuizGenerator(){ document.getElementById('quiz-generator-modal-overlay').classList.remove('show'); }
+function renderQuizGenerator(){
+  const list=document.getElementById('generator-quiz-list');
+  const groups={};
+  library.forEach(item=>{ const key=`${item.module} — ${item.subtopic||'General'}`; (groups[key]||(groups[key]=[])).push(item); });
+  const keys=Object.keys(groups).sort(naturalSort);
+  list.innerHTML=keys.length ? keys.map(key=>`<div style="margin:0 0 10px;"><div class="sidebar-title" style="margin:0 0 5px;">${escHtml(key)}</div>${groups[key].map(item=>`<label style="display:flex;align-items:center;gap:9px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;margin:4px 0;background:rgba(255,255,255,.03);cursor:pointer;"><input type="checkbox" ${generatorSelectedIds.has(item.id)?'checked':''} onchange="toggleGeneratorQuiz('${item.id}',this.checked)"><span style="flex:1;font-size:.82rem;">${escHtml(item.title)}</span><span style="font-size:.7rem;color:var(--muted);">${item.count||'?'} Q</span></label>`).join('')}</div>`).join('') : '<div class="field-hint">Add CBTs to your library first.</div>';
+  const files=document.getElementById('generator-file-list');
+  const selected=library.filter(item=>generatorSelectedIds.has(item.id));
+  files.innerHTML=selected.length ? selected.map(item=>`<div style="padding:10px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);"><div style="font-size:.8rem;font-weight:600;margin-bottom:6px;">${escHtml(item.title)}</div><input type="file" accept=".html,text/html" onchange="setGeneratorFile('${item.id}',this.files[0])" style="width:100%;font-size:.75rem;"/>${generatorFiles[item.id]?`<div class="field-hint" style="margin-top:4px;color:var(--correct);">✓ ${escHtml(generatorFiles[item.id].name)}</div>`:''}</div>`).join('') : '<div class="field-hint">Select one or more quizzes above.</div>';
+}
+function toggleGeneratorQuiz(id, checked){
+  if(checked) generatorSelectedIds.add(id); else { generatorSelectedIds.delete(id); delete generatorFiles[id]; }
+  renderQuizGenerator();
+}
+function setGeneratorFile(id, file){ if(file) generatorFiles[id]=file; renderQuizGenerator(); }
+function findMatchingBracket(text, start){
+  let depth=0, quote='', escaped=false;
+  for(let i=start;i<text.length;i++){
+    const ch=text[i];
+    if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
+    if(ch==='"'||ch==="'"||ch==='`'){ quote=ch; continue; }
+    if(ch==='[') depth++; else if(ch===']' && --depth===0) return i;
+  }
+  return -1;
+}
+function extractQuizQuestions(html){
+  const declaration=html.search(/(?:const|let|var)\s+questions\s*=\s*\[/);
+  if(declaration<0) throw new Error('question data was not found');
+  const start=html.indexOf('[',declaration), end=findMatchingBracket(html,start);
+  if(end<0) throw new Error('question data is incomplete');
+  const contents=html.slice(start+1,end).trim();
+  if(!contents) throw new Error('no questions found');
+  return {start,end,contents};
+}
+function shuffleQuestionsSource(source){
+  const parts=[]; let depth=0, start=-1, quote='', escaped=false;
+  for(let i=0;i<source.length;i++){
+    const ch=source[i];
+    if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
+    if(ch==='"'||ch==="'"||ch==='`'){ quote=ch; continue; }
+    if(ch==='{'){ if(depth===0) start=i; depth++; }
+    else if(ch==='}'&&depth){ depth--; if(depth===0) parts.push(source.slice(start,i+1)); }
+  }
+  for(let i=parts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [parts[i],parts[j]]=[parts[j],parts[i]]; }
+  return parts;
+}
+async function generateMixedQuiz(){
+  const selected=library.filter(item=>generatorSelectedIds.has(item.id));
+  if(!selected.length){ showToast('Select at least one quiz'); return; }
+  if(selected.some(item=>!generatorFiles[item.id])){ showToast('Choose an HTML template for every selected quiz'); return; }
+  const launch=window.open('about:blank','_blank');
+  try{
+    const templates=await Promise.all(selected.map(item=>generatorFiles[item.id].text()));
+    const extracted=templates.map(extractQuizQuestions);
+    const shuffled=shuffleQuestionsSource(extracted.map(item=>item.contents).join(','));
+    if(!shuffled.length) throw new Error('no quiz questions could be read');
+    let combined=templates[0];
+    combined=combined.slice(0,extracted[0].start+1)+'\n'+shuffled.join(',\n')+'\n'+combined.slice(extracted[0].end);
+    combined=combined.replace(/<title[^>]*>.*?<\/title>/i,`<title>Mixed CBT Quiz — ${shuffled.length} Questions</title>`);
+    combined=combined.replace(/const QUIZ_ID\s*=\s*[^;]+;/,`const QUIZ_ID = 'mixed_'+Date.now();`);
+    const url=URL.createObjectURL(new Blob([combined],{type:'text/html'}));
+    if(launch) launch.location.href=url;
+    const download=document.createElement('a'); download.href=url; download.download=`mixed-cbt-quiz-${shuffled.length}q.html`; download.click();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+    closeQuizGenerator(); showToast(`Generated ${shuffled.length}-question mixed quiz`);
+  }catch(error){ if(launch) launch.close(); showToast(error.message || 'Could not generate the quiz'); }
+}
+
 document.getElementById('modal-overlay').addEventListener('click', e=>{ if(e.target.id==='modal-overlay') closeModal(); });
 document.getElementById('qr-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='qr-modal-overlay') closeQrModal(); });
 document.getElementById('share-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='share-modal-overlay') closeShareModal(); });
 document.getElementById('module-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='module-modal-overlay') closeModuleModal(); });
+document.getElementById('answer-mapping-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='answer-mapping-modal-overlay') closeAnswerMappingModal(); });
+document.getElementById('quiz-generator-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='quiz-generator-modal-overlay') closeQuizGenerator(); });
 document.getElementById('f-new-module').addEventListener('keydown', e=>{ if(e.key==='Enter') createModule(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeQrModal(); closeShareModal(); closeModuleModal(); } });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeQrModal(); closeShareModal(); closeModuleModal(); closeAnswerMappingModal(); closeQuizGenerator(); } });
 
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
