@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="page-title">Shared CBT Player — EASA Part-66 | Module 17 – Propeller Complete CBT (309Q)</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#03050a;--navy2:#080b14;--panel:#0d121f;--card:#111726;--border:#1e2536;--accent:#22d3ee;--accent2:#0891b2;--gold:#fb923c;--correct:#34d399;--wrong:#fb7185;--skip:#fbbf24;--unattempted:#293244;--text:#eef2f9;--muted:#7b879e;--white:#ffffff;--violet:#818cf8;--glow:rgba(34,211,238,.28);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse 1000px 540px at 8% -12%,rgba(34,211,238,.13),transparent 60%),radial-gradient(ellipse 760px 500px at 100% 4%,rgba(129,140,248,.10),transparent 55%),radial-gradient(ellipse 660px 460px at 50% 105%,rgba(251,146,60,.06),transparent 55%),var(--navy);background-attachment:fixed;}
+header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px;flex-wrap:wrap;}
+.header-title{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:1px;white-space:nowrap;}
+.header-title span{color:var(--gold);}
+.live-score{display:flex;gap:8px;align-items:center;}
+.btn-back-dash{background:var(--panel);border:1.5px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn-back-dash:hover{border-color:var(--accent);color:var(--white);}
+.score-chip{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:0.78rem;font-weight:600;}
+.sc-correct{background:rgba(34,197,94,0.15);color:var(--correct);border:1px solid rgba(34,197,94,0.3);}
+.sc-wrong{background:rgba(239,68,68,0.15);color:var(--wrong);border:1px solid rgba(239,68,68,0.3);}
+.sc-skip{background:rgba(245,158,11,0.15);color:var(--skip);border:1px solid rgba(245,158,11,0.3);}
+.progress-bar-wrap{background:var(--border);height:4px;}
+.progress-bar{height:4px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .4s;}
+.main{max-width:820px;margin:0 auto;padding:20px 16px 100px;}
+.topic-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:1px;margin-bottom:12px;}
+.t0{background:rgba(30,143,255,0.15);color:#60b4ff;border:1px solid rgba(30,143,255,0.3);}
+.t1{background:rgba(240,180,41,0.15);color:var(--gold);border:1px solid rgba(240,180,41,0.3);}
+.t2{background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);}
+.t3{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3);}
+.t4{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
+.t5{background:rgba(251,146,60,0.15);color:#fb923c;border:1px solid rgba(251,146,60,0.3);}
+.t6{background:rgba(20,184,166,0.15);color:#2dd4bf;border:1px solid rgba(20,184,166,0.3);}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.q-num{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--gold);letter-spacing:1px;}
+.q-total{font-size:0.8rem;color:var(--muted);}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:18px;line-height:1.65;}
+.q-text{font-size:1rem;font-weight:500;color:var(--white);}
+.options{display:flex;flex-direction:column;gap:10px;}
+.opt-btn{background:var(--panel);border:1.5px solid var(--border);border-radius:9px;padding:13px 18px;cursor:pointer;text-align:left;font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--text);transition:all .2s;display:flex;align-items:flex-start;gap:12px;}
+.opt-btn:hover:not(:disabled){border-color:var(--accent);background:rgba(30,143,255,0.08);}
+.opt-label{font-weight:700;color:var(--accent);min-width:22px;flex-shrink:0;}
+.opt-btn.correct{border-color:var(--correct);background:rgba(34,197,94,0.12);color:var(--white);}
+.opt-btn.correct .opt-label{color:var(--correct);}
+.opt-btn.wrong{border-color:var(--wrong);background:rgba(239,68,68,0.1);color:var(--white);}
+.opt-btn.wrong .opt-label{color:var(--wrong);}
+.opt-btn:disabled{cursor:default;}
+.feedback{margin-top:14px;padding:11px 16px;border-radius:8px;font-size:0.86rem;font-weight:500;display:none;}
+.feedback.show{display:block;}
+.feedback.correct{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);color:var(--correct);}
+.feedback.wrong{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;}
+.controls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.btn{padding:10px 22px;border-radius:8px;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.5px;transition:all .2s;}
+.btn-prev{background:var(--panel);border:1.5px solid var(--border);color:var(--muted);}
+.btn-prev:hover{border-color:var(--accent);color:var(--accent);}
+.btn-skip{background:rgba(245,158,11,0.1);border:1.5px solid var(--skip);color:var(--skip);}
+.btn-skip:hover{background:rgba(245,158,11,0.2);}
+.btn-next{background:var(--accent2);color:var(--white);}
+.btn-next:hover{background:var(--accent);}
+.btn-finish{background:linear-gradient(135deg,var(--gold),#e07b00);color:var(--navy);font-weight:700;}
+.nav-section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:24px;}
+.nav-title{font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.nav-grid{display:flex;flex-wrap:wrap;gap:5px;}
+.nav-dot{width:30px;height:30px;border-radius:6px;border:none;cursor:pointer;font-size:0.7rem;font-weight:700;font-family:'Rajdhani',sans-serif;transition:all .15s;}
+.nav-dot.unattempted{background:var(--unattempted);color:var(--muted);}
+.nav-dot.current{background:var(--accent2);color:var(--white);box-shadow:0 0 0 2px var(--accent);}
+.nav-dot.correct{background:rgba(34,197,94,0.25);color:var(--correct);border:1px solid var(--correct);}
+.nav-dot.wrong{background:rgba(239,68,68,0.2);color:var(--wrong);border:1px solid var(--wrong);}
+.nav-dot.skipped{background:rgba(245,158,11,0.2);color:var(--skip);border:1px solid var(--skip);}
+.nav-legend{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--muted);}
+.leg-dot{width:12px;height:12px;border-radius:3px;}
+#results-screen{display:none;}
+.results-wrap{max-width:820px;margin:0 auto;padding:30px 16px 80px;}
+.results-header{text-align:center;margin-bottom:30px;}
+.results-title{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;color:var(--gold);letter-spacing:2px;}
+.results-subtitle{color:var(--muted);font-size:0.9rem;margin-top:6px;}
+.score-meter{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;margin-bottom:24px;}
+.score-pct{font-family:'Rajdhani',sans-serif;font-size:4rem;font-weight:700;line-height:1;}
+.score-grade{font-size:1.1rem;font-weight:600;margin-top:6px;}
+.score-bar-outer{background:var(--border);border-radius:6px;height:12px;margin-top:18px;overflow:hidden;}
+.score-bar-inner{height:12px;border-radius:6px;transition:width 1s ease;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:24px;}
+.sum-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
+.sum-num{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;}
+.sum-label{font-size:0.75rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-btn{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:0.8rem;font-weight:600;font-family:'Rajdhani',sans-serif;transition:all .2s;}
+.filter-btn.active{background:var(--accent2);border-color:var(--accent2);color:var(--white);}
+.review-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
+.review-q{font-size:0.9rem;font-weight:500;margin-bottom:8px;color:var(--white);}
+.review-row{display:flex;gap:8px;align-items:flex-start;margin-top:4px;font-size:0.82rem;}
+.review-label{font-weight:700;min-width:95px;color:var(--muted);}
+.review-val{flex:1;}
+.review-exp{font-size:0.78rem;color:var(--muted);margin-top:6px;font-style:italic;border-top:1px solid var(--border);padding-top:6px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:700;}
+.badge-correct{background:rgba(34,197,94,0.15);color:var(--correct);}
+.badge-wrong{background:rgba(239,68,68,0.12);color:var(--wrong);}
+.badge-skipped{background:rgba(245,158,11,0.12);color:var(--skip);}
+.btn-restart{display:block;margin:20px auto 0;padding:12px 40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:var(--white);font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:1px;cursor:pointer;}
+.btn-restart:hover{filter:brightness(1.15);}
+@media(max-width:520px){.header-title{font-size:0.88rem;}.q-text{font-size:0.9rem;}.opt-btn{font-size:0.83rem;padding:10px 12px;}.nav-dot{width:26px;height:26px;font-size:0.65rem;}.score-pct{font-size:3rem;}}
+.mode-bar{max-width:820px;margin:14px auto 0;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;}
+.mode-btn{background:var(--panel);border:1.5px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.mode-btn:hover{border-color:var(--accent);color:var(--text);}
+.mode-btn.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+.mode-btn-ghost{margin-left:auto;background:transparent;}
+.mode-count{background:rgba(239,68,68,0.25);color:var(--wrong);border-radius:10px;padding:1px 7px;font-size:0.72rem;}
+.mode-btn.active .mode-count{background:rgba(255,255,255,0.25);color:#fff;}
+.nav-dot{position:relative;}
+.nav-dot[data-mistakes]:not([data-mistakes="0"])::after{
+  content:attr(data-mistakes);position:absolute;top:-5px;right:-5px;background:var(--wrong);color:#fff;
+  font-size:0.55rem;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;
+}
+.exam-banner{max-width:820px;margin:0 auto 10px;padding:10px 16px;background:rgba(240,180,41,0.1);border:1px solid rgba(240,180,41,0.3);border-radius:8px;color:var(--gold);font-size:0.82rem;text-align:center;}
+
+/* ===== Dashboard-aligned glass interface ===== */
+.header-title{background:linear-gradient(90deg,var(--accent),var(--violet) 64%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.header-title span{color:inherit;}
+.btn-back-dash,.mode-btn,.btn-prev,.filter-btn{
+  background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.btn-back-dash:hover,.mode-btn:hover,.btn-prev:hover,.filter-btn:hover{background:rgba(34,211,238,.11);border-color:rgba(34,211,238,.6);color:var(--white);box-shadow:0 5px 18px rgba(34,211,238,.13),inset 0 1px 0 rgba(255,255,255,.18);}
+.score-chip,.topic-badge,.feedback,.exam-banner{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.progress-bar-wrap,.score-bar-outer{background:rgba(255,255,255,.08);box-shadow:inset 0 1px 2px rgba(0,0,0,.25);}
+.progress-bar{background:linear-gradient(90deg,var(--accent),var(--violet),var(--gold));box-shadow:0 0 12px var(--glow);}
+.q-card,.nav-section,.score-meter,.sum-card,.review-item{
+  background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.035) 52%,rgba(129,140,248,.065));
+  border-color:rgba(255,255,255,.16);box-shadow:0 14px 36px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.14);
+  backdrop-filter:blur(20px) saturate(145%);-webkit-backdrop-filter:blur(20px) saturate(145%);
+}
+.q-card{border-radius:16px;position:relative;overflow:hidden;}
+.q-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.12),transparent 30%),radial-gradient(circle at 100% 0,rgba(34,211,238,.10),transparent 34%);}
+.q-meta,.q-text,.options,.feedback{position:relative;}
+.q-text{font-size:1.04rem;letter-spacing:.05px;}
+.opt-btn{
+  position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.025));
+  border-color:rgba(255,255,255,.16);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.10);
+  backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);
+}
+.opt-btn::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,.15),transparent 34%);opacity:.7;}
+.opt-btn>*{position:relative;}
+.opt-btn:hover:not(:disabled){transform:translateX(4px);border-color:rgba(34,211,238,.72);background:linear-gradient(135deg,rgba(34,211,238,.20),rgba(129,140,248,.10));box-shadow:0 8px 22px rgba(0,0,0,.18),0 0 18px rgba(34,211,238,.13),inset 0 1px 0 rgba(255,255,255,.24);}
+.opt-label{color:var(--accent);text-shadow:0 0 12px rgba(34,211,238,.36);}
+.opt-btn.correct{background:linear-gradient(135deg,rgba(52,211,153,.22),rgba(52,211,153,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.16);}
+.opt-btn.wrong{background:linear-gradient(135deg,rgba(251,113,133,.20),rgba(251,113,133,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.13);}
+.btn-next,.btn-restart{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 5px 18px var(--glow),inset 0 1px 0 rgba(255,255,255,.18);}
+.btn-next:hover,.btn-restart:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 8px 24px var(--glow),inset 0 1px 0 rgba(255,255,255,.28);}
+.btn-skip{background:rgba(251,191,36,.10);border-color:rgba(251,191,36,.48);}
+.mode-btn.active,.filter-btn.active{background:linear-gradient(135deg,var(--accent2),#0e7490);border-color:rgba(103,232,249,.6);box-shadow:0 4px 16px var(--glow);}
+.nav-dot{border:1px solid rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.10);}
+.nav-dot.unattempted{background:rgba(255,255,255,.07);}
+.nav-dot.current{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 0 2px rgba(34,211,238,.28),0 0 16px var(--glow);}
+.review-exp{border-color:rgba(255,255,255,.12);}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <button class="btn-back-dash" id="btn-back-dashboard" style="display:none" onclick="window.close()" title="Return to your CBT Library Dashboard">◀ Back to Dashboard</button>
+    <div class="header-title" id="header-title-text">EASA B1 &nbsp;|&nbsp; <span>Module 17 – Propeller</span></div>
+    <div class="live-score">
+      <div class="score-chip" id="timer-chip" style="display:none;background:rgba(240,180,41,0.15);color:var(--gold);border:1px solid rgba(240,180,41,0.3);">⏱ <span id="hdr-timer">--:--</span></div>
+      <div class="score-chip sc-correct">✔ <span id="hdr-c">0</span></div>
+      <div class="score-chip sc-wrong">✘ <span id="hdr-w">0</span></div>
+      <div class="score-chip sc-skip">– <span id="hdr-s">0</span></div>
+    </div>
+  </div>
+</header>
+<div class="progress-bar-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+
+<div class="mode-bar" id="mode-bar">
+  <button class="mode-btn active" id="mode-btn-full" onclick="setMode('full')">📖 Full Quiz</button>
+  <button class="mode-btn" id="mode-btn-wrong" onclick="setMode('wrong')">🎯 Wrong Answers Only <span class="mode-count" id="wrong-count-badge">0</span></button>
+  <button class="mode-btn" id="mode-btn-smart" onclick="setMode('smart')">🔄 Smart Review</button>
+  <button class="mode-btn" id="mode-btn-timed" onclick="setMode('timed')">⏱ Timed Exam</button>
+  <button class="mode-btn mode-btn-ghost" onclick="clearMistakeHistory()" title="Clear your mistake history">🗑 Clear Mistake History</button>
+</div>
+
+<div id="quiz-screen">
+  <div class="main">
+    <div class="exam-banner" id="exam-banner" style="display:none;">⏱ Timed Exam Mode — feedback is hidden until you submit, just like a real exam.</div>
+    <div class="q-meta">
+      <div class="q-num" id="q-num-label">Q 1</div>
+      <div class="q-total" id="q-of-total">of 309 Questions</div>
+    </div>
+    <div id="topic-badge-wrap"></div>
+    <div class="q-card"><div class="q-text" id="q-text"></div></div>
+    <div class="options" id="options-wrap"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="controls">
+      <button class="btn btn-prev" id="btn-prev" onclick="navigate(-1)">◀ Prev</button>
+      <button class="btn btn-skip" id="btn-skip" onclick="skipQuestion()">Skip</button>
+      <button class="btn btn-next" id="btn-next" onclick="navigate(1)">Next ▶</button>
+      <button class="btn btn-finish" id="btn-finish" style="display:none" onclick="showResults()">Finish & Review</button>
+      <button class="btn btn-finish" id="btn-submit-exam" style="display:none" onclick="submitExam()">✔ Submit Exam</button>
+      <button class="btn btn-finish" id="btn-end-smart" style="display:none" onclick="endSmartSession()">🏁 End Session & Review</button>
+    </div>
+    <div class="nav-section" id="nav-section">
+      <div class="nav-title">Question Navigator</div>
+      <div class="nav-grid" id="nav-grid"></div>
+      <div class="nav-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#334155"></div>Unattempted</div>
+        <div class="leg-item"><div class="leg-dot" style="background:rgba(34,197,94,0.3);border:1px solid #22c55e"></div>Correct</div>
+        <div class="leg-item"><div class="leg-dot" style="background:rgba(239,68,68,0.2);border:1px solid #ef4444"></div>Wrong</div>
+        <div class="leg-item"><div class="leg-dot" style="background:rgba(245,158,11,0.2);border:1px solid #f59e0b"></div>Skipped</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="results-screen">
+
+  <div class="results-wrap">
+    <div class="results-header">
+      <div class="results-title">✈ QUIZ COMPLETE</div>
+      <div class="results-subtitle" id="res-subtitle"></div>
+    </div>
+    <div class="score-meter">
+      <div class="score-pct" id="res-pct">0%</div>
+      <div class="score-grade" id="res-grade"></div>
+      <div class="score-bar-outer"><div class="score-bar-inner" id="res-bar"></div></div>
+    </div>
+    <div class="summary-grid">
+      <div class="sum-card"><div class="sum-num" id="sum-total" style="color:var(--accent)">0</div><div class="sum-label">Total</div></div>
+      <div class="sum-card"><div class="sum-num" id="sum-correct" style="color:var(--correct)">0</div><div class="sum-label">Correct</div></div>
+      <div class="sum-card"><div class="sum-num" id="sum-wrong" style="color:var(--wrong)">0</div><div class="sum-label">Wrong</div></div>
+      <div class="sum-card"><div class="sum-num" id="sum-skip" style="color:var(--skip)">0</div><div class="sum-label">Skipped</div></div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterReview('all',this)">All</button>
+      <button class="filter-btn" onclick="filterReview('correct',this)">✔ Correct</button>
+      <button class="filter-btn" onclick="filterReview('wrong',this)">✘ Wrong</button>
+      <button class="filter-btn" onclick="filterReview('skipped',this)">– Skipped</button>
+    </div>
+    <div id="review-list"></div>
+    <button class="btn-restart" onclick="restartQuiz()">↺ Restart Quiz</button>
+  </div>
+</div>
+
+<script>
+/* ======================================================================
+   EDIT ZONE — CHANGE THESE 3 THINGS FOR EVERY NEW CBT (SUBJECT/MODULE)
+   1) CONFIG below       -> page title + header text for the new subject
+   2) TOPIC_COLOR_ORDER   -> optional: order topics should get colors in
+                             (leave as [] to auto-color in first-seen order)
+   3) questions array     -> paste your new question set, replacing all
+                             the objects between the [ and ] below.
+                             Any number of questions works — 10 or 1000.
+   Do NOT touch anything below the "DO NOT EDIT BELOW" marker.
+====================================================================== */
+
+const quizDataPath = new URLSearchParams(location.search).get('quiz');
+if (quizDataPath) {
+  const safeQuizPath = quizDataPath.replace(/["'<>]/g, '');
+  document.write('<script src="' + safeQuizPath + '"><\/script>');
+}
+const CONFIG = (window.CBT_QUIZ && window.CBT_QUIZ.config) || {
+  pageTitle: 'CBT Quiz', headerLeft: 'CBT', headerRight: 'Quiz',
+  resultsTitle: '✈ QUIZ COMPLETE', resultsSubtitle: 'CBT Quiz'
+};
+
+const TOPIC_COLOR_ORDER = []; // e.g. ["Topic A","Topic B"] or leave empty
+
+const questions = (window.CBT_QUIZ && Array.isArray(window.CBT_QUIZ.questions)) ? window.CBT_QUIZ.questions : []
+
+/* ====================== DO NOT EDIT BELOW ============================
+   Everything from here down is the quiz engine. It auto-adapts to
+   whatever is in `questions` above — any number of questions, any
+   number of topics, any topic names. No manual changes needed here
+   when you swap in a new PDF's worth of questions.
+====================================================================== */
+
+// Auto-detect topics from the questions array (in first-seen order),
+// unless TOPIC_COLOR_ORDER above specifies an explicit order.
+const TOPICS = TOPIC_COLOR_ORDER.length
+  ? TOPIC_COLOR_ORDER
+  : [...new Set(questions.map(q => q.topic))];
+
+// 7 distinct badge colors defined in CSS (t0-t6). Cycles automatically
+// if there are more than 7 topics, so it never breaks on more topics.
+const TCLASS = TOPICS.map((_, i) => 't' + (i % 7));
+
+// Option labels — supports any number of options per question (not fixed to 4).
+// A, B, C, D, E... up to Z. If a question somehow has more than 26 options
+// (never realistically happens), labels beyond Z just repeat safely as '?'.
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+// ===================== AUTOSAVE =====================
+// Unique-ish storage key per quiz, so different CBT files saved/opened
+// from the same browser don't overwrite each other's saved progress.
+const QUIZ_ID = (CONFIG.pageTitle + '_' + questions.length)
+  .toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,80);
+const STORAGE_KEY = 'cbt_progress_' + QUIZ_ID;
+
+function saveProgress(){
+  try{
+    const payload = {answers, statuses, correctCount, wrongCount, skipCount, current, total:questions.length};
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  }catch(e){ /* storage unavailable (private mode etc.) — fail silently */ }
+  reportProgressToOpener();
+}
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return false;
+    const d = JSON.parse(raw);
+    if(!d || d.total !== questions.length || !Array.isArray(d.answers) || d.answers.length !== questions.length) return false;
+    answers = d.answers; statuses = d.statuses;
+    correctCount = d.correctCount||0; wrongCount = d.wrongCount||0; skipCount = d.skipCount||0;
+    current = d.current||0;
+    return true;
+  }catch(e){ return false; }
+}
+
+function clearProgress(){
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+}
+
+// If this quiz was opened from a CBT Library Dashboard tab (via window.open),
+// report live score back to it so the dashboard can show progress on its card.
+// Uses postMessage, which works across origins/local-file contexts alike —
+// unlike localStorage, it doesn't require the two pages to share storage.
+function reportProgressToOpener(){
+  try{
+    if(!window.opener || window.opener.closed) return;
+    const done = statuses.filter(s=>s!=='unattempted').length;
+    const pct = questions.length ? Math.round((done/questions.length)*100) : 0;
+    window.opener.postMessage({
+      type:'cbt-progress-update',
+      correct:correctCount, wrong:wrongCount, skip:skipCount,
+      total:questions.length, pct
+    }, '*');
+  }catch(e){ /* no opener, or cross-origin restriction — fail silently */ }
+}
+// =====================================================
+
+// ===================== STATE =====================
+// `answers`/`statuses`/`correctCount`/`wrongCount`/`skipCount` always track the
+// FULL, sequential practice run (Full Quiz mode) — this is what drives the
+// overall progress bar and what gets reported to the dashboard. Wrong-Answers
+// and Timed modes use their own separate, non-persistent answer tracking so
+// practicing there never distorts your overall progress stats.
+let current=0,answers=new Array(questions.length).fill(null),statuses=new Array(questions.length).fill('unattempted');
+let correctCount=0,wrongCount=0,skipCount=0;
+
+let mode='full'; // 'full' | 'wrong' | 'timed'
+let activeIndices=[];
+let activePos=0;
+
+// Randomized question order for Full Quiz mode — generated fresh each time you
+// start a brand-new attempt (or hit Restart), but kept STABLE while resuming
+// an in-progress attempt (so reloading mid-quiz doesn't reshuffle underneath
+// you and break "resume where you left off").
+const ORDER_KEY='cbt_order_'+QUIZ_ID;
+let questionOrder=[];
+function loadOrCreateOrder(){
+  try{
+    const raw=localStorage.getItem(ORDER_KEY);
+    if(raw){
+      const d=JSON.parse(raw);
+      if(Array.isArray(d)&&d.length===questions.length){ questionOrder=d; return; }
+    }
+  }catch(e){}
+  regenerateOrder();
+}
+function regenerateOrder(){
+  questionOrder=shuffleArray(questions.map((_,i)=>i));
+  try{ localStorage.setItem(ORDER_KEY, JSON.stringify(questionOrder)); }catch(e){}
+}
+
+// ----- Mistake tracking (requires 3 CONSECUTIVE correct answers to clear) -----
+// wrongFlag[i]  = currently flagged as "needs review" (shows up in Wrong-Only mode)
+// streak[i]     = consecutive correct answers in a row since the last time you
+//                 got it wrong. Reaching 3 clears wrongFlag. Any wrong answer
+//                 resets streak back to 0 — you have to build 3-in-a-row again.
+// mistakes[i]   = total historical times ever gotten wrong (never decreases,
+//                 only cleared by "Clear Mistake History") — used to sort/weight.
+const MISTAKES_KEY='cbt_mistakes_'+QUIZ_ID;
+const WRONGFLAG_KEY='cbt_wrongflag_'+QUIZ_ID;
+const STREAK_KEY='cbt_streak_'+QUIZ_ID;
+const LASTSEEN_KEY='cbt_lastseen_'+QUIZ_ID;
+let mistakes=new Array(questions.length).fill(0);
+let wrongFlag=new Array(questions.length).fill(false);
+let streak=new Array(questions.length).fill(0);
+let lastSeen=new Array(questions.length).fill(null); // ms timestamp or null (never seen)
+const CLEAR_STREAK_TARGET=3;
+
+function loadLastSeen(){
+  try{
+    const raw=localStorage.getItem(LASTSEEN_KEY);
+    if(!raw)return;
+    const d=JSON.parse(raw);
+    if(Array.isArray(d)&&d.length===questions.length) lastSeen=d;
+  }catch(e){}
+}
+function saveLastSeen(){
+  try{ localStorage.setItem(LASTSEEN_KEY, JSON.stringify(lastSeen)); }catch(e){}
+}
+
+// Wrong-mode / timed-mode transient answer tracking (not persisted, resets each session)
+let modeAnswers={}; // idx -> selected option index, for wrong/timed modes
+
+// Timed exam state
+let sessionShuffle={}; // idx -> {opts:[...], ans:N} shuffled per exam session
+let timedSecondsLeft=0, timedTimerHandle=null, examRevealed=true;
+
+function loadMistakes(){
+  try{
+    const raw=localStorage.getItem(MISTAKES_KEY);
+    if(raw){ const d=JSON.parse(raw); if(Array.isArray(d)&&d.length===questions.length) mistakes=d; }
+    const rawF=localStorage.getItem(WRONGFLAG_KEY);
+    if(rawF){ const d=JSON.parse(rawF); if(Array.isArray(d)&&d.length===questions.length) wrongFlag=d; }
+    const rawS=localStorage.getItem(STREAK_KEY);
+    if(rawS){ const d=JSON.parse(rawS); if(Array.isArray(d)&&d.length===questions.length) streak=d; }
+  }catch(e){}
+}
+function saveMistakes(){
+  try{
+    localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakes));
+    localStorage.setItem(WRONGFLAG_KEY, JSON.stringify(wrongFlag));
+    localStorage.setItem(STREAK_KEY, JSON.stringify(streak));
+  }catch(e){}
+}
+// Call this whenever a question is answered, in ANY mode, to keep mistake
+// tracking consistent everywhere (Full Quiz, Wrong-Only, Smart Review, Timed).
+function recordAnswerForMistakeTracking(i, isCorrect){
+  if(isCorrect){
+    if(wrongFlag[i]){
+      streak[i]++;
+      if(streak[i]>=CLEAR_STREAK_TARGET){ wrongFlag[i]=false; streak[i]=0; }
+    }
+  }else{
+    mistakes[i]=(mistakes[i]||0)+1;
+    wrongFlag[i]=true;
+    streak[i]=0;
+  }
+  saveMistakes();
+  updateWrongCountBadge();
+}
+function clearMistakeHistory(){
+  if(!confirm('Clear your mistake history? This resets what "Wrong Answers Only" mode shows you, and any in-progress 3-correct streaks.'))return;
+  mistakes=new Array(questions.length).fill(0);
+  wrongFlag=new Array(questions.length).fill(false);
+  streak=new Array(questions.length).fill(0);
+  saveMistakes();
+  updateWrongCountBadge();
+  if(mode==='wrong') setMode('full');
+}
+function updateWrongCountBadge(){
+  const n=wrongFlag.filter(Boolean).length;
+  document.getElementById('wrong-count-badge').textContent=n;
+}
+function shuffleArray(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+// ===================== SMART REVIEW (continuous spaced repetition) =====================
+// Unlike Wrong-Only (fixed snapshot) or Timed (fixed sample), Smart Review has
+// no pre-built list — every time you move on, it re-evaluates ALL questions
+// and picks the single best one to show next, based on live mistake count AND
+// how long it's been since you last saw it. That's what makes it "automatic":
+// it keeps adapting as you go, not just once when you start it.
+let smartHistory=[]; // [{idx, answered:null|optionIdx}] — one entry per VIEW, so the
+                      // same question can reappear later as an independent attempt
+let smartPos=-1;
+let smartSessionCorrect=0, smartSessionWrong=0;
+
+function smartWeight(i){
+  // Cap the "staleness" bonus so a question you've simply never seen yet
+  // doesn't outweigh one you're currently struggling with — urgency (are you
+  // still mid-streak toward clearing it?) dominates the ranking, staleness is
+  // a secondary nudge, not the main driver.
+  const daysSince = lastSeen[i] ? Math.min((Date.now()-lastSeen[i])/86400000, 14) : 3;
+  const urgency = wrongFlag[i] ? (1 + (CLEAR_STREAK_TARGET-streak[i])*8) : 1;
+  return urgency * (1 + daysSince);
+}
+function pickNextSmartIndex(excludeIdx){
+  const all=questions.map((_,i)=>i);
+  const candidates = all.length>1 ? all.filter(i=>i!==excludeIdx) : all;
+  const weights = candidates.map(smartWeight);
+  const totalW = weights.reduce((s,w)=>s+w,0);
+  let r=Math.random()*totalW;
+  for(let k=0;k<candidates.length;k++){
+    r-=weights[k];
+    if(r<=0) return candidates[k];
+  }
+  return candidates[candidates.length-1];
+}
+function smartAdvance(){
+  const prevIdx = smartHistory.length ? smartHistory[smartHistory.length-1].idx : null;
+  const nextIdx = pickNextSmartIndex(prevIdx);
+  smartHistory.push({idx:nextIdx, answered:null});
+  smartPos=smartHistory.length-1;
+  lastSeen[nextIdx]=Date.now();
+  saveLastSeen();
+  renderQ(nextIdx);
+}
+function smartPrev(){
+  if(smartPos<=0)return;
+  smartPos--;
+  renderQ(smartHistory[smartPos].idx);
+}
+function endSmartSession(){
+  document.getElementById('quiz-screen').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  window.scrollTo(0,0);
+  const answeredVisits = smartHistory.filter(v=>v.answered!==null);
+  const total = answeredVisits.length;
+  const ec = smartSessionCorrect, ew = smartSessionWrong;
+  const pct = total ? Math.round(ec/total*100) : 0;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('sum-total').textContent=total;
+  document.getElementById('sum-correct').textContent=ec;
+  document.getElementById('sum-wrong').textContent=ew;
+  document.getElementById('sum-skip').textContent=0;
+  document.getElementById('res-grade').textContent='SMART REVIEW SESSION COMPLETE';
+  document.getElementById('res-grade').style.color='var(--accent)';
+  document.getElementById('res-bar').style.width=pct+'%';
+  document.getElementById('res-bar').style.background='var(--accent)';
+  const list=document.getElementById('review-list');list.innerHTML='';
+  const L=LETTERS;
+  answeredVisits.forEach(v=>{
+    const q=questions[v.idx];
+    const st = v.answered===q.ans ? 'correct' : 'wrong';
+    const bc=st==='correct'?'badge-correct':'badge-wrong';
+    const bt=st==='correct'?'✔ Correct':'✘ Wrong';
+    const div=document.createElement('div');div.className='review-item';
+    div.innerHTML=`<div class="review-q">
+      <span class="topic-badge ${topicClass(q.topic)}" style="font-size:0.65rem;padding:1px 7px;margin-right:6px;">${q.topic}</span>
+      <strong>Q${v.idx+1}.</strong> ${q.q} <span class="badge ${bc}">${bt}</span></div>
+      <div class="review-row"><span class="review-label">Your Answer:</span>
+      <span class="review-val" style="color:${st==='correct'?'var(--correct)':'var(--wrong)'}">${L[v.answered]}. ${q.opts[v.answered]}</span></div>
+      <div class="review-row"><span class="review-label">Correct:</span>
+      <span class="review-val" style="color:var(--correct)">${L[q.ans]}. ${q.opts[q.ans]}</span></div>
+      ${q.exp?`<div class="review-exp">💡 ${q.exp}</div>`:''}`;
+    list.appendChild(div);
+  });
+}
+
+// ===================== MODE SWITCHING =====================
+function setMode(m){
+  stopTimer();
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+
+  if(m==='wrong'){
+    const wrongIdxs=questions.map((_,i)=>i).filter(i=>wrongFlag[i]);
+    if(wrongIdxs.length===0){
+      alert('No mistake history yet. Answer some questions wrong first (in any mode) and they\'ll show up here for focused review — each one needs '+CLEAR_STREAK_TARGET+' correct answers in a row to clear.');
+      return;
+    }
+    // Least progress toward clearing shown first (0/3 streak = most urgent),
+    // tie-broken by total historical mistakes (worst first).
+    wrongIdxs.sort((a,b)=>(streak[a]-streak[b]) || (mistakes[b]-mistakes[a]));
+    activeIndices=wrongIdxs;
+    modeAnswers={};
+    mode='wrong';
+    examRevealed=true;
+    document.getElementById('mode-btn-wrong').classList.add('active');
+    document.getElementById('exam-banner').style.display='none';
+    document.getElementById('timer-chip').style.display='none';
+    document.getElementById('nav-section').style.display='';
+    activePos=0;
+    buildNav();
+    renderQ(activeIndices[0]);
+
+  }else if(m==='timed'){
+    const countStr=prompt('How many questions in this timed exam?','20');
+    if(countStr===null)return;
+    const count=Math.max(1,Math.min(questions.length,parseInt(countStr,10)||20));
+    const minStr=prompt('Time limit in minutes?','30');
+    if(minStr===null)return;
+    const minutes=Math.max(1,parseInt(minStr,10)||30);
+
+    // Weighted sample: questions you're currently struggling with (still mid-
+    // streak toward clearing) are more likely to be included — a lightweight
+    // spaced-repetition effect — but it's still a realistic simulated mix,
+    // not ONLY your weak spots.
+    const weighted=[];
+    questions.forEach((_,i)=>{ const w=Math.max(1,Math.round(smartWeight(i))); for(let k=0;k<w;k++) weighted.push(i); });
+    const chosen=new Set();
+    let guard=0;
+    while(chosen.size<count && chosen.size<questions.length && guard<count*50){
+      chosen.add(weighted[Math.floor(Math.random()*weighted.length)]);
+      guard++;
+    }
+    activeIndices=shuffleArray([...chosen]);
+    sessionShuffle={};
+    activeIndices.forEach(i=>{
+      const q=questions[i];
+      const order=shuffleArray(q.opts.map((_,k)=>k));
+      sessionShuffle[i]={opts:order.map(k=>q.opts[k]), ans:order.indexOf(q.ans)};
+    });
+    modeAnswers={};
+    mode='timed';
+    examRevealed=false;
+    document.getElementById('mode-btn-timed').classList.add('active');
+    document.getElementById('exam-banner').style.display='block';
+    document.getElementById('timer-chip').style.display='';
+    document.getElementById('nav-section').style.display='';
+    startTimer(minutes*60);
+    activePos=0;
+    buildNav();
+    renderQ(activeIndices[0]);
+
+  }else if(m==='smart'){
+    smartHistory=[];
+    smartPos=-1;
+    smartSessionCorrect=0;smartSessionWrong=0;
+    modeAnswers={};
+    mode='smart';
+    examRevealed=true;
+    document.getElementById('mode-btn-smart').classList.add('active');
+    document.getElementById('exam-banner').style.display='none';
+    document.getElementById('timer-chip').style.display='none';
+    document.getElementById('nav-section').style.display='none';
+    smartAdvance();
+
+  }else{ // full
+    activeIndices=questionOrder;
+    mode='full';
+    examRevealed=true;
+    document.getElementById('mode-btn-full').classList.add('active');
+    document.getElementById('exam-banner').style.display='none';
+    document.getElementById('timer-chip').style.display='none';
+    document.getElementById('nav-section').style.display='';
+    buildNav();
+    const firstUnattemptedPos=questionOrder.findIndex(idx=>statuses[idx]==='unattempted');
+    renderQ(firstUnattemptedPos===-1?questionOrder[0]:questionOrder[firstUnattemptedPos]);
+  }
+}
+
+function startTimer(seconds){
+  timedSecondsLeft=seconds;
+  updateTimerDisplay();
+  timedTimerHandle=setInterval(()=>{
+    timedSecondsLeft--;
+    updateTimerDisplay();
+    if(timedSecondsLeft<=0){ stopTimer(); submitExam(true); }
+  },1000);
+}
+function stopTimer(){
+  if(timedTimerHandle){ clearInterval(timedTimerHandle); timedTimerHandle=null; }
+}
+function updateTimerDisplay(){
+  const m=Math.floor(timedSecondsLeft/60), s=timedSecondsLeft%60;
+  document.getElementById('hdr-timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+// ===================== CORE ENGINE =====================
+function topicClass(t){const i=TOPICS.indexOf(t);return i>=0?TCLASS[i]:'t0';}
+
+function applyConfig(){
+  document.getElementById('page-title').textContent=CONFIG.pageTitle+' ('+questions.length+'Q)';
+  document.getElementById('header-title-text').innerHTML=
+    CONFIG.headerLeft+' &nbsp;|&nbsp; <span>'+CONFIG.headerRight+'</span>';
+  document.querySelector('.results-title').textContent=CONFIG.resultsTitle;
+  document.getElementById('res-subtitle').textContent=
+    CONFIG.resultsSubtitle+' · '+questions.length+' Questions';
+}
+
+// Shown instead of crashing when no questions loaded — either the ?quiz=
+// link is missing/wrong, or the data file loaded but didn't set window.CBT_QUIZ
+// correctly (e.g. a typo in the filename, or the questions array is empty).
+function showNoDataError(){
+  document.getElementById('page-title').textContent='CBT Player — No Quiz Loaded';
+  const msg = !quizDataPath
+    ? `This page was opened without a <code>?quiz=</code> link, so there's no quiz data to show.<br><br>
+       Open it like this instead:<br>
+       <code>CBT_Player.html?quiz=data/your-quiz-file.js</code>`
+    : `A <code>?quiz=</code> link was provided (<code>${quizDataPath.replace(/[<>"']/g,'')}</code>), but no questions came through.<br><br>
+       Double-check:<br>
+       • The file exists at that exact path/name (case-sensitive)<br>
+       • It sets <code>window.CBT_QUIZ = { config: {...}, questions: [...] }</code><br>
+       • The <code>questions</code> array isn't empty<br>
+       • There's no typo or stray character in the filename`;
+  document.querySelector('.main').innerHTML = `
+    <div style="max-width:520px;margin:60px auto;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px 28px;">
+      <div style="font-size:2.2rem;margin-bottom:10px;">⚠️</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;color:var(--gold);margin-bottom:14px;">No Quiz Data Loaded</div>
+      <div style="color:var(--muted);font-size:0.92rem;line-height:1.7;text-align:left;">${msg}</div>
+    </div>`;
+  document.querySelector('.mode-bar').style.display='none';
+}
+
+function init(){
+  if(!questions || questions.length===0){
+    showNoDataError();
+    return;
+  }
+  applyConfig();
+  loadProgress();
+  loadMistakes();
+  loadLastSeen();
+  loadOrCreateOrder();
+  activeIndices=questionOrder;
+  updateWrongCountBadge();
+  buildNav();
+  updateScoreHeader();
+  reportProgressToOpener();
+  try{
+    if(window.opener && !window.opener.closed){
+      document.getElementById('btn-back-dashboard').style.display='';
+    }
+  }catch(e){}
+  const firstUnattemptedPos=questionOrder.findIndex(idx=>statuses[idx]==='unattempted');
+  const resumeIdx=firstUnattemptedPos===-1?questionOrder[0]:questionOrder[firstUnattemptedPos];
+  renderQ(resumeIdx);
+}
+
+function remainingToClear(i){
+  return wrongFlag[i] ? (CLEAR_STREAK_TARGET-streak[i]) : 0;
+}
+
+function buildNav(){
+  const g=document.getElementById('nav-grid');g.innerHTML='';
+  activeIndices.forEach((i,pos)=>{
+    const b=document.createElement('button');
+    b.className='nav-dot unattempted';b.textContent=pos+1;b.id='nav-'+i;
+    b.setAttribute('data-mistakes', remainingToClear(i));
+    if(wrongFlag[i]) b.title='Needs '+remainingToClear(i)+' more correct in a row to clear from Wrong Answers Only';
+    b.onclick=()=>renderQ(i);g.appendChild(b);
+  });
+}
+
+function updateNav(){
+  if(mode==='smart')return; // smart mode has no fixed nav grid (see nav-section hidden)
+  activeIndices.forEach(i=>{
+    const el=document.getElementById('nav-'+i);
+    if(!el)return;
+    el.setAttribute('data-mistakes', remainingToClear(i));
+    if(mode==='full'){
+      el.className='nav-dot '+(i===current?'current':statuses[i]);
+    }else{
+      const st = modeAnswers[i]===undefined ? 'unattempted' :
+        (!examRevealed ? 'answered' : (modeAnswers[i]===effectiveAns(i) ? 'correct':'wrong'));
+      el.className='nav-dot '+(i===current?'current':st);
+    }
+  });
+}
+
+// returns the correct-answer index for question i, accounting for timed-mode shuffling
+function effectiveOpts(i){ return mode==='timed'&&sessionShuffle[i] ? sessionShuffle[i].opts : questions[i].opts; }
+function effectiveAns(i){ return mode==='timed'&&sessionShuffle[i] ? sessionShuffle[i].ans : questions[i].ans; }
+
+function renderQ(idx){
+  current=idx;
+  activePos=activeIndices.indexOf(idx);
+  const q=questions[idx];
+  const opts=effectiveOpts(idx);
+  const ansIdx=effectiveAns(idx);
+
+  document.getElementById('q-num-label').textContent = mode==='smart' ? 'Review #'+(smartPos+1) : 'Q '+(activePos+1);
+  document.getElementById('q-of-total').textContent =
+    mode==='full' ? 'of '+questions.length+' Questions' :
+    mode==='smart' ? 'Smart Review session · '+(smartPos+1)+' viewed so far (original Q'+(idx+1)+')' :
+    'of '+activeIndices.length+' in this session (original Q'+(idx+1)+')';
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('topic-badge-wrap').innerHTML=
+    `<div class="topic-badge ${topicClass(q.topic)}">${q.topic}</div>`;
+
+  const answeredVal = mode==='full' ? answers[idx] :
+    mode==='smart' ? (smartHistory[smartPos] ? smartHistory[smartPos].answered : null) :
+    (modeAnswers[idx]!==undefined?modeAnswers[idx]:null);
+  const showFeedbackNow = mode!=='timed' || examRevealed;
+
+  const ow=document.getElementById('options-wrap');ow.innerHTML='';
+  const L=LETTERS;
+  opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.innerHTML=`<span class="opt-label">${L[i]}.</span><span>${opt}</span>`;
+    btn.onclick=()=>selectAnswer(i);
+    if(answeredVal!==null){
+      btn.disabled=true;
+      if(showFeedbackNow){
+        if(i===ansIdx)btn.classList.add('correct');
+        else if(i===answeredVal)btn.classList.add('wrong');
+      }else if(i===answeredVal){
+        btn.classList.add('selected-pending');
+        btn.style.borderColor='var(--accent)';
+      }
+    }
+    ow.appendChild(btn);
+  });
+
+  const fb=document.getElementById('feedback');
+  if(answeredVal!==null && showFeedbackNow){
+    const isC=answeredVal===ansIdx;
+    fb.className='feedback show '+(isC?'correct':'wrong');
+    fb.innerHTML=isC
+      ?`✔ Correct!${q.exp?'<br><small style="opacity:.8">'+q.exp+'</small>':''}`
+      :`✘ Incorrect. Correct: <strong>${L[ansIdx]}. ${opts[ansIdx]}</strong>${q.exp?'<br><small style="opacity:.8">'+q.exp+'</small>':''}`;
+  }else if(answeredVal!==null && !showFeedbackNow){
+    fb.className='feedback show';
+    fb.style.background='rgba(30,143,255,0.1)';fb.style.borderColor='rgba(30,143,255,0.3)';fb.style.color='var(--accent)';
+    fb.innerHTML='Answer recorded — feedback shown after you submit the exam.';
+  }else{fb.className='feedback';fb.textContent='';}
+
+  if(mode==='smart'){
+    document.getElementById('btn-prev').style.display=smartPos<=0?'none':'';
+    document.getElementById('btn-skip').style.display='none';
+    document.getElementById('btn-next').style.display='';
+    document.getElementById('btn-next').textContent='Next (Smart Pick) ▶';
+    document.getElementById('btn-finish').style.display='none';
+    document.getElementById('btn-submit-exam').style.display='none';
+    document.getElementById('btn-end-smart').style.display='';
+  }else{
+    document.getElementById('btn-next').textContent='Next ▶';
+    document.getElementById('btn-end-smart').style.display='none';
+    const isFirst=activePos===0, isLast=activePos===activeIndices.length-1;
+    document.getElementById('btn-prev').style.display=isFirst?'none':'';
+    document.getElementById('btn-skip').style.display=mode==='full'?'':'none';
+    document.getElementById('btn-skip').disabled=answeredVal!==null;
+    document.getElementById('btn-next').style.display=isLast?'none':'';
+    document.getElementById('btn-finish').style.display=(isLast&&mode!=='timed')?'':'none';
+    document.getElementById('btn-submit-exam').style.display=(mode==='timed')?'':'none';
+  }
+
+  if(mode==='full'){
+    const done=statuses.filter(s=>s!=='unattempted').length;
+    document.getElementById('prog-bar').style.width=(done/questions.length*100)+'%';
+  }else if(mode==='smart'){
+    const seen=smartHistory.filter(v=>v.answered!==null).length;
+    const pct = seen ? Math.round(smartSessionCorrect/seen*100) : 0;
+    document.getElementById('prog-bar').style.width=pct+'%';
+  }else{
+    const done=Object.keys(modeAnswers).length;
+    document.getElementById('prog-bar').style.width=(done/activeIndices.length*100)+'%';
+  }
+  updateNav();
+}
+
+function selectAnswer(optIdx){
+  if(mode==='full'){
+    if(answers[current]!==null)return;
+    answers[current]=optIdx;
+    const isCorrect=(optIdx===questions[current].ans);
+    if(isCorrect){statuses[current]='correct';correctCount++;}
+    else{statuses[current]='wrong';wrongCount++;}
+    lastSeen[current]=Date.now();
+    recordAnswerForMistakeTracking(current,isCorrect);
+    saveLastSeen();
+    updateScoreHeader();
+    renderQ(current);
+    saveProgress();
+    if(isCorrect&&activePos<activeIndices.length-1){setTimeout(()=>navigate(1),1200);}
+  }else if(mode==='smart'){
+    const visit=smartHistory[smartPos];
+    if(!visit||visit.answered!==null)return;
+    visit.answered=optIdx;
+    const isCorrect=(optIdx===questions[current].ans);
+    if(isCorrect){ smartSessionCorrect++; } else { smartSessionWrong++; }
+    recordAnswerForMistakeTracking(current,isCorrect);
+    renderQ(current);
+    if(isCorrect){ setTimeout(()=>smartAdvance(),1200); }
+  }else{
+    if(modeAnswers[current]!==undefined)return;
+    modeAnswers[current]=optIdx;
+    const isCorrect=(optIdx===effectiveAns(current));
+    recordAnswerForMistakeTracking(current,isCorrect);
+    renderQ(current);
+    if(mode==='wrong'&&isCorrect&&activePos<activeIndices.length-1){setTimeout(()=>navigate(1),1200);}
+    else if(mode==='timed'&&activePos<activeIndices.length-1){setTimeout(()=>navigate(1),400);}
+  }
+}
+
+function skipQuestion(){
+  if(mode!=='full')return; // no skipping mid-exam; not applicable in wrong/smart modes
+  if(answers[current]!==null)return;
+  statuses[current]='skipped';skipCount++;
+  updateScoreHeader();saveProgress();navigate(1);
+}
+
+function navigate(dir){
+  if(mode==='smart'){
+    if(dir<0) smartPrev(); else smartAdvance();
+    return;
+  }
+  const nextPos=activePos+dir;
+  if(nextPos<0||nextPos>=activeIndices.length)return;
+  renderQ(activeIndices[nextPos]);
+  if(mode==='full') saveProgress();
+}
+
+function updateScoreHeader(){
+  document.getElementById('hdr-c').textContent=correctCount;
+  document.getElementById('hdr-w').textContent=wrongCount;
+  document.getElementById('hdr-s').textContent=skipCount;
+}
+
+// ===================== EXAM SUBMIT =====================
+function submitExam(auto){
+  stopTimer();
+  examRevealed=true;
+  let ec=0,ew=0;
+  activeIndices.forEach(i=>{
+    if(modeAnswers[i]===undefined)return;
+    if(modeAnswers[i]===effectiveAns(i)) ec++; else ew++;
+  });
+  const unanswered=activeIndices.length-(ec+ew);
+  document.getElementById('quiz-screen').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  window.scrollTo(0,0);
+  // Timed Exam counts unanswered questions against you (realistic exam scoring).
+  // Wrong-Answers-Only only scores what you actually attempted.
+  const total = mode==='timed' ? activeIndices.length : (ec+ew);
+  const pct=total?Math.round(ec/total*100):0;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('sum-total').textContent=activeIndices.length;
+  document.getElementById('sum-correct').textContent=ec;
+  document.getElementById('sum-wrong').textContent=ew;
+  document.getElementById('sum-skip').textContent=unanswered;
+  let grade,gc;
+  if(auto){grade='TIME UP — '+(pct>=75?'PASS':'REVIEW REQUIRED');gc=pct>=75?'#22c55e':'#ef4444';}
+  else if(pct>=90){grade='EXCELLENT — PASS';gc='#22c55e';}
+  else if(pct>=75){grade='GOOD — PASS';gc='#22c55e';}
+  else if(pct>=60){grade='AVERAGE — MARGINAL';gc='#f59e0b';}
+  else{grade='BELOW STANDARD — REVIEW REQUIRED';gc='#ef4444';}
+  document.getElementById('res-grade').textContent=grade;
+  document.getElementById('res-grade').style.color=gc;
+  document.getElementById('res-bar').style.width=pct+'%';
+  document.getElementById('res-bar').style.background=gc;
+  buildExamReview();
+}
+
+function buildExamReview(){
+  const list=document.getElementById('review-list');list.innerHTML='';
+  const L=LETTERS;
+  activeIndices.forEach(i=>{
+    const q=questions[i];
+    const opts=effectiveOpts(i), ansIdx=effectiveAns(i);
+    const given=modeAnswers[i];
+    const st = given===undefined ? 'skipped' : (given===ansIdx?'correct':'wrong');
+    const bc=st==='correct'?'badge-correct':st==='wrong'?'badge-wrong':'badge-skipped';
+    const bt=st==='correct'?'✔ Correct':st==='wrong'?'✘ Wrong':'– Not answered';
+    const ya=given!==undefined?L[given]+'. '+opts[given]:'Not answered';
+    const div=document.createElement('div');div.className='review-item';
+    div.innerHTML=`<div class="review-q">
+      <span class="topic-badge ${topicClass(q.topic)}" style="font-size:0.65rem;padding:1px 7px;margin-right:6px;">${q.topic}</span>
+      <strong>Q${i+1}.</strong> ${q.q} <span class="badge ${bc}">${bt}</span></div>
+      <div class="review-row"><span class="review-label">Your Answer:</span>
+      <span class="review-val" style="color:${st==='correct'?'var(--correct)':st==='wrong'?'var(--wrong)':'var(--skip)'}">${ya}</span></div>
+      <div class="review-row"><span class="review-label">Correct:</span>
+      <span class="review-val" style="color:var(--correct)">${L[ansIdx]}. ${opts[ansIdx]}</span></div>
+      ${q.exp?`<div class="review-exp">💡 ${q.exp}</div>`:''}`;
+    list.appendChild(div);
+  });
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.filter-btn').classList.add('active');
+}
+
+function showResults(){
+  if(mode!=='full'){ submitExam(false); return; }
+  document.getElementById('quiz-screen').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  window.scrollTo(0,0);
+  const total=questions.length;
+  const attempted=correctCount+wrongCount;
+  const pct=attempted?Math.round(correctCount/attempted*100):0;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('sum-total').textContent=total;
+  document.getElementById('sum-correct').textContent=correctCount;
+  document.getElementById('sum-wrong').textContent=wrongCount;
+  document.getElementById('sum-skip').textContent=skipCount;
+  let grade,gc;
+  if(pct>=90){grade='EXCELLENT — PASS';gc='#22c55e';}
+  else if(pct>=75){grade='GOOD — PASS';gc='#22c55e';}
+  else if(pct>=60){grade='AVERAGE — MARGINAL';gc='#f59e0b';}
+  else{grade='BELOW STANDARD — REVIEW REQUIRED';gc='#ef4444';}
+  document.getElementById('res-grade').textContent=grade;
+  document.getElementById('res-grade').style.color=gc;
+  document.getElementById('res-bar').style.width=pct+'%';
+  document.getElementById('res-bar').style.background=gc;
+  filterReview('all',document.querySelector('.filter-btn'));
+}
+
+function filterReview(type,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const list=document.getElementById('review-list');list.innerHTML='';
+  const L=LETTERS;
+  questions.forEach((q,i)=>{
+    const st=statuses[i];
+    if(type!=='all'&&st!==type)return;
+    const div=document.createElement('div');div.className='review-item';
+    const bc=st==='correct'?'badge-correct':st==='wrong'?'badge-wrong':'badge-skipped';
+    const bt=st==='correct'?'✔ Correct':st==='wrong'?'✘ Wrong':'– Skipped';
+    const ya=answers[i]!==null?L[answers[i]]+'. '+q.opts[answers[i]]:'Not answered';
+    const tc=topicClass(q.topic);
+    div.innerHTML=`<div class="review-q">
+      <span class="topic-badge ${tc}" style="font-size:0.65rem;padding:1px 7px;margin-right:6px;">${q.topic}</span>
+      <strong>Q${i+1}.</strong> ${q.q} <span class="badge ${bc}">${bt}</span></div>
+      <div class="review-row"><span class="review-label">Your Answer:</span>
+      <span class="review-val" style="color:${st==='correct'?'var(--correct)':st==='wrong'?'var(--wrong)':'var(--skip)'}">${ya}</span></div>
+      <div class="review-row"><span class="review-label">Correct:</span>
+      <span class="review-val" style="color:var(--correct)">${L[q.ans]}. ${q.opts[q.ans]}</span></div>
+      ${q.exp?`<div class="review-exp">💡 ${q.exp}</div>`:''}`;
+    list.appendChild(div);
+  });
+}
+
+function restartQuiz(){
+  // Restart resets Full Quiz progress AND gives you a freshly randomized
+  // question order. Mistake history is intentionally NOT cleared here, since
+  // it's meant to persist across attempts — use "Clear Mistake History" in
+  // the mode bar if you want that reset too.
+  answers=new Array(questions.length).fill(null);
+  statuses=new Array(questions.length).fill('unattempted');
+  correctCount=0;wrongCount=0;skipCount=0;
+  clearProgress();
+  regenerateOrder();
+  updateScoreHeader();
+  reportProgressToOpener();
+  document.getElementById('results-screen').style.display='none';
+  document.getElementById('quiz-screen').style.display='block';
+  document.getElementById('prog-bar').style.width='0%';
+  window.scrollTo(0,0);
+  setMode('full');
+}
+
+init();
+</script>
+</body>
+</html>
