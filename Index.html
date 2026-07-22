@@ -1357,16 +1357,16 @@ function renderMain(){
       bySub[key].push(it);
     });
     const subKeys = Object.keys(bySub).sort(naturalSort);
-    const onlyUngrouped = subKeys.length===1 && subKeys[0]==='';
 
+    // One shared grid for the whole category — cards pack 4-per-row
+    // regardless of how many distinct Sets/Sessions exist. (Each card
+    // still shows its Set/Session as a label, so nothing is lost — this
+    // just stops a lone 1-quiz session from eating an entire row.)
+    html += `<div class="card-grid">`;
     subKeys.forEach(subKey=>{
-      if(subKey && !onlyUngrouped){
-        html += `<div class="subcategory-heading">${escHtml(subKey)}</div>`;
-      }
-      html += `<div class="card-grid">`;
       bySub[subKey].forEach(it=>{ html += renderCard(it); });
-      html += `</div>`;
     });
+    html += `</div>`;
 
     html += `</div></div>`;
   });
