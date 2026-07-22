@@ -241,6 +241,23 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
 
 <script>
 /* ======================================================================
+   This tiny script's only job is to load your quiz's data file (the one
+   named in ?quiz=...) BEFORE the engine below tries to read it. It has
+   to live in its own separate <script> tag — if it were combined with
+   the engine code below, the engine would try to read the data a split
+   second before the browser finished loading it, and every quiz would
+   silently show "No Quiz Data Loaded" no matter what. Do not merge this
+   back into one script tag with the code below.
+====================================================================== */
+const quizDataPath = new URLSearchParams(location.search).get('quiz');
+if (quizDataPath) {
+  const safeQuizPath = quizDataPath.replace(/["'<>]/g, '');
+  document.write('<script src="' + safeQuizPath + '"><\/script>');
+}
+</script>
+
+<script>
+/* ======================================================================
    EDIT ZONE — CHANGE THESE 3 THINGS FOR EVERY NEW CBT (SUBJECT/MODULE)
    1) CONFIG below       -> page title + header text for the new subject
    2) TOPIC_COLOR_ORDER   -> optional: order topics should get colors in
@@ -251,11 +268,6 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
    Do NOT touch anything below the "DO NOT EDIT BELOW" marker.
 ====================================================================== */
 
-const quizDataPath = new URLSearchParams(location.search).get('quiz');
-if (quizDataPath) {
-  const safeQuizPath = quizDataPath.replace(/["'<>]/g, '');
-  document.write('<script src="' + safeQuizPath + '"><\/script>');
-}
 const CONFIG = (window.CBT_QUIZ && window.CBT_QUIZ.config) || {
   pageTitle: 'CBT Quiz', headerLeft: 'CBT', headerRight: 'Quiz',
   resultsTitle: '✈ QUIZ COMPLETE', resultsSubtitle: 'CBT Quiz'
