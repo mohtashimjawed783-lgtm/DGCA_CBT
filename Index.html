@@ -101,26 +101,26 @@ header{
 .radar-sweep{transform-origin:200px 200px;animation:radar-spin 5s linear infinite;}
 @keyframes radar-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .hero-jet-img{
-  position:absolute;top:-40px;left:-60px;width:340px;height:auto;
-  mix-blend-mode:screen;opacity:0.85;pointer-events:none;
-  mask-image:radial-gradient(ellipse 220px 180px at 55% 55%, black 45%, transparent 80%);
-  -webkit-mask-image:radial-gradient(ellipse 220px 180px at 55% 55%, black 45%, transparent 80%);
+  position:absolute;top:-20px;left:-60px;width:340px;height:auto;
+  mix-blend-mode:screen;opacity:0.5;pointer-events:none;
+  mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
 }
-[data-theme="light"] .hero-jet-img{opacity:0.4;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
-.hero-inner{position:relative;max-width:1400px;margin:0 auto;}
+[data-theme="light"] .hero-jet-img{opacity:0.25;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
+.hero-inner{position:relative;max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .hero-eyebrow{
   font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:2.4px;
-  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .hero-title{
   font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.3px;
-  font-size:2.5rem;line-height:1.15;color:var(--white);max-width:680px;
+  font-size:2.5rem;line-height:1.15;color:var(--white);max-width:680px;margin:0 auto;
 }
 .hero-title span{
   background:linear-gradient(90deg,var(--accent),var(--violet) 60%,var(--gold));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero-sub{font-size:0.98rem;color:var(--muted);max-width:520px;margin-top:14px;line-height:1.6;}
+.hero-sub{font-size:0.98rem;color:var(--muted);max-width:520px;margin:14px auto 0;line-height:1.6;}
 
 /* ===== Buttons ===== */
 .btn{
@@ -170,15 +170,18 @@ header{
 
 .sidebar{position:sticky;top:90px;align-self:start;}
 .sidebar-toggle-mobile{
-  display:flex;width:100%;justify-content:space-between;align-items:center;
+  display:none;width:100%;justify-content:space-between;align-items:center;
   background:var(--card);border:1px solid var(--border);border-radius:10px;
   padding:12px 15px;color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:700;
   font-size:0.9rem;cursor:pointer;margin-bottom:10px;
 }
 .sidebar-toggle-arrow{transition:transform .2s;color:var(--accent);}
 .sidebar-toggle-mobile.open .sidebar-toggle-arrow{transform:rotate(180deg);}
-.sidebar-content{display:none;}
-.sidebar-content.open{display:block;}
+.sidebar-content{display:block;}
+.sidebar-desktop-label{
+  font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:11px;padding-left:4px;
+}
 .sidebar-title{font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:11px;padding-left:4px;}
 .module-list{display:flex;flex-direction:column;gap:5px;}
 .module-item{
@@ -361,6 +364,14 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
      becomes a normal, non-sticky block that flows above the quiz cards. */
   .sidebar{position:static;}
 
+  /* Tools panel: plain and always-visible on desktop (see base rules above),
+     but collapsed behind a tap-to-expand toggle on mobile to save vertical
+     space, since phones don't have the horizontal room desktop does. */
+  .sidebar-toggle-mobile{display:flex;}
+  .sidebar-content{display:none;}
+  .sidebar-content.open{display:block;}
+  .sidebar-desktop-label{display:none;}
+
   /* Modules become a horizontally-scrollable chip row instead of a tall
      vertical list, which is the standard mobile pattern and avoids pushing
      all your quizzes far down the page. */
@@ -398,17 +409,17 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 }
 .footer-text{
   position:absolute;top:0;left:0;bottom:0;display:flex;flex-direction:column;justify-content:center;
-  text-align:left;padding:0 20px;max-width:340px;
+  text-align:left;padding:0 20px;max-width:440px;
 }
-.footer-brand{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);letter-spacing:0.5px;}
+.footer-brand{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);letter-spacing:0.5px;}
 .footer-brand span{color:var(--accent);}
-.footer-tagline{font-size:0.8rem;color:var(--muted);margin-top:6px;line-height:1.5;}
+.footer-tagline{font-size:1rem;color:var(--muted);margin-top:8px;line-height:1.55;max-width:420px;}
 
 @media(max-width:480px){
   .footer-img-wrap{height:200px;}
   .footer-img-fade{background:linear-gradient(90deg, var(--navy) 0%, rgba(3,5,10,0.8) 35%, rgba(3,5,10,0.2) 62%, transparent 78%);}
   .footer-text{max-width:78%;}
-  .footer-tagline{font-size:0.75rem;}
+  .footer-tagline{font-size:0.85rem;}
   .hero-jet-img{display:none;}
   .hero-radar{width:220px;height:220px;right:-100px;}
   .hero-title{font-size:1.5rem;}
@@ -493,6 +504,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
       <span>⚙ Tools</span><span class="sidebar-toggle-arrow" id="sidebar-toggle-arrow">▾</span>
     </button>
     <div class="sidebar-content" id="sidebar-content">
+      <div class="sidebar-desktop-label">⚙ Tools</div>
       <div class="filter-tags-row" id="tag-filter-row"></div>
       <div class="sidebar-tools">
         <button class="btn btn-ghost btn-sm" onclick="exportLibrary()">⭳ Export Library</button>
@@ -552,7 +564,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   </div>
   <div class="footer-text">
     <div class="footer-brand">CBT <span>Technical Library</span></div>
-    <div class="footer-tagline">Built for engineers who study like they fly — precise, prepared, always instrumented.</div>
+    <div class="footer-tagline">Every question you clear here is a step closer to your license. Keep grinding — the engineers who study like they fly, precise and unhurried, are the ones who pass first attempt.</div>
   </div>
 </footer>
 
@@ -1030,9 +1042,12 @@ function importLibrary(evt){
 
 function mergeImportedEntries(data, moduleNames){
   const existingIds = new Set(library.map(x=>x.id));
-  let added=0;
+  const existingLinks = new Set(library.map(x=>(x.link||'').trim().toLowerCase()));
+  let added=0, skipped=0;
   data.forEach(item=>{
     if(item && item.title && item.link){
+      const linkKey = item.link.trim().toLowerCase();
+      if(existingLinks.has(linkKey)){ skipped++; return; } // already have a CBT pointing at this exact file
       if(!item.id || existingIds.has(item.id)) item.id = uid();
       if(item.pinned===undefined) item.pinned=false;
       if(!item.tags) item.tags=[];
@@ -1041,6 +1056,7 @@ function mergeImportedEntries(data, moduleNames){
       if(item.lastOpened===undefined) item.lastOpened=null;
       if(item.subcategory===undefined) item.subcategory='';
       library.push(item);
+      existingLinks.add(linkKey);
       added++;
     }
   });
@@ -1051,7 +1067,7 @@ function mergeImportedEntries(data, moduleNames){
   persist();
   activeModule = null; // land on the module picker so new/changed modules are visible
   refresh();
-  showToast('Imported '+added+' quiz(zes)');
+  showToast(skipped>0 ? `Imported ${added}, skipped ${skipped} duplicate(s)` : `Imported ${added} quiz(zes)`);
 }
 
 // ===================== SHARE LINK =====================
