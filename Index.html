@@ -13,13 +13,18 @@
   --text:#eef2f9;--muted:#7b879e;--white:#ffffff;
   --glow:rgba(34,211,238,0.35);
   --violet:#818cf8;
+  --header-bg:rgba(4,6,12,0.75);
 }
 [data-theme="light"]{
-  --navy:#f4f6fb;--navy2:#ffffff;--panel:#eef1f8;--card:#ffffff;--border:#dde3ef;
-  --accent:#0891b2;--accent2:#0e7490;--gold:#c2570a;
-  --text:#0d1420;--muted:#5c6a80;--white:#0d1420;
-  --glow:rgba(8,145,178,0.18);
-  --violet:#6366f1;
+  --navy:#e9edf5;--navy2:#ffffff;--panel:#dfe5f0;--card:#ffffff;--border:#c2cbdd;
+  --accent:#0e7490;--accent2:#155e75;--gold:#b45309;
+  --text:#0f172a;--muted:#4c5870;--white:#0f172a;
+  --glow:rgba(14,116,144,0.22);
+  --violet:#4f46e5;
+  --header-bg:rgba(255,255,255,0.92);
+  --shadow-sm:0 1px 3px rgba(15,23,42,0.07);
+  --shadow-md:0 4px 16px rgba(15,23,42,0.09);
+  --shadow-lg:0 10px 32px rgba(15,23,42,0.12);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -44,11 +49,12 @@ body{
 
 /* ===== Header ===== */
 header{
-  background:rgba(4,6,12,0.75);
+  background:var(--header-bg);
   border-bottom:1px solid var(--border);
   padding:0 20px;position:sticky;top:0;z-index:200;
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
 }
+[data-theme="light"] header{box-shadow:var(--shadow-sm);}
 .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px;flex-wrap:wrap;}
 .brand{display:flex;align-items:center;gap:11px;}
 .brand-mark{
@@ -81,6 +87,10 @@ header{
 
 /* ===== Hero ===== */
 .hero{position:relative;overflow:hidden;padding:52px 20px 40px;border-bottom:1px solid var(--border);}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 620px 340px at 32% 15%, var(--glow), transparent 70%);
+}
 .hero-grid-bg{
   position:absolute;inset:0;pointer-events:none;opacity:0.5;
   background-image:
@@ -95,7 +105,15 @@ header{
   width:420px;height:420px;opacity:0.72;pointer-events:none;
   filter:drop-shadow(0 0 12px rgba(34,211,238,0.26));
 }
-[data-theme="light"] .hero-radar{opacity:0.38;}
+[data-theme="light"] .hero-radar{opacity:0.55;}
+[data-theme="light"] .hero-grid-bg{
+  opacity:0.9;
+  background-image:
+    linear-gradient(rgba(14,116,144,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,116,144,0.10) 1px, transparent 1px);
+}
+[data-theme="light"] .radar-ring{opacity:0.6;}
+[data-theme="light"] .radar-cross{opacity:0.35;}
 .radar-ring{fill:none;stroke:var(--accent);stroke-width:1.2;opacity:0.48;}
 .radar-cross{stroke:var(--accent);stroke-width:1.1;opacity:0.28;}
 .radar-sweep{transform-origin:200px 200px;animation:radar-spin 5s linear infinite;}
@@ -110,11 +128,14 @@ header{
 .hero-inner{position:relative;max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .hero-eyebrow{
   font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:2.4px;
-  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  color:var(--gold);margin-bottom:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:6px 16px;border-radius:20px;
+  background:linear-gradient(135deg, rgba(251,146,60,0.14), rgba(251,146,60,0.04));
+  border:1px solid rgba(251,146,60,0.32);
 }
 .hero-title{
-  font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.3px;
-  font-size:2.5rem;line-height:1.15;color:var(--white);max-width:680px;margin:0 auto;
+  font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.2px;
+  font-size:2.75rem;line-height:1.12;color:var(--white);max-width:700px;margin:0 auto;
 }
 .hero-title span{
   background:linear-gradient(90deg,var(--accent),var(--violet) 60%,var(--gold));
@@ -134,18 +155,26 @@ header{
 }
 .btn-primary:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 4px 16px var(--glow), 0 0 0 1px rgba(255,255,255,0.1) inset;}
 .btn-primary:active{transform:translateY(0);}
-.btn-ghost{background:var(--panel);border:1.5px solid var(--border);color:var(--muted);}
+.btn-ghost{background:linear-gradient(160deg, var(--card), var(--panel));border:1.5px solid var(--border);color:var(--muted);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--text);background:rgba(34,211,238,0.08);}
 .btn-danger{background:rgba(241,85,76,0.12);color:var(--wrong);border:1px solid rgba(241,85,76,0.35);}
 .btn-danger:hover{background:rgba(241,85,76,0.22);}
 .btn-sm{padding:7px 13px;font-size:0.82rem;}
 .icon-btn{
-  width:34px;height:34px;border-radius:9px;background:var(--panel);border:1px solid var(--border);
+  width:34px;height:34px;border-radius:9px;background:linear-gradient(160deg, var(--card), var(--panel));border:1px solid var(--border);
   color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
   font-size:0.88rem;flex:0 0 auto !important;transition:all .15s;
 }
 .icon-btn:hover{color:var(--text);border-color:var(--accent);background:rgba(34,211,238,0.08);transform:translateY(-1px);}
 .icon-btn.active{color:var(--gold);border-color:var(--gold);}
+.icon-btn.sync-connected{color:#34d399;border-color:rgba(52,211,153,0.55);}
+.icon-btn.sync-error{color:#f87171;border-color:rgba(248,113,113,0.55);}
+.icon-btn.sync-connecting{opacity:0.6;}
+[data-theme="light"] .btn-ghost{box-shadow:var(--shadow-sm);}
+[data-theme="light"] .btn-ghost:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
+[data-theme="light"] .icon-btn{box-shadow:var(--shadow-sm);}
+[data-theme="light"] .btn-primary{box-shadow:0 4px 14px rgba(14,116,144,0.28), 0 0 0 1px rgba(255,255,255,0.12) inset;}
+[data-theme="light"] .search-input{background:var(--card);box-shadow:var(--shadow-sm);}
 
 /* ===== Stats bar ===== */
 .stats-bar{max-width:1400px;margin:20px auto 0;padding:0 20px;display:flex;gap:12px;flex-wrap:wrap;}
@@ -153,10 +182,17 @@ header{
   background:linear-gradient(160deg, var(--card), var(--panel));
   border:1px solid var(--border);border-radius:12px;padding:12px 18px;
   display:flex;flex-direction:column;gap:3px;min-width:120px;
-  position:relative;overflow:hidden;
+  position:relative;overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;
 }
+.stat-pill:hover{transform:translateY(-2px);}
 .stat-pill::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);}
-.stat-num{font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--white);letter-spacing:0.3px;}
+[data-theme="light"] .stat-pill{background:var(--card);box-shadow:var(--shadow-sm);}
+[data-theme="light"] .stat-pill:hover{box-shadow:var(--shadow-md);}
+.stat-num{
+  font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:0.3px;
+  background:linear-gradient(120deg,var(--white),var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 .stat-label{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;}
 .badges-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .badge-chip{
@@ -193,6 +229,11 @@ header{
   background:linear-gradient(90deg, rgba(34,211,238,0.14), rgba(34,211,238,0.03));
   color:var(--white);border-left-color:var(--accent);font-weight:600;
 }
+[data-theme="light"] .module-item:hover{background:var(--card);box-shadow:var(--shadow-sm);}
+[data-theme="light"] .module-item.active{
+  background:linear-gradient(90deg, rgba(14,116,144,0.14), rgba(14,116,144,0.03));
+  box-shadow:var(--shadow-sm);
+}
 .module-item-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
 .module-count{font-size:0.7rem;background:var(--panel);padding:2px 9px;border-radius:10px;color:var(--muted);font-weight:600;}
 .module-item.active .module-count{background:var(--accent2);color:#fff;}
@@ -216,8 +257,9 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 
 /* ===== Home view: module picker ===== */
 .home-view-header{max-width:1400px;margin:0 auto;padding:30px 20px 6px;}
-.home-view-title{font-family:'Rajdhani',sans-serif;font-size:1.45rem;font-weight:700;color:var(--white);letter-spacing:0.3px;}
-.home-view-sub{font-size:0.86rem;color:var(--muted);margin-top:4px;}
+.home-view-title{font-family:'Rajdhani',sans-serif;font-size:1.45rem;font-weight:700;color:var(--white);letter-spacing:0.3px;position:relative;padding-left:14px;}
+.home-view-title::before{content:'';position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:3px;background:linear-gradient(180deg,var(--accent),var(--violet));}
+.home-view-sub{font-size:0.86rem;color:var(--muted);margin-top:4px;padding-left:14px;}
 .module-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;
   max-width:1400px;margin:0 auto;padding:20px 20px 50px;
@@ -243,8 +285,11 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   box-shadow:0 20px 44px rgba(0,0,0,0.30), 0 0 24px rgba(34,211,238,0.16), inset 0 1px 0 rgba(255,255,255,0.48);
 }
 [data-theme="light"] .module-tile{
-  background:linear-gradient(135deg, rgba(255,255,255,0.82), rgba(232,247,255,0.48));
-  border-color:rgba(8,145,178,0.25);box-shadow:0 14px 36px rgba(39,61,97,0.13), inset 0 1px 0 rgba(255,255,255,0.92);
+  background:linear-gradient(135deg, #ffffff, rgba(232,247,255,0.65));
+  border-color:rgba(14,116,144,0.30);box-shadow:0 14px 36px rgba(15,23,42,0.14), inset 0 1px 0 rgba(255,255,255,0.95);
+}
+[data-theme="light"] .module-tile:hover{
+  box-shadow:0 20px 46px rgba(15,23,42,0.18), 0 0 0 1px rgba(14,116,144,0.15), inset 0 1px 0 rgba(255,255,255,1);
 }
 .module-tile-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:6px;padding-right:20px;}
 .module-tile-count{color:var(--muted);font-size:0.83rem;margin-bottom:14px;}
@@ -284,6 +329,8 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   font-size:0.92em;
 }
 .quiz-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.35), 0 0 0 1px var(--glow);}
+[data-theme="light"] .quiz-card{background:linear-gradient(160deg, var(--card), var(--card));box-shadow:var(--shadow-sm);}
+[data-theme="light"] .quiz-card:hover{box-shadow:var(--shadow-lg), 0 0 0 1px var(--glow);}
 .quiz-card.selected{outline:2px solid var(--accent);outline-offset:1px;}
 .quiz-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;}
 .quiz-card-title{font-size:0.84rem;font-weight:600;color:var(--white);line-height:1.32;}
@@ -329,6 +376,8 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:480px;
   max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5);
 }
+[data-theme="light"] .modal{background:var(--card);box-shadow:var(--shadow-lg);}
+[data-theme="light"] .field input,[data-theme="light"] .field select,[data-theme="light"] .field textarea{background:var(--navy2);}
 .modal-title{font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text);margin-bottom:20px;letter-spacing:0.3px;}
 .field{margin-bottom:15px;}
 .field label{display:block;font-size:0.78rem;color:var(--muted);margin-bottom:6px;font-weight:600;}
@@ -451,6 +500,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
         <input type="text" class="search-input" id="search-input" placeholder="Search quizzes..." oninput="renderMain()"/>
       </div>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark">🌙</button>
+      <button class="icon-btn" id="sync-toggle" onclick="openSyncModal()" title="Sync across devices">☁</button>
       <button class="btn btn-ghost btn-sm" onclick="surpriseMe()">🎲 Surprise Me</button>
       <button class="btn btn-ghost btn-sm" onclick="openQuizGenerator()">⚗ Quiz Generator</button>
       <button class="btn btn-primary" onclick="openAddModal()">+ Add CBT</button>
@@ -471,11 +521,16 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
     </g>
     <defs>
       <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.55"/>
-        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.65"/>
+        <stop offset="65%" stop-color="var(--violet)" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="var(--violet)" stop-opacity="0"/>
       </linearGradient>
     </defs>
     <circle cx="200" cy="200" r="4" fill="var(--gold)"/>
+    <circle cx="200" cy="200" r="4" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity="0.5">
+      <animate attributeName="r" values="4;16;4" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
   </svg>
   <img src="hero-aircraft.jpg" class="hero-jet-img" alt="" aria-hidden="true"/>
   <div class="hero-inner">
@@ -552,6 +607,17 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModuleModal()">Cancel</button>
       <button class="btn btn-primary" onclick="createModule()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sync Modal -->
+<div class="modal-overlay" id="sync-modal-overlay">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-title">Sync Across Devices</div>
+    <div id="sync-modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeSyncModal()">Close</button>
     </div>
   </div>
 </div>
@@ -722,6 +788,8 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   <button class="btn btn-ghost btn-sm" onclick="toggleBulkMode()">Cancel</button>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const STORAGE_KEY = 'cbt_library_v1';
 const MODULES_KEY = 'cbt_library_modules_v1';
@@ -766,11 +834,13 @@ function load(){
     if(it.subcategory===undefined) it.subcategory='';
   });
 }
-function persistModules(){
+function persistModules(push=true){
   try{ localStorage.setItem(MODULES_KEY, JSON.stringify(customModules)); }catch(e){}
+  if(push) pushToCloud();
 }
-function persist(){
+function persist(push=true){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(library)); }catch(e){}
+  if(push) pushToCloud();
 }
 function uid(){ return 'q'+Date.now()+Math.random().toString(36).slice(2,8); }
 
@@ -790,6 +860,188 @@ function toggleTheme(){
   const next = cur==='dark' ? 'light' : 'dark';
   try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
   applyTheme(next);
+}
+
+// ===================== CLOUD SYNC =====================
+const SYNC_KEY = 'cbt_library_sync_code';
+const DEVICE_KEY = 'cbt_library_device_id';
+let syncCode = localStorage.getItem(SYNC_KEY) || null;
+let deviceId = localStorage.getItem(DEVICE_KEY);
+if(!deviceId){
+  deviceId = 'd'+Date.now()+Math.random().toString(36).slice(2,10);
+  try{ localStorage.setItem(DEVICE_KEY, deviceId); }catch(e){}
+}
+let syncUnsub = null;
+let syncStatus = 'disconnected'; // disconnected | connecting | connected | error
+let syncPushTimer = null;
+let syncLastAt = null;
+let db = null;
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAlbd4U6pozyPlghrXmW8ExylwVEh0cMhI",
+  authDomain: "cbt-library.firebaseapp.com",
+  projectId: "cbt-library",
+  storageBucket: "cbt-library.firebasestorage.app",
+  messagingSenderId: "194179386081",
+  appId: "1:194179386081:web:c3e88ddab6f93f21aa05a0"
+};
+try{
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.firestore();
+}catch(e){ console.error('Firebase init failed', e); }
+
+function genSyncCode(){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let out='';
+  for(let i=0;i<10;i++) out += chars[Math.floor(Math.random()*chars.length)];
+  return out;
+}
+
+function updateSyncIcon(){
+  const btn = document.getElementById('sync-toggle');
+  if(!btn) return;
+  btn.classList.remove('sync-connected','sync-error','sync-connecting');
+  if(syncStatus==='connected'){ btn.classList.add('sync-connected'); btn.title='Synced • click to manage'; }
+  else if(syncStatus==='error'){ btn.classList.add('sync-error'); btn.title='Sync error • click to retry'; }
+  else if(syncStatus==='connecting'){ btn.classList.add('sync-connecting'); btn.title='Connecting…'; }
+  else{ btn.title='Not synced • click to set up'; }
+}
+
+function openSyncModal(){
+  renderSyncModal();
+  document.getElementById('sync-modal-overlay').classList.add('show');
+}
+function closeSyncModal(){ document.getElementById('sync-modal-overlay').classList.remove('show'); }
+
+function renderSyncModal(){
+  const body = document.getElementById('sync-modal-body');
+  if(syncStatus==='connected' && syncCode){
+    body.innerHTML = `
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:14px;">
+        This device is syncing live. Enter this same code on any other device to see the same library there, kept in sync automatically.
+      </p>
+      <div class="field">
+        <label>Your Sync Code</label>
+        <input type="text" readonly value="${syncCode}" onclick="this.select()" style="font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:2px;font-size:1.1rem;text-align:center;"/>
+      </div>
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;">${syncLastAt ? 'Last synced '+syncLastAt : 'Waiting for first sync…'}</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="copySyncCode()">📋 Copy Code</button>
+        <button class="btn btn-danger btn-sm" style="flex:1;" onclick="disconnectSync()">Disconnect</button>
+      </div>`;
+  }else{
+    body.innerHTML = `
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:16px;">
+        Sync keeps your library identical across every device. Generate a new code on your first device, then enter that same code on any other device to link it.
+      </p>
+      <div class="field">
+        <label>Enter an existing sync code</label>
+        <input type="text" id="f-sync-code" placeholder="e.g. AB12CD34EF" style="font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase;"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-bottom:10px;" onclick="connectSyncFromInput()">Connect With This Code</button>
+      <div style="text-align:center;font-size:0.78rem;color:var(--muted);margin:10px 0;">— or —</div>
+      <button class="btn btn-ghost" style="width:100%;" onclick="generateAndConnect()">✨ Generate a New Sync Code</button>
+      ${syncStatus==='error' ? '<div style="color:var(--wrong);font-size:0.8rem;margin-top:10px;">Couldn\'t connect. Check the code and your internet connection.</div>' : ''}`;
+  }
+}
+
+function connectSyncFromInput(){
+  const val = (document.getElementById('f-sync-code').value||'').trim().toUpperCase();
+  if(val.length < 8){ showToast('Code must be at least 8 characters'); return; }
+  connectSync(val);
+}
+function generateAndConnect(){ connectSync(genSyncCode()); }
+
+function copySyncCode(){
+  if(!syncCode) return;
+  navigator.clipboard.writeText(syncCode).then(()=>showToast('Sync code copied')).catch(()=>showToast('Could not copy'));
+}
+
+async function connectSync(code){
+  if(!db){ showToast('Cloud sync unavailable right now'); return; }
+  syncStatus='connecting'; updateSyncIcon(); renderSyncModal();
+  try{
+    const ref = db.collection('libraries').doc(code);
+    const snap = await ref.get();
+    if(snap.exists){
+      const remote = snap.data() || {};
+      const remoteHasData = (remote.library && remote.library.length) || (remote.customModules && remote.customModules.length);
+      const localHasData = library.length>0 || customModules.length>0;
+      if(remoteHasData && localHasData){
+        const useCloud = confirm("This code already has synced data, and this device also has local quizzes.\n\nOK = Use the cloud data on this device (replaces what's here)\nCancel = Keep this device's data and overwrite the cloud copy");
+        if(useCloud){
+          library = remote.library || []; customModules = remote.customModules || [];
+          persist(false); persistModules(false);
+        }else{
+          await ref.set({ library, customModules, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
+        }
+      }else if(remoteHasData){
+        library = remote.library || []; customModules = remote.customModules || [];
+        persist(false); persistModules(false);
+      }else{
+        await ref.set({ library, customModules, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
+      }
+    }else{
+      await ref.set({ library, customModules, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
+    }
+    syncCode = code;
+    try{ localStorage.setItem(SYNC_KEY, code); }catch(e){}
+    subscribeToCloud(code);
+    syncStatus='connected';
+    refresh();
+    updateSyncIcon(); renderSyncModal();
+    showToast('Synced! Enter this code on your other device.');
+  }catch(e){
+    console.error(e);
+    syncStatus='error'; updateSyncIcon(); renderSyncModal();
+    showToast('Sync failed — check your connection');
+  }
+}
+
+function subscribeToCloud(code){
+  if(syncUnsub){ syncUnsub(); syncUnsub=null; }
+  syncUnsub = db.collection('libraries').doc(code).onSnapshot(snap=>{
+    if(!snap.exists) return;
+    const remote = snap.data();
+    syncLastAt = 'just now';
+    if(remote.updatedFrom === deviceId) return; // our own write echoing back
+    library = remote.library || [];
+    customModules = remote.customModules || [];
+    persist(false); persistModules(false);
+    refresh();
+    showToast('Library updated from another device');
+  }, err=>{
+    console.error(err);
+    syncStatus='error'; updateSyncIcon();
+  });
+}
+
+function disconnectSync(){
+  if(!confirm('Disconnect this device from live sync? Your local data stays on this device, but it will stop updating automatically.')) return;
+  if(syncUnsub){ syncUnsub(); syncUnsub=null; }
+  syncCode=null; syncStatus='disconnected';
+  try{ localStorage.removeItem(SYNC_KEY); }catch(e){}
+  updateSyncIcon(); renderSyncModal();
+  showToast('Sync disconnected on this device');
+}
+
+function pushToCloud(){
+  if(syncStatus!=='connected' || !syncCode || !db) return;
+  clearTimeout(syncPushTimer);
+  syncPushTimer = setTimeout(()=>{
+    db.collection('libraries').doc(syncCode).set({
+      library, customModules,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedFrom: deviceId
+    }).then(()=>{ syncLastAt='just now'; }).catch(e=>console.error(e));
+  }, 700);
+}
+
+function initSyncOnLoad(){
+  if(!syncCode || !db){ updateSyncIcon(); return; }
+  syncStatus='connected';
+  subscribeToCloud(syncCode);
+  updateSyncIcon();
 }
 
 // ===================== SIDEBAR TOGGLE (desktop + mobile) =====================
@@ -1588,14 +1840,16 @@ document.getElementById('share-modal-overlay').addEventListener('click', e=>{ if
 document.getElementById('module-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='module-modal-overlay') closeModuleModal(); });
 document.getElementById('answer-mapping-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='answer-mapping-modal-overlay') closeAnswerMappingModal(); });
 document.getElementById('quiz-generator-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='quiz-generator-modal-overlay') closeQuizGenerator(); });
+document.getElementById('sync-modal-overlay').addEventListener('click', e=>{ if(e.target.id==='sync-modal-overlay') closeSyncModal(); });
 document.getElementById('f-new-module').addEventListener('keydown', e=>{ if(e.key==='Enter') createModule(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeQrModal(); closeShareModal(); closeModuleModal(); closeAnswerMappingModal(); closeQuizGenerator(); } });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeQrModal(); closeShareModal(); closeModuleModal(); closeAnswerMappingModal(); closeQuizGenerator(); closeSyncModal(); } });
 
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 load();
 checkForSharedLibraryInUrl();
 refresh();
+initSyncOnLoad();
 </script>
 </body>
 </html>
