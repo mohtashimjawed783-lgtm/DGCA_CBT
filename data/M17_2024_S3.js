@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2024 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2024 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2024'
+  },
+  questions: [
+    {topic:'',q:'One engine master system used in.',opts:['One engine','Twin engine','Four engine','All'],ans:0,exp:'A) One engine'},
+    {topic:'',q:'Synchronisation used in.',opts:['OFF during take off','ON during take off','ON throughout flight'],ans:0,exp:'A) OFF during take off'},
+    {topic:'',q:'Linear to Rotary Motion.',opts:['Cam pin','Cylindrical cam','Governor'],ans:1,exp:'B) Cylindrical cam'},
+    {topic:'',q:'Pitting is.',opts:['A more aggressive form of corrosion, found under decks, boots or overshoes','Associated with improper heat treatment','Results in metal flaking but does not weaken the component'],ans:0,exp:'A) A more aggressive form of corrosion, found under decks, boots or overshoes'},
+    {topic:'',q:'Damage to propellers associated with delamination may occur to.',opts:['Wooden blades','Composite blades','Wooden & Composite blades'],ans:2,exp:'C) Wooden & Composite blades'},
+    {topic:'',q:'Cyclic timer is used for purpose of.',opts:['To control current flow','To energise the heating elements','Monitoring individual circuit currents'],ans:1,exp:'B) To energise the heating elements'},
+    {topic:'',q:'Type I Synchronization uses.',opts:['Master & slave engine','Compare RPMs','Raise engine speed'],ans:0,exp:'A) Master & slave engine'},
+    {topic:'',q:'Propeller pitch is determined by.',opts:['Propeller RPM','Engine RPM','Same as blade angle'],ans:2,exp:'C) Same as blade angle'},
+    {topic:'',q:'Reverse thrust is accomplished by.',opts:['Throttle lever','Propeller control lever','Propeller rotates opposite direction'],ans:0,exp:'A) Throttle lever'},
+    {topic:'',q:'Rubber boots in propeller.',opts:['Permanent','Have specific life','Increase thrust'],ans:1,exp:'B) Have specific life'},
+    {topic:'',q:'Greater amount of stress caused by centrifugal force & thrust.',opts:['At blade tip','Near the hub','In the spinner'],ans:1,exp:'B) Near the hub'},
+    {topic:'',q:'______ is subjected to tension from centrifugal force.',opts:['Blade back','Blade face','Hub'],ans:1,exp:'B) Blade face'},
+    {topic:'',q:'It is the thrust load that bends propeller blades fwd as a/c is pulled through air.',opts:['Torque bending','Thrust bending','Centrifugal force'],ans:1,exp:'B) Thrust bending'},
+    {topic:'',q:'Thrust bending force moves the propeller blade.',opts:['Forward','Backward','Sideways'],ans:0,exp:'A) Forward'},
+    {topic:'',q:'Prop not retaining in original pack should be re-inhibited.',opts:['Every 6 months','Every 12 months','Every 24 months'],ans:1,exp:'B) Every 12 months'},
+    {topic:'',q:'Propellers in storage are labeled to show.',opts:['Date of manufacture','Original date of storage','Re-inhibition date'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'Rubber materials on a propeller blade.',opts:['Can be stored openly','Should be covered before inhibiting','No need to cover'],ans:1,exp:'B) Should be covered before inhibiting'},
+    {topic:'',q:'Aerodynamic twisting moment tends to.',opts:['Rotate the blade to high blade angle','Decrease blade angle','Have no effect'],ans:0,exp:'A) Rotate the blade to high blade angle'},
+    {topic:'',q:'During cruise, blade angle increases to.',opts:['Increase engine RPM','Decrease engine RPM','Maintain constant speed'],ans:1,exp:'B) Decrease engine RPM'},
+    {topic:'',q:'Centrifugal force due to rotation of propeller moves the counterweights.',opts:['Into the plane of rotation','Outward direction','Towards hub'],ans:0,exp:'A) Into the plane of rotation'},
+    {topic:'',q:'Master motor – frequency voltage produced by generator is directly proportional to.',opts:['Generator RPM','Engine accessory speed','Ambient pressure'],ans:1,exp:'B) Engine accessory speed'},
+    {topic:'',q:'Master motor.',opts:['Mechanically drives 4 contactor units, each electrically connected to an alternator','The autorotor is a small 3-phase AC generator driven by an accessory drive of the engine','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'When center of gravity doesn’t coincide with axis of rotation – it is called.',opts:['Static unbalance','Dynamic','Aerodynamic'],ans:0,exp:'A) Static unbalance'},
+    {topic:'',q:'To prevent element overheating, de-icing system is used.',opts:['Only when ice is formed','Only when the propellers are rotating','When aircraft is idle'],ans:1,exp:'B) Only when the propellers are rotating'},
+    {topic:'',q:'Brake Horse Power is supplied by.',opts:['Engine','Propeller','Engine & Propeller'],ans:0,exp:'A) Engine'},
+    {topic:'',q:'When outer laminates are severely bonded, a solid sound will be heard. This relates to.',opts:['MTCS','Composite laminates','NDT techniques'],ans:0,exp:'A) MTCS'},
+    {topic:'',q:'Thrust is related to.',opts:['Mass of air handled times the slipstream velocity minus the velocity of airplane','Mass of air moved per second','All of the above'],ans:2,exp:'C) All of the above'},
+    {topic:'',q:'Ice formation on propeller blades causes.',opts:['Vibration & decrease in thrust','Increase in drag only','Increased lift'],ans:0,exp:'A) Vibration & decrease in thrust'},
+    {topic:'',q:'To check vibration in propeller.',opts:['Check propeller blade tracking and low pitch blade angle setting','If both are correct and vibration remains, propeller is imbalanced and should be replaced','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'The gradual decrease in blade angle from hub to tip is called.',opts:['Blade taper','Pitch distribution','Thrust curve'],ans:1,exp:'B) Pitch distribution'},
+    {topic:'',q:'Propellers are stored in.',opts:['Dry open environment','Indoor controlled environment','Hangar without box'],ans:1,exp:'B) Indoor controlled environment'},
+    {topic:'',q:'Electrical power from aircraft system is transferred to propeller by.',opts:['Slip rings','Brushes','Slip rings & brushes'],ans:2,exp:'C) Slip rings & brushes'}
+  ]
+};

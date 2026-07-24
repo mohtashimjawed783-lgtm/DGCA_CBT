@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2018 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2018 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2018'
+  },
+  questions: [
+    {topic:'',q:'Propellers stored up to 3 months should be inspected for.',opts:['Corrosion','Removal and install in other A/C','Crack'],ans:0,exp:'A) Corrosion'},
+    {topic:'',q:'Pusher propellers are.',opts:['Mounted on the upstream of drive shaft','Fixed pitch propellers','Mounted on the downstream of drive shaft'],ans:0,exp:'A) Mounted on the upstream of drive shaft'},
+    {topic:'',q:'A propeller kept in storage, a label attached on the propeller should show their.',opts:['Year of Manufacturing','Original date of storage','Engine specification'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'Feathering process occurs due to.',opts:['Engine oil pressure','Counterweight & Feathering spring','Feathering spring'],ans:1,exp:'B) Counterweight & Feathering spring'},
+    {topic:'',q:'Due to ice formation on propeller blade, the blade produces.',opts:['Vibration occurs','Thrust decreases','Unbalance occurs','Both (A) and (C)'],ans:3,exp:'D) Both (A) and (C)'},
+    {topic:'',q:'In de-icing system, electrical power is transferred through.',opts:['Slip rings','Brush','Slip rings and Brush'],ans:2,exp:'C) Slip rings and Brush'},
+    {topic:'',q:'Electrical de-icing systems are usually designed for.',opts:['Continuous application','Intermittent application','None'],ans:1,exp:'B) Intermittent application'},
+    {topic:'',q:'Cycle timers are used to energize the heating element for a complete cycle.',opts:['Regularly loading','With a complete cycle for 5 minutes','None of the above'],ans:2,exp:'C) None of the above'},
+    {topic:'',q:'Synchronizing system controls and synchronizes.',opts:['Engine RPM','Propeller RPM','None'],ans:0,exp:'A) Engine RPM'},
+    {topic:'',q:'In turboprop propellers.',opts:['Thrust is produced directly','Beta range comes into to produce negative thrust','None of the above are true'],ans:1,exp:'B) Beta range comes into to produce negative thrust'},
+    {topic:'',q:'Hydromatic propellers are.',opts:['Electrical hydraulic','Mechanical hydraulic','Mechanical'],ans:1,exp:'B) Mechanical hydraulic'},
+    {topic:'',q:'Propeller converts.',opts:['Brake Horse Power to Thrust Horse Power','Thrust Horse Power to Brake Horse Power','Engine RPM to Brake Horse Power'],ans:0,exp:'A) Brake Horse Power to Thrust Horse Power'},
+    {topic:'',q:'When it is difficult to determine the probable cause of propeller vibration.',opts:['Propeller hub appears to swing in slight orbit','Propeller hub does not rotate in orbit','None of the above'],ans:0,exp:'A) Propeller hub appears to swing in slight orbit'},
+    {topic:'',q:'When it is difficult to determine the probable cause of engine vibration.',opts:['Propeller hub appears to swing in slight orbit','Propeller tips appear to swing in slight orbit','None of the above'],ans:1,exp:'B) Propeller tips appear to swing in slight orbit'},
+    {topic:'',q:'Bearing storage up to twelve months.',opts:['Bearing must be removed and examined for fretting and corrosion','If it is found satisfactory, it must be assembled on the blade','Both (A) & (B)'],ans:2,exp:'C) Both (A) & (B)'},
+    {topic:'',q:'Which type of A/C is equipped with master engine synchronizing motor master.',opts:['Synchronizing motor master','Multi-engine A/C','Two-engine A/C'],ans:1,exp:'B) Multi-engine A/C'},
+    {topic:'',q:'In wooden propellers, cracks/gashes permitted.',opts:['Perpendicular to rotation of axis (longitudinal crack)','Parallel to rotation of axis','Nicks & cracks may not be permitted'],ans:0,exp:'A) Perpendicular to rotation of axis (longitudinal crack)'},
+    {topic:'',q:'Synchronizer unit operated by.',opts:['Alternating current generator driven by an accessory drive of the engine','Alternating voltage directly proportional to drive of engine','Alternating current inversely proportional to drive of engine'],ans:0,exp:'A) Alternating current generator driven by an accessory drive of the engine'},
+    {topic:'',q:'Synchronizing master unit incorporates.',opts:['Master motor which mechanically drives 4 contactors','Slave motor which mechanically drives 4 contactors','None'],ans:0,exp:'A) Master motor which mechanically drives 4 contactors'},
+    {topic:'',q:'In low pitch mechanism.',opts:['Small AOA','Small diameter of propeller produces less amount of air','High RPM','All are correct (Note: this is written as a combined correct option)'],ans:3,exp:'D) All are correct (Note: this is written as a combined correct option)'},
+    {topic:'',q:'In high pitch mechanism.',opts:['C.T.F','A.T.F','Torque bending force'],ans:1,exp:'B) A.T.F'},
+    {topic:'',q:'The force that tends to pull the propeller blades out of the hub.',opts:['Centrifugal Force','Thrust Bending Force','C.T.F','A.T.F'],ans:0,exp:'A) Centrifugal Force'},
+    {topic:'',q:'The force that tends to bend the propeller blade in the direction opposite to its rotation.',opts:['C.T.F','A.T.F','Thrust Bending Force','Torque Bending Force'],ans:3,exp:'D) Torque Bending Force'},
+    {topic:'',q:'Lubricating of storage propellers.',opts:['3 months','6 months','12 months'],ans:1,exp:'B) 6 months'},
+    {topic:'',q:'Position of wooden propellers during storage.',opts:['Vertical','Horizontal','Oblique'],ans:1,exp:'B) Horizontal'},
+    {topic:'',q:'Visually inspect the propeller for.',opts:['Crack','Dent','Scratch','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Electrical de-icing converts.',opts:['Electrical energy to heat energy','Mechanical energy to heat energy','Heat energy to electrical energy'],ans:0,exp:'A) Electrical energy to heat energy'},
+    {topic:'',q:'In deicer boots.',opts:['The fluid flows laterally through the channel','The fluid flows longitudinally through the channel','The fluid doesn’t flow at all'],ans:0,exp:'A) The fluid flows laterally through the channel'},
+    {topic:'',q:'Constant speed propeller.',opts:['Engine RPM is held constant','Propeller RPM is held constant','Tip RPM is held constant'],ans:1,exp:'B) Propeller RPM is held constant'},
+    {topic:'',q:'Greasing of propellers are specified by.',opts:['Aircraft Manufacturer','Propeller Manufacturer','Engine Manufacturer'],ans:1,exp:'B) Propeller Manufacturer'},
+    {topic:'',q:'During removal of spinner cone, check for.',opts:['Grease on the blade and inner surface','No grease leakage','F.O.D. (Foreign Object Damage)'],ans:0,exp:'A) Grease on the blade and inner surface'},
+    {topic:'',q:'Dynamic balancing.',opts:['When C.G. doesn’t coincide with axis of rotation','When C.G. of propeller blades do not follow plane of rotation','When C.G. of propeller coincides with axis of rotation'],ans:1,exp:'B) When C.G. of propeller blades do not follow plane of rotation'}
+  ]
+};

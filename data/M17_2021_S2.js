@@ -1,0 +1,40 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2021 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2021 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2021'
+  },
+  questions: [
+    {topic:'',q:'Propeller in storage, label attached to propeller shows their.',opts:['Year of manufacture.','Original date of storage.','Engine specification.','All'],ans:1,exp:'B) Original date of storage.'},
+    {topic:'',q:'Feathering process occurs.',opts:['Engine oil pressure.','Counterweight & feathering spring.','Feathering spring.'],ans:2,exp:'C) Feathering spring.'},
+    {topic:'',q:'Electrical de-icing systems are usually designed for.',opts:['Continuous application.','Intermittent use.','None.'],ans:1,exp:'B) Intermittent use. Government'},
+    {topic:'',q:'In de-icing system, electrical power transfer through.',opts:['Slip rings.','Brush.','Slip rings & brushes.'],ans:2,exp:'C) Slip rings & brushes.'},
+    {topic:'',q:'In propeller governor, purpose of pilot valve is.',opts:['To control propeller RPM.','To control engine RPM.','To control both engine & propeller RPM.'],ans:1,exp:'B) To control engine RPM.'},
+    {topic:'',q:'Centrifugal Twisting Moment turns the blade to.',opts:['High blade angle','Low blade angle','Constant blade angle'],ans:1,exp:'B) Low blade angle'},
+    {topic:'',q:'Blades coming in contact with salt water should be washed with.',opts:['Soap water','Fresh water','Nitric acid'],ans:1,exp:'B) Fresh water'},
+    {topic:'',q:'Blades are inspected for.',opts:['Oil and grease','Nicks, scratches, and other flaws','Color'],ans:1,exp:'B) Nicks, scratches, and other flaws'},
+    {topic:'',q:'When blade angle is increased.',opts:['More air is handled per revolution','Less air is handled per revolution','Air handled remains same'],ans:0,exp:'A) More air is handled per revolution'},
+    {topic:'',q:'Hygroscopic materials are not used to cover propeller because.',opts:['They absorb moisture','They resist corrosion','They are lightweight'],ans:0,exp:'A) They absorb moisture'},
+    {topic:'',q:'Hamilton hydromatic propeller pitch-changing mechanism is mounted on.',opts:['Dome assembly','Hub assembly','Distributor valve assembly'],ans:0,exp:'A) Dome assembly'},
+    {topic:'',q:'Why phosphate compound is not used as compared to isopropyl alcohol.',opts:['Less effective','Expensive','Corrosive'],ans:1,exp:'B) Expensive'},
+    {topic:'',q:'The force tends to pull the propeller out of hub is.',opts:['Centrifugal force','Torque force','Bending force'],ans:0,exp:'A) Centrifugal force'},
+    {topic:'',q:'Force tends to bend the propeller blades in direction opposite to rotation is.',opts:['Torque bending force','Centrifugal force','Aerodynamic twisting moment'],ans:0,exp:'A) Torque bending force'},
+    {topic:'',q:'Lubrication of stored propeller should be done every.',opts:['3 months','6 months','12 months'],ans:1,exp:'B) 6 months'},
+    {topic:'',q:'Dynamic imbalance is due to.',opts:['Propeller elements or counterweights are not in same plane of rotation.','Propeller element C.G. does not coincide with axis of rotation.','Both A and B.','Tension from centrifugal force and additional from bending.'],ans:0,exp:'A) Tension from centrifugal force and additional from bending.'},
+    {topic:'',q:'Engine vibration occurs when.',opts:['Propeller hub does not rotate in slight orbit.','Propeller rotates normally.','Propeller blade tracking is perfect.','Engine lubrication system.'],ans:0,exp:'A) Engine lubrication system.'},
+    {topic:'',q:'During feathering of propeller.',opts:['Hydraulic pressure moves blade towards high pitch.','Hydraulic pressure moves blade towards low pitch.','Hydraulic pressure moves blade towards reverse pitch.'],ans:0,exp:'A) Hydraulic pressure moves blade towards high pitch.'},
+    {topic:'',q:'Hydromatic propeller consists of.',opts:['Hub assembly.','Dome assembly.','Distributor valve & anti-icing assembly.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Propellers stored up to 3 months should be inspected for.',opts:['Corrosion.','Remove & install in other aircraft.','Crack.'],ans:0,exp:'A) Corrosion.'},
+    {topic:'',q:'Hygroscopic coating/covering on propeller while storing.',opts:['It cannot absorb moisture.','Absorbs moisture (humid, not wet).','Both A & B.'],ans:1,exp:'B) Absorbs moisture (humid, not wet).'},
+    {topic:'',q:'Phosphate is used as anti-icing fluid in place of isopropyl alcohol due to.',opts:['Expensive.','Reduce flammability.','Corrosive.','Suspension test stand.'],ans:1,exp:'B) Knife edge test stand.'},
+    {topic:'',q:'For storage of propeller.',opts:['Do not rest them on their blade tip.','Store on horizontal stand.','Store vertically only.'],ans:0,exp:'A) Do not rest them on their blade tip.'},
+    {topic:'',q:'When a propeller blade experiences increased aerodynamic loading near the tip, the governor stabilizes RPM mainly by adjusting.',opts:['Blade counterweight position','Oil pressure to change pitch','Governor flyweight spring tension'],ans:1,exp:'B) Oil pressure to change pitch'},
+    {topic:'',q:'A propeller’s geometric pitch is 70 inches, but its effective pitch is measured as 52 inches in flight. The major cause is.',opts:['Blade torsional flexibility','Aerodynamic slippage','Governor overcorrection'],ans:1,exp:'B) Aerodynamic slippage'},
+    {topic:'',q:'If the blade shank angle increases due to thermal expansion, the propeller loading on the hub.',opts:['Increases because of greater centrifugal force','Decreases because CG moves inward','Remains nearly constant'],ans:0,exp:'A) Increases because of greater centrifugal force'},
+    {topic:'',q:'In a variable-pitch propeller, which moment dominates during rapid RPM increas.',opts:['Aerodynamic twisting moment','Centrifugal twisting moment','Counterweight inertia moment'],ans:1,exp:'B) Centrifugal twisting moment'},
+    {topic:'',q:'During reverse thrust operation, the greatest mechanical stress occurs at.',opts:['Blade tip leading edge','Blade root','Blade trailing edge mid-section'],ans:1,exp:'B) Blade root'},
+    {topic:'',q:'A propeller fitted on a turboprop has an “overspeed governor.” Its primary protective response is.',opts:['Increase blade pitch independent of main governor','Reduce fuel flow to engine automatically','Adjust propeller blade twist angle mechanically'],ans:0,exp:'A) Both'}
+  ]
+};

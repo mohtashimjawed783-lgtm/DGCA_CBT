@@ -1,0 +1,42 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2018 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2018 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2018'
+  },
+  questions: [
+    {topic:'',q:'Thrust imbalance on blades can be prevented by.',opts:['Adding counterweight','Blade contour and shape','Increasing RPM'],ans:1,exp:'B) Blade contour and shape'},
+    {topic:'',q:'On a propeller blade, tension due to centrifugal force acts on.',opts:['Blade face','Blade back','Blade shank'],ans:2,exp:'C) Blade shank'},
+    {topic:'',q:'What is M.T.C.S.',opts:['Maintenance Troubleshooting Control System','Maintenance Technical Condition Sheet','Maintenance Tracking and Control System'],ans:2,exp:'C) Maintenance Tracking and Control System'},
+    {topic:'',q:'Nicks and scratches on aluminum blade propellers.',opts:['Must be repaired immediately','Must be carried out in parallel to blade','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Flat side of the propeller blade is.',opts:['Blade back','Blade face','Blade edge'],ans:0,exp:'A) Blade back'},
+    {topic:'',q:'Twist in a propeller occurs in.',opts:['Regular planform','Irregular planform','No change'],ans:1,exp:'B) Irregular planform'},
+    {topic:'',q:'Automatic pitch change mechanism is used on.',opts:['Automatic pitch change propellers','Fixed pitch propellers','Multi-position propellers'],ans:0,exp:'A) Automatic pitch change propellers'},
+    {topic:'',q:'Hydromatic propellers should be lubricated with.',opts:['Engine oil','Hydraulic fluid','Inhibiting fluid'],ans:0,exp:'A) Engine oil'},
+    {topic:'',q:'What is the function of CTM.',opts:['Increases blade angle','Decreases the blade angle','Monitors RPM'],ans:1,exp:'B) Decreases the blade angle'},
+    {topic:'',q:'How is blade angle increased on a single acting propeller.',opts:['ATM','CTM','Counterweight and spring'],ans:2,exp:'C) Counterweight and spring'},
+    {topic:'',q:'During storage of a 3-blade propeller.',opts:['All blades should point horizontally','One blade should point vertically','One blade portion should be downward vertically'],ans:2,exp:'C) One blade portion should be downward vertically'},
+    {topic:'',q:'During climb after takeoff.',opts:['Blade angle must be increased','Power reduces and manifold pressure is increased','Blade angle is reversed'],ans:1,exp:'B) Power reduces and manifold pressure is increased'},
+    {topic:'',q:'In MTCS, frequency is.',opts:['Directly proportional to inductance','Directly proportional to angular accuracy','Inversely proportional to time'],ans:1,exp:'B) Directly proportional to angular accuracy'},
+    {topic:'',q:'De-icing system check should be done by.',opts:['Not to be checked by hand','Reading tape on ammeter','Check the boots with hand and check the load meter simultaneously'],ans:2,exp:'C) Check the boots with hand and check the load meter simultaneously'},
+    {topic:'',q:'De-icing system is tested using.',opts:['Flow test','Functional test','None'],ans:1,exp:'B) Functional test'},
+    {topic:'',q:'Ice formations on blades cause.',opts:['Thrust decreases','Vibration increases','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Feathering is done for.',opts:['To prevent feathering','To stop the damaged engine','To stop windmilling the propeller'],ans:1,exp:'B) To stop the damaged engine'},
+    {topic:'',q:'Aircraft in steep dive.',opts:['Blade angle is increased to prevent overspeeding','Blade angle is decreased to prevent overspeeding','Blade angle is reversed to prevent overspeeding'],ans:2,exp:'C) Blade angle is reversed to prevent overspeeding'},
+    {topic:'',q:'Synchrophasing system uses.',opts:['Pulse generator','Electronic synchrophasing motor','Oil'],ans:2,exp:'C) Oil'},
+    {topic:'',q:'Propellers retained in storage should include.',opts:['Year of manufacturing','Original date of storage','Engine specification'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'Magnetic pick-up is used in.',opts:['Single engine','Boost twin engine OK','Fixed on boats'],ans:1,exp:'B) Boost twin engine OK'},
+    {topic:'',q:'Propeller in storage for more than 3 months.',opts:['Should be feathered & unfeathered using pump','Should be fitted on another AC & tested','Should be rejected'],ans:0,exp:'A) Should be feathered & unfeathered using pump'},
+    {topic:'',q:'Propeller converts.',opts:['Brake horse power to thrust horse power','Thrust horse power to brake horse power','SHP to E.SHP'],ans:0,exp:'A) Brake horse power to thrust horse power'},
+    {topic:'',q:'Cyclic timer is used to.',opts:['Control the wind flow','Control the heating sequence of blades','None'],ans:1,exp:'B) Control the heating sequence of blades'},
+    {topic:'',q:'Cyclic timer controls.',opts:['The feathering operation','The heating sequence of blade for 55 sec cycle','The oil pressure'],ans:1,exp:'B) The heating sequence of blade for 55 sec cycle'},
+    {topic:'',q:'If the propeller core(s) hub bore seats show evidence of galling.',opts:['The propeller retaining nut was not tight enough during previous operation','The blade angle was incorrect','The spinner was loose'],ans:0,exp:'A) The propeller retaining nut was not tight enough during previous operation'},
+    {topic:'',q:'Automatic synchronization uses.',opts:['Crammer','PCU lever','None','Power lever'],ans:0,exp:'A) Crammer'},
+    {topic:'',q:'What component allows oil to pass from the stationary engine to the rotating propeller hub.',opts:['Oil transfer sleeve','Pilot valve','Pitch change actuator'],ans:0,exp:'A) Oil transfer sleeve'},
+    {topic:'',q:'What prevents the blades from going to fine pitch during engine failure at high RPM.',opts:['Feathering spring','Pitch-lock mechanism','Governor flyweights'],ans:1,exp:'B) Pitch-lock mechanism'},
+    {topic:'',q:'How does the internal governor control propeller RPM.',opts:['By adjusting throttle angle','By controlling oil pressure to change blade angle','By increasing engine torque'],ans:1,exp:'B) By controlling oil pressure to change blade angle'},
+    {topic:'',q:'A safety device in constant speed propellers that retains oil pressure to prevent sudden pitch changes is called.',opts:['Locking pin','Governor relief valve','Oil accumulator'],ans:2,exp:'C) Oil accumulator'}
+  ]
+};

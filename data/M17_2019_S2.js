@@ -1,0 +1,41 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2019 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2019 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2019'
+  },
+  questions: [
+    {topic:'',q:'Centrifugal force when moving propellers.',opts:['Turn the blade angle towards low pitch','Turn the blade angle towards high pitch','Remain constant'],ans:1,exp:'B) Turn the blade angle towards high pitch'},
+    {topic:'',q:'MTCS.',opts:['Centrifugal force is physical action that tends to bend the propeller opposite to the rotation','Torque bending force that tends to bend the blade forward as the air is pulled','Aerodynamic twisting force that tends the blade towards high pitch'],ans:2,exp:'C) Aerodynamic twisting force that tends the blade towards high pitch'},
+    {topic:'',q:'Propeller efficiency is.',opts:['The ratio of output speed to input speed of propeller','The ratio of work applied to geometric pitch to output speed of propeller','Ratio of work done by propeller to work done by engine on propeller'],ans:2,exp:'C) Ratio of work done by propeller to work done by engine on propeller'},
+    {topic:'',q:'A propeller should advance in one revolution is called.',opts:['Effective pitch','Slip','Geometric pitch'],ans:2,exp:'C) Geometric pitch'},
+    {topic:'',q:'Reverse stresses in terms of construction of blade which are.',opts:['Greater near the shank','Greater near the hub','Greater near the cuffs'],ans:1,exp:'B) Greater near the hub'},
+    {topic:'',q:'When aircraft in dive condition.',opts:['Blade angle/pitch decreases to prevent overspeeding','Blade angle/pitch increases to prevent overspeeding','Pitch remains constant in dive'],ans:1,exp:'B) Blade angle/pitch increases to prevent overspeeding'},
+    {topic:'',q:'Tractor propeller is.',opts:['Those mounted downstream behind the propeller shape','Those mounted upstream and in front of supporting structure','Seaplane and amphibians use greater % of tractor propeller'],ans:1,exp:'B) Those mounted upstream and in front of supporting structure'},
+    {topic:'',q:'Synchronization is.',opts:['Controls engine RPM, reduces noise','Controls propeller RPM','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'Synchrophasing reduces vibration by use of.',opts:['Pulse probe and single synchrophaser unit','Coordinating the RPM of each engine','We drive speed to alter RPM','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Which synchronization system consists generator.',opts:['Electric synchronization system','One engine synchronization system','Mastermotor synchronization system'],ans:0,exp:'A) Electric synchronization system'},
+    {topic:'',q:'Cyclic timer is used to.',opts:['Control the current flow','Control the fluid flow','To energize the heating element circuit'],ans:2,exp:'C) To energize the heating element circuit'},
+    {topic:'',q:'Cyclic used for.',opts:['Control power contactor in separate section of circuit','Energize the heating element for a complete cycle of 5 min','Electric motor driven contactor','Both A and C'],ans:3,exp:'D) Both A and C'},
+    {topic:'',q:'Synchronization wired on aircraft with magnetic pickups.',opts:['Single engine A/C','All engine A/C','Multi-engine A/C'],ans:2,exp:'C) Multi-engine A/C'},
+    {topic:'',q:'Proper operation of electrical de-icing boots checked by.',opts:['Feeling the sequence of boot heating and observing the loadmeter indication','Feeling the boot only','Observe ammeter for current flow'],ans:0,exp:'A) Feeling the sequence of boot heating and observing the loadmeter indication'},
+    {topic:'',q:'If engine run is not possible, to protect the propeller during storage.',opts:['Feather and unfeather the propeller by feathering pump','Put the blade at coarse','Put the blade angle at very fine'],ans:0,exp:'A) Feather and unfeather the propeller by feathering pump'},
+    {topic:'',q:'Any repair in propeller can be done with instruction given by.',opts:['Propeller manufacturer','Regulatory authority of CAA','DGCA'],ans:0,exp:'A) Propeller manufacturer'},
+    {topic:'',q:'Propeller vibration determined by.',opts:['RPM, improperly hub rotates on an absolutely vertical plane'],ans:0,exp:'A) RPM, improperly hub rotates on an absolutely vertical plane'},
+    {topic:'',q:'Difference between propeller hub vibration and engine vibration.',opts:['Check the propeller hub appears to swing in slight orbit','Match the propeller RPM with engine RPM','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'In storage condition, at the end of 12 months the bearing should be examined for.',opts:['Brinelling','Delamination','Cracks'],ans:0,exp:'A) Brinelling'},
+    {topic:'',q:'More than 2 blades when storing.',opts:['Stored horizontally','Hold one blade on ground and two upper side','Hold two blades on ground and one may be upper side'],ans:2,exp:'C) Hold two blades on ground and one may be upper side'},
+    {topic:'',q:'Fluid supply from the tank to the slinger ring controlled by (power feed system).',opts:['Lever','Electric switch','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'If propeller blade low angle/pitch setting is incorrect.',opts:['Engine RPM will be low','Engine RPM will be high','Both'],ans:1,exp:'B) Engine RPM will be high'},
+    {topic:'',q:'Centrifugal force acting, counterweights move.',opts:['Axially','Away from the axle','Away from plane of rotation'],ans:2,exp:'C) Away from plane of rotation'},
+    {topic:'',q:'What should be labelled on propeller blade when storing.',opts:['Manufacturer code','Date of storage','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'MICS.',opts:['Dynamically unbalanced propeller should be checked for track check and read the small pitch setting','Unbalanced propeller should be track checked, small pitch setting is not required','If propeller is moving in same position relative to each other it is statically or dynamically unbalanced'],ans:0,exp:'A) Dynamically unbalanced propeller should be checked for track check and read the small pitch setting'},
+    {topic:'',q:'Propeller converts.',opts:['IHP to THP','BHP to THP','Produces BHP only'],ans:1,exp:'B) BHP to THP'},
+    {topic:'',q:'During takeoff we need high engine thrust and power condition are.',opts:['High blade angle','Low pitch','Very fine pitch is used'],ans:2,exp:'C) Very fine pitch is used'},
+    {topic:'',q:'Feathering a propeller means.',opts:['Increasing blade angle to minimum drag position','Decreasing blade angle to produce more thrust','Rotating the propeller backward for reverse thrust'],ans:0,exp:'A) Increasing blade angle to minimum drag position'},
+    {topic:'',q:'In a constant speed propeller, if the governor oil pressure fails.',opts:['The propeller will go to high RPM (fine pitch)','The propeller will feather automatically','The propeller will lock in its last position'],ans:1,exp:'B) The propeller will feather automatically'},
+    {topic:'',q:'What is the purpose of a slinger ring in a propeller system.',opts:['Reduces blade drag','Cools the blade root','Distributes de-icing fluid over the blades'],ans:2,exp:'C) Distributes de-icing fluid over the blades'}
+  ]
+};

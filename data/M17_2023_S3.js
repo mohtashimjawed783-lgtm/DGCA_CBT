@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2023 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2023 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2023'
+  },
+  questions: [
+    {topic:'',q:'RPM setting.',opts:['Fuel flow adjustment','Air/fuel mixture control','Propeller blade angle change'],ans:2,exp:'C) Propeller blade angle change'},
+    {topic:'',q:'Wood propeller stored.',opts:['Vertically with metal clamps','Horizontally','Inside engine cowl'],ans:1,exp:'B) Horizontally'},
+    {topic:'',q:'Blade angle along blade.',opts:['Sweep angle','Pitch distribution','Blade twist fatigue'],ans:1,exp:'B) Pitch distribution'},
+    {topic:'',q:'Torque bend.',opts:['Opposite to plane of rotation','Parallel to airflow','Along the pitch axis'],ans:0,exp:'A) Opposite to plane of rotation'},
+    {topic:'',q:'Retaining nut of prop.',opts:['Used to adjust RPM','Meant for blade pitch variation','Holds propeller to shaft'],ans:2,exp:'C) Holds propeller to shaft'},
+    {topic:'',q:'Propeller Blade Back.',opts:['Cambered side of blade','Flat side of blade (Blade Face)','Blade root section'],ans:0,exp:'A) Cambered side of blade'},
+    {topic:'',q:'Synchronized motor has.',opts:['4 alternators, 1 tachometer, control lever, switch and wiring','Only 1 alternator and no control system','Two governors only'],ans:0,exp:'A) 4 alternators, 1 tachometer, control lever, switch and wiring'},
+    {topic:'',q:'Disadvantage of reverse pitch.',opts:['Increased thrust','Better deceleration','FOD (Foreign Object Damage)'],ans:2,exp:'C) FOD (Foreign Object Damage)'},
+    {topic:'',q:'“Run Back”.',opts:['Sufficient heating must be done until the ice completely evaporates','Ice melts and refreezes again','Propeller pitch change'],ans:0,exp:'A) Sufficient heating must be done until the ice completely evaporates'},
+    {topic:'',q:'Actual advance of propeller.',opts:['Geometric pitch','Effective pitch','Blade tracking'],ans:1,exp:'B) Effective pitch'},
+    {topic:'',q:'Ice formation leads.',opts:['More lift','Loss of propeller efficiency','Better cooling'],ans:1,exp:'B) Loss of propeller efficiency'},
+    {topic:'',q:'Governor condition.',opts:['Overspeed – fuel increases','Underspeed – fuel cutoff','On-speed – balance of forces'],ans:2,exp:'C) On-speed – balance of forces'},
+    {topic:'',q:'Blade angle definition.',opts:['Angle between chord line and airflow','Angle between leading edge and trailing edge','Angle between chord line and plane of rotation'],ans:2,exp:'C) Angle between chord line and plane of rotation'},
+    {topic:'',q:'Angle of Attack definition.',opts:['Angle between pitch and camber','Angle between rotational speed and chord line','Angle between chord line and relative airflow'],ans:2,exp:'C) Angle between chord line and relative airflow'},
+    {topic:'',q:'Blade tracking.',opts:['Tracking blade root vibration','Checking if blade tips follow same path','Checking blade angle distribution'],ans:1,exp:'B) Checking if blade tips follow same path'},
+    {topic:'',q:'Governor.',opts:['Keeps engine power constant','Adjusts only fuel flow','Maintains engine RPM by pitch control'],ans:2,exp:'C) Maintains engine RPM by pitch control'},
+    {topic:'',q:'AOA.',opts:['Angle between chord and airflow','Blade length to angle ratio','Torque twist on shaft'],ans:0,exp:'A) Angle between chord and airflow'},
+    {topic:'',q:'Pressurized oil.',opts:['From drain valve','From governor spring','From oil pump'],ans:2,exp:'C) From oil pump'},
+    {topic:'',q:'Governor.',opts:['Controls combustion','Controls pitch change mechanism','Adjusts ignition timing'],ans:1,exp:'B) Controls pitch change mechanism'},
+    {topic:'',q:'MTCS.',opts:['Only for helicopters','Just prop synchronizing','Synchronizer and synchrophasing for piston & turboprop'],ans:2,exp:'C) Synchronizer and synchrophasing for piston & turboprop'},
+    {topic:'',q:'De-icing.',opts:['Continuous operation always','15 to 30 sec per 2 mins','Manual scrubbing of blades'],ans:1,exp:'B) 15 to 30 sec per 2 mins'},
+    {topic:'',q:'Turboprop synchrophasing.',opts:['Mechanical shaft','Manual switch only','Electronic, pulse detector etc.'],ans:2,exp:'C) Electronic, pulse detector etc.'},
+    {topic:'',q:'MTCS scoring.',opts:['Dust check','Static RPM check','Same as temporary storage'],ans:2,exp:'C) Same as temporary storage'},
+    {topic:'',q:'Counterweights attached to blade clamps.',opts:['Increase blade pitch via centrifugal force','Reduce blade thickness','Activate de-icing'],ans:0,exp:'A) Increase blade pitch via centrifugal force'},
+    {topic:'',q:'Which component maintains selected RPM.',opts:['Air filter','Prop dome','CPCU (Constant Speed Unit)'],ans:2,exp:'C) CPCU (Constant Speed Unit)'},
+    {topic:'',q:'Prop vibration.',opts:['Due to engine oil','Prop blade out of track','Due to carb heat'],ans:1,exp:'B) Prop blade out of track'},
+    {topic:'',q:'Propeller testing.',opts:['Functioning test','Blade polishing','Vibration sanding'],ans:0,exp:'A) Functioning test'},
+    {topic:'',q:'De-icing electricity.',opts:['Only manual wire','Slip rings and brushes','Gravity drain'],ans:1,exp:'B) Slip rings and brushes'},
+    {topic:'',q:'Frequency of velocity.',opts:['Inversely linked to prop RPM','Directly proportional to engine accessory gearbox','Unrelated to engine speed'],ans:1,exp:'B) Directly proportional to engine accessory gearbox'},
+    {topic:'',q:'MTCS tap test.',opts:['Used for oil quantity','Used to detect bonding faults','Checks propeller tracking'],ans:1,exp:'B) Used to detect bonding faults'},
+    {topic:'',q:'Wood prop in harsh environment.',opts:['Leave them outside','Store them indoors','Keep near exhaust pipe'],ans:1,exp:'B) Store them indoors'},
+    {topic:'',q:'3-blade prop storage.',opts:['Horizontally or on prop stand','Hung vertically','Rotated weekly'],ans:0,exp:'A) Horizontally or on prop stand'}
+  ]
+};

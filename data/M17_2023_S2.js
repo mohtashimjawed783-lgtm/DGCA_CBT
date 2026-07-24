@@ -1,0 +1,41 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2023 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2023 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2023'
+  },
+  questions: [
+    {topic:'',q:'What is the full form of ATM.',opts:['Atmospheric Test Module','Air Traffic Management','Automatic Thrust Management'],ans:2,exp:'C) Automatic Thrust Management'},
+    {topic:'',q:'What is the function of centrifugal force in propellers.',opts:['Increases thrust during cruise','Helps in blade rotation','Controls engine torque'],ans:1,exp:'B) Helps in blade rotation'},
+    {topic:'',q:'For climb after take-off, what is the function of engine power.',opts:['Reduces blade angle','Increases blade angle','Maintains constant blade angle'],ans:1,exp:'B) Increases blade angle'},
+    {topic:'',q:'What is the blade angle during take-off.',opts:['High pitch angle','Constant pitch','Low pitch angle'],ans:2,exp:'C) Low pitch angle'},
+    {topic:'',q:'Constant speed propellers are governed by.',opts:['Load control unit','Governor','Thermostat'],ans:1,exp:'B) Governor'},
+    {topic:'',q:'Metal tipping is provided to propeller blades to.',opts:['Reduce vibration','Prevent corrosion','Resist erosion'],ans:2,exp:'C) Resist erosion'},
+    {topic:'',q:'What does AL blade mean.',opts:['Aluminum blade','Air-lifted blade','Irrelevant statement'],ans:2,exp:'C) Irrelevant statement'},
+    {topic:'',q:'Propeller manufacturers specify storage procedures to.',opts:['Reduce maintenance cost','Follow standard practices','Minimize testing'],ans:1,exp:'B) Follow standard practices'},
+    {topic:'',q:'In propeller testing, counterweights are attached to.',opts:['Blade tips','Blade root','Blade clamps'],ans:2,exp:'C) Blade clamps'},
+    {topic:'',q:'What does a master motor synchronizer system consist of.',opts:['Synchronizer unit, 2 alternators, tachometer','Synchronizer unit, 4 alternators, tachometer','Governor unit only'],ans:1,exp:'B) Synchronizer unit, 4 alternators, tachometer'},
+    {topic:'',q:'In one engine master system, where is the synchronizer connected.',opts:['Air conditioning system','Drive engine accessories','Hydraulic pump'],ans:1,exp:'B) Drive engine accessories'},
+    {topic:'',q:'Magnetic pickups in MTCS send signals to.',opts:['Flight recorder','Synchronizer unit','Fuel controller'],ans:1,exp:'B) Synchronizer unit'},
+    {topic:'',q:'Anti-icing fluid is sprayed by.',opts:['Hydraulic power','Centrifugal force using slinger ring nozzle','Manual pump'],ans:1,exp:'B) Centrifugal force using slinger ring nozzle'},
+    {topic:'',q:'What components are used to supply current in some deicing systems.',opts:['Brushes and windings','Slip ring and brushes','Capacitor and resistor'],ans:1,exp:'B) Slip ring and brushes'},
+    {topic:'',q:'What type of deicing system works intermittently.',opts:['Manual switch','Pneumatic','Electrical deicing system'],ans:2,exp:'C) Electrical deicing system'},
+    {topic:'',q:'What is the function of a cyclic timer in de-icing systems.',opts:['Stops current flow to the heating element','Energizes the heating element periodically','Maintains constant heating'],ans:1,exp:'B) Energizes the heating element periodically'},
+    {topic:'',q:'What is used to clean an AL (Aluminum) blade.',opts:['Acid','Caustic cleaner','Suitable solvent'],ans:2,exp:'C) Suitable solvent'},
+    {topic:'',q:'Blade propeller storage should be done.',opts:['In sealed metal container','In clean area away from light','As per manufacturer’s specified location'],ans:2,exp:'C) As per manufacturer’s specified location'},
+    {topic:'',q:'What happens when a turboprop propeller is placed in reverse at low range.',opts:['It produces high forward thrust','It produces negative thrust','It reduces engine RPM'],ans:1,exp:'B) It produces negative thrust'},
+    {topic:'',q:'How is a variable pitch propeller protected during storage if engine run is not possible.',opts:['By removing the propeller','By painting the propeller tips','By feathering and unfeathering using feathering pump'],ans:2,exp:'C) By feathering and unfeathering using feathering pump'},
+    {topic:'',q:'What causes harmful vibrations in a propeller system.',opts:['Improper lubrication','Excessive torque','Mechanical and aerodynamic forces acting on the blades'],ans:2,exp:'C) Mechanical and aerodynamic forces acting on the blades'},
+    {topic:'',q:'What is the function of a Constant Speed Unit (CSU).',opts:['To control propeller pitch angle','To vary engine fuel flow','To maintain constant engine RPM'],ans:2,exp:'C) To maintain constant engine RPM'},
+    {topic:'',q:'What is a reverse pitch propeller used for.',opts:['Blade angle can be changed to negative to generate reverse thrust','To maintain high cruise speed','For constant high pitch flight only'],ans:0,exp:'A) Blade angle can be changed to negative to generate reverse thrust'},
+    {topic:'',q:'What is the primary function of a Propeller Control Unit (PCU).',opts:['Supply fuel to engine','Regulate propeller blade angle based on engine/load conditions','Cool engine oil'],ans:1,exp:'B) Regulate propeller blade angle based on engine/load conditions'},
+    {topic:'',q:'What component directs oil pressure to change blade pitch in a hydraulic propeller system.',opts:['Centrifugal pump','Governor flyweights','Pilot valve'],ans:2,exp:'C) Pilot valve'},
+    {topic:'',q:'In an unfeathering system, what assists in returning the blades to flight position.',opts:['Electrical solenoid','Accumulator stored oil pressure','Blade counterweights'],ans:1,exp:'B) Accumulator stored oil pressure'},
+    {topic:'',q:'What is synchrophasing used for in multi-engine aircraft.',opts:['To maintain equal RPM','To reduce vibration by phase-aligning propeller blades','To balance fuel flow in engines'],ans:1,exp:'B) To reduce vibration by phase-aligning propeller blades'},
+    {topic:'',q:'Which of the following helps troubleshoot an electrical propeller system fault.',opts:['Tachometer sync switch','Resistance checks on slip ring circuits','Oil pressure check'],ans:1,exp:'B) Resistance checks on slip ring circuits'},
+    {topic:'',q:'In a feathering system, what causes the blades to feather during engine failure.',opts:['Loss of oil pressure and assistance from counterweights','Manual control input','Increase in engine torque'],ans:0,exp:'A) Loss of oil pressure and assistance from counterweights'},
+    {topic:'',q:'What can cause a hydraulic propeller system to fail to feather.',opts:['Broken pitch control cable','Air in the oil lines or low oil pressure','Excessive fuel flow'],ans:1,exp:'B) Air in the oil lines or low oil pressure'}
+  ]
+};

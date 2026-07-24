@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2021 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2021 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2021'
+  },
+  questions: [
+    {topic:'',q:'During Cruise, propeller operates at.',opts:['High pitch angle, Low RPM','Low pitch angle, High RPM','Medium pitch angle, Medium RPM'],ans:0,exp:'A) High pitch angle, Low RPM'},
+    {topic:'',q:'Propeller blades when stored.',opts:['Are covered with non-hygroscopic material','Are covered with hygroscopic material','Are kept in warm condition'],ans:0,exp:'A) Are covered with non-hygroscopic material'},
+    {topic:'',q:'Blade angle is measured in.',opts:['Inches','Degrees','Millimeters'],ans:1,exp:'B) Degrees'},
+    {topic:'',q:'Purpose of drain hole in wooden propeller tipping.',opts:['To drain out engine oil stuck in piston by centrifugal action','To drain out moisture by centrifugal action','To drain out anti-ice fluid'],ans:1,exp:'B) To drain out moisture by centrifugal action'},
+    {topic:'',q:'Blade tracking is carried out in propeller to determine.',opts:['Actual position of propeller blade','Relative position of propeller blades','As in (B), so out of track propellers are easy to balance'],ans:1,exp:'B) Relative position of propeller blades'},
+    {topic:'',q:'Material of propeller is.',opts:['Duralumin','Anodised Aluminium','Anodised Magnesium'],ans:1,exp:'B) Anodised Aluminium'},
+    {topic:'',q:'During preservation, the propeller should be checked for.',opts:['Moisture & sunlight','Physical damage & corrosion','Both (A) & (B)'],ans:2,exp:'C) Both (A) & (B)'},
+    {topic:'',q:'Static unbalance is due to.',opts:['When C.G. of propeller doesn’t coincide with axis of rotation','When propeller blades do not lie in same plane','When C.G. coincides with axis of rotation'],ans:0,exp:'A) When C.G. of propeller doesn’t coincide with axis of rotation'},
+    {topic:'',q:'Propeller converts.',opts:['Brake horsepower to thrust horsepower','Thrust to brake horsepower','Engine RPM to brake horsepower'],ans:0,exp:'A) Brake horsepower to thrust horsepower'},
+    {topic:'',q:'Bearing storage upto 12 months.',opts:['Bearing must be removed and examined for brinelling & corrosion','If satisfactory, it must be reassembled on the blade','Both (A) & (B)'],ans:2,exp:'C) Both (A) & (B)'},
+    {topic:'',q:'Which type of aircraft is equipped with master engine.',opts:['Synchronizing master motor','Multi-engine aircraft','Two engine aircraft'],ans:1,exp:'B) Multi-engine aircraft'},
+    {topic:'',q:'In wooden propeller, nicks/cracks permitted if.',opts:['Perpendicular to rotation axis','Parallel to axis of rotation','Nicks/cracks may not be permitted'],ans:1,exp:'B) Parallel to axis of rotation'},
+    {topic:'',q:'During removal of spinner cone, check for.',opts:['Grease on the blades & inner surface.','No grease leakage.','F.O.D.'],ans:0,exp:'A) Grease on the blades & inner surface.'},
+    {topic:'',q:'Advantage of Wooden Propeller.',opts:['Light weight.','Rigidity.','Ease of production.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'The main reason to store wooden propeller in horizontal position is.',opts:['To maintain even water content between blades.','To avoid dust collection.','For safety from damage.'],ans:0,exp:'A) To maintain even water content between blades.'},
+    {topic:'',q:'Propeller converts.',opts:['Engine torque into propulsive force.','Engine thrust into propulsive force.','Engine force into propulsive thrust.'],ans:0,exp:'A) Engine torque into propulsive force.'},
+    {topic:'',q:'In wooden propeller, head of screw in tipping is soldered to.',opts:['Prevent loosening.','Make it airtight and watertight.','Prevent removal by technician.'],ans:0,exp:'A) Prevent loosening.'},
+    {topic:'',q:'While storing propeller, label indicates.',opts:['Part number.','Original date of storage.','Modification standards.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Metal tipping in wooden propeller to prevent from loosening.',opts:['Head of screws soldered.','Lock nut is used.','ATA.'],ans:0,exp:'A) Head of screws soldered.'},
+    {topic:'',q:'The control system permits variation in the pumping rate so that the quantity of fluid delivered to propeller can be varied.',opts:['Depending on the severity of icing.','Ambient pressure.','Ice quantity.'],ans:0,exp:'A) Depending on the severity of icing.'},
+    {topic:'',q:'Primary function of front & rear cones when spinner propeller shaft.',opts:['Is used to seat the propeller on crankshaft.','To prevent propeller from loosening.','To control vibration.'],ans:0,exp:'A) Is used to seat the propeller on crankshaft.'},
+    {topic:'',q:'When flyweight overcomes the speeder spring pressure, it means.',opts:['Engine rotates underspeed.','Engine rotates overspeed.','Propeller rotates underspeed.'],ans:1,exp:'B) Engine rotates overspeed.'},
+    {topic:'',q:'Auto-feathering accomplishe.',opts:['Manually by pilot.','Both automatic & manually.','Automatically.'],ans:2,exp:'C) Automatically.'},
+    {topic:'',q:'When speeder spring force decreases, the blade angle will.',opts:['Decrease.','Remain constant.','Increase.'],ans:2,exp:'C) Increase.'},
+    {topic:'',q:'If a propeller rotates underspeed, the blade angle will.',opts:['Fine pitch.','Coarse pitch.','Reverse pitch.'],ans:0,exp:'A) Fine pitch.'},
+    {topic:'',q:'Nicks & abrasions are.',opts:['Permissible.','Not permissible.','Acceptable in small amount.'],ans:1,exp:'B) Not permissible'},
+    {topic:'',q:'Aerodynamic Twisting Moment turns the blade to.',opts:['Low blade angle','High blade angle','Neutral blade angle'],ans:1,exp:'B) High blade angle'},
+    {topic:'',q:'Variable pitch propeller for long storage should be.',opts:['Completely emptied and dried','Filled with inhibiting oil to prevent corrosion','Filled with normal lubricating oil'],ans:1,exp:'B) Filled with inhibiting oil to prevent corrosion'},
+    {topic:'',q:'When aircraft climbs & engine failure occurs, propeller.',opts:['Blade angle increase to negative pitch to drag reduce','Blade angle decrease to reduce drag','Blade angle remains constant'],ans:0,exp:'A) Blade angle increase to negative pitch to drag reduce'},
+    {topic:'',q:'If flyweights in a governor stick due to contamination, the most likely in-flight symptom is.',opts:['Very rapid RPM overshoot','Constant RPM even during throttle change','Slow or delayed RPM correction'],ans:2,exp:'C) Slow or delayed RPM correction'},
+    {topic:'',q:'At high altitude, a constant-speed propeller tends to.',opts:['Automatically move towards coarse pitch','Move towards fine pitch to maintain RPM','Move to feather unless manually corrected'],ans:1,exp:'B) Move towards fine pitch to maintain RPM'},
+    {topic:'',q:'The greatest thrust in a propeller is produced at.',opts:['Tip region','Mid-span region','Root region'],ans:1,exp:'B) Mid-span region'}
+  ]
+};

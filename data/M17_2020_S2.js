@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2020 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2020 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2020'
+  },
+  questions: [
+    {topic:'',q:'Wooden propeller metal lip is made of.',opts:['Aluminum','Brass','Monel metal'],ans:2,exp:'C) Monel metal'},
+    {topic:'',q:'Propeller slip is the difference between.',opts:['Effective pitch and geometric pitch','Effective pitch and engine power','Geometric angle and the propeller'],ans:0,exp:'A) Effective pitch and geometric pitch'},
+    {topic:'',q:'Blade angle of the propeller means.',opts:['Angle between the chord line of the blade and the plane of rotation','Angle between hub and blade tip','Angle between trailing edge and airflow'],ans:0,exp:'A) Angle between the chord line of the blade and the plane of rotation'},
+    {topic:'',q:'Counterweight is installed in.',opts:['Blade hub','Propeller cylinder','Blade shank'],ans:1,exp:'B) Propeller cylinderWeather'},
+    {topic:'',q:'Synchro-master unit.',opts:['Master unit including tachometer, alternator','Alternating current generator driven by accessory gearbox','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Fixed pitch propeller with a set configuration change will.',opts:['Decrease efficiency','Increase efficiency','Has no effect'],ans:1,exp:'B) Increase efficiency'},
+    {topic:'',q:'Propeller bolt holes are inspected by.',opts:['Go/No-Go gauge','Magnifying glass 10x','DNT'],ans:0,exp:'A) Go/No-Go gauge'},
+    {topic:'',q:'Centrifugal force due to propeller rotation tends to move the counterweight.',opts:['Toward axis','Away from axis','Into the plane of rotation'],ans:1,exp:'B) Away from axis'},
+    {topic:'',q:'Aerodynamic twisting force.',opts:['Causes the blade into fine pitch','Forces blade out of hub','Causes blade into high pitch configuration'],ans:0,exp:'A) Causes the blade into fine pitch'},
+    {topic:'',q:'Centrifugal twisting force acting on a propeller blade.',opts:['Greater than aerodynamic twisting force at high blade angle','Lower than centrifugal force at higher blade angle','Greater centrifugal force at lower blade angle'],ans:0,exp:'A) Greater than aerodynamic twisting force at high blade angle'},
+    {topic:'',q:'Aerodynamic twisting moment (ATM) tends to.',opts:['Rotate the propeller blade to a high blade angle','Be less than centrifugal moment at high blade angle','No effect'],ans:0,exp:'A) Rotate the propeller blade to a high blade angle'},
+    {topic:'',q:'In variable pitch propeller, CSU maintains.',opts:['Propeller RPM','Engine RPM and blade angle','Both engine and propeller RPM'],ans:0,exp:'A) Propeller RPM'},
+    {topic:'',q:'Aircraft climbs with.',opts:['High pitch angle and low RPM for engine efficiency','Low pitch angle and high RPM','High RPM and low pitch'],ans:0,exp:'A) High pitch angle and low RPM for engine efficiency'},
+    {topic:'',q:'While storing a propeller, label should indicate.',opts:['Original date of storage','Year of manufacture','Covered with inhibiting oil'],ans:0,exp:'A) Original date of storage'},
+    {topic:'',q:'To correct propeller imbalance by adding weights.',opts:['Dynamic imbalance','Static imbalance','Aerodynamic imbalance'],ans:1,exp:'B) Static imbalance'},
+    {topic:'',q:'Proper synchronization achieved by.',opts:['Engine RPM','Propeller RPM','Propeller setting'],ans:1,exp:'B) Propeller RPM'},
+    {topic:'',q:'De-icer boot should be checked by.',opts:['Feeling with one hand while another person monitors visually','Checking with ammeter and voltmeter','Should not be checked'],ans:0,exp:'A) Feeling with one hand while another person monitors visually'},
+    {topic:'',q:'Dynamic imbalance is due to.',opts:['Propeller element or counterweight not in same plane of rotation','Propeller element axis does not coincide with axis of rotation','Blade unbalance'],ans:0,exp:'A) Propeller element or counterweight not in same plane of rotation'},
+    {topic:'',q:'Magnetic pickup is used in which synchronization system.',opts:['Master motor','Single engine master system','Multi-engine synchronization'],ans:2,exp:'C) Multi-engine synchronization'},
+    {topic:'',q:'Wooden pitch propeller in harsh environment.',opts:['Remov and store at required temperature','Daily clean with solvent','Wooden propeller can withstand harsh environment'],ans:0,exp:'A) Remov and store at required temperature'},
+    {topic:'',q:'Due to ice formation on blades.',opts:['Vibration','Thrust and unbalancing','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'When one blade of propeller produces more thrust.',opts:['Adjust blade angle and blade weight','Do static balance','Do dynamic balance'],ans:0,exp:'A) Adjust blade angle and blade weight'},
+    {topic:'',q:'If propeller is not retained in original packaging, re-inhibiting required in.',opts:['3 months','6 months','12 months'],ans:2,exp:'C) 12 months'},
+    {topic:'',q:'In constant speed propeller, reducing engine power causes.',opts:['Thrust reduces','Drag reduces','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Aluminum propeller should be cleaned with.',opts:['Suitable solvent','Acid','Caustic solution'],ans:0,exp:'A) Suitable solvent'},
+    {topic:'',q:'MTCS.',opts:['Propeller governor equipped with magnetic pickup that counts propeller RPM and sends signal to synchronization unit','Blade shank heating system','Controls pitch via control'],ans:0,exp:'A) Propeller governor equipped with magnetic pickup that counts propeller RPM and sends signal to synchronization unitEngineering & Technology'},
+    {topic:'',q:'The control system permits variation in pumping rate so that fluid quantity delivered to propeller is varied.',opts:['Depending upon ambient pressure','Depending on severity of icing','Depending on ice quantity'],ans:0,exp:'A) Depending upon ambient pressure'},
+    {topic:'',q:'MTCS governor.',opts:['Controlled in cockpit','Any desired blade angle and speed can be obtained','Pitch is changed by propeller','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Anti-ice fluid is delivered to slinger ring.',opts:['Independently by electric pump','Independently by centrifugal force','By bleed air system'],ans:0,exp:'A) Independently by electric pump'},
+    {topic:'',q:'What is the purpose of the crabber boot in a propeller system?',opts:['Inhibiting fuel','De-icing the propeller','Balancing the propeller assembly','Reducing blade noise'],ans:0,exp:'A) Inhibiting fuel'},
+    {topic:'',q:'Feathering and unfeathering use.',opts:['Feathering pump','Hydraulic filter','CSU governor'],ans:0,exp:'A) Feathering pump'},
+    {topic:'',q:'Magnetic pickup sends data to synchronization for.',opts:['Propeller speed matching','Engine oil pressure','EGT monitoring'],ans:0,exp:'A) Propeller speed matching'}
+  ]
+};

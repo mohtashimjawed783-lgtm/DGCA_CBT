@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2025 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2025 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2025'
+  },
+  questions: [
+    {topic:'',q:'Non-rotating assembly is.',opts:['Dome assembly','Control assembly','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'Purpose of greasing.',opts:['Lubrication only','Cooling only','Protection from corrosion'],ans:2,exp:'C) Protection from corrosion'},
+    {topic:'',q:'Blade angle checking is done by.',opts:['Vernier caliper','Universal protractor','Spirit level'],ans:1,exp:'B) Universal protractor AviationIndustry'},
+    {topic:'',q:'Angle of attack.',opts:['AOA is the angle between thrust line and airflow','AOA is the angle between chord and the relative airflow','AOA is the angle between blade face and plane of rotation'],ans:1,exp:'B) AOA is the angle between chord and the relative airflow'},
+    {topic:'',q:'In variable pitch propeller, storage upto more than 3 months then the mechanism should be.',opts:['Left dry','Washed with kerosene.','Flushed with inhibiting oil'],ans:2,exp:'C) Flushed with inhibiting oil'},
+    {topic:'',q:'In tracking the like position, tolerance is defined by.',opts:['DGCA','Aircraft manufacturer','Propeller manufacturer'],ans:2,exp:'C) Propeller manufacturer'},
+    {topic:'',q:'In electrical de-icing system power is transmitted through.',opts:['Wires only','Slip rings only','Brushes and slip rings'],ans:2,exp:'C) Brushes and slip rings'},
+    {topic:'',q:'In one engine synchronization system special governor is mounted on.',opts:['Right side','Engine front side','Left side'],ans:2,exp:'C) Left side'},
+    {topic:'',q:'Due to ice formation causes.',opts:['Increase in propeller efficiency','No effect on propeller','Loss of propeller efficiency'],ans:2,exp:'C) Loss of propeller efficiency'},
+    {topic:'',q:'Storage of propellers indefinite → at least.',opts:['10 minutes in a month','15 minutes in a month','30 minutes in a month'],ans:2,exp:'C) 30 minutes in a month Engine& Transmission'},
+    {topic:'',q:'Blade tracking is the process of tracking relative.',opts:['Length of blade','Weight of blade','Position of blade'],ans:2,exp:'C) Position of blade'},
+    {topic:'',q:'Definition of pitch distribution.',opts:['Change of blade thickness from root to tip','Change of blade angle from root to tip','Change of blade width from root to tip'],ans:1,exp:'B) Change of blade angle from root to tip'},
+    {topic:'',q:'Aluminium alloy propeller is cleaned by.',opts:['Water only','Acid solution','Suitable solvent'],ans:2,exp:'C) Suitable solvent'},
+    {topic:'',q:'Definition of blade angle.',opts:['Blade angle is the angle between the face of blade and the plane of rotation','Blade angle is the angle between the chord of the blade section and the plane in which propeller rotates','Blade angle is the angle between blade tip and hub'],ans:1,exp:'B) Blade angle is the angle between the chord of the blade section and the plane in which propeller rotates'},
+    {topic:'',q:'The chord line is.',opts:['An imaginary line drawn through the blade from the leading edge to the trailing edge','A real line marked on the blade surface','A curved line on the blade face'],ans:0,exp:'A) An imaginary line drawn through the blade from the leading edge to the trailing edge'},
+    {topic:'',q:'The blade face is subjected to.',opts:['Only centrifugal force','Only thrust bending force','Tension from centrifugal force and additional tension from thrust bending force'],ans:2,exp:'C) Tension from centrifugal force and additional tension from thrust bending force'},
+    {topic:'',q:'MTCS of wooden propellers are stored.',opts:['Horizontally only','At any angle','Vertically only'],ans:2,exp:'C) Vertically only'},
+    {topic:'',q:'Metal tipping of wooden propeller is made of.',opts:['Aluminium','Nickel or brass','Steel'],ans:1,exp:'B) Nickel or brass Physics'},
+    {topic:'',q:'Advantage of feathering propeller.',opts:['To increase thrust during take-off','To minimize drag in engine off condition','To increase RPM'],ans:1,exp:'B) To minimize drag in engine off condition'},
+    {topic:'',q:'Engine driven propeller governor receives oil from.',opts:['Separate oil tank','Hydraulic pump','Engine lubrication system'],ans:2,exp:'C) Engine lubrication system'},
+    {topic:'',q:'Purpose of cyclic timer.',opts:['To energise the heating element','To control propeller RPM','To regulate oil pressure'],ans:0,exp:'A) To energise the heating element Mathematics'},
+    {topic:'',q:'In electrical de-icing system, the protective device is.',opts:['Circuit breaker','Fuse','Current limiter'],ans:2,exp:'C) Current limiter'},
+    {topic:'',q:'MTCS about fluid transfer in anti-icing.',opts:['Fluid is transferred by gravity','Fluid is transferred under pressure centrifugal force through spray nozzles to each blade shank','Fluid is transferred by suction'],ans:1,exp:'B) Fluid is transferred under pressure centrifugal force through spray nozzles to each blade shank'},
+    {topic:'',q:'Synchronization is done during.',opts:['ON in flight and OFF at take-off','ON at take-off only','ON in flight and OFF at take-off. (both options correct in exam context)'],ans:2,exp:'C) ON in flight and OFF at take-off. (both options correct in exam context) Engine& Transmission'},
+    {topic:'',q:'Turboprop assembly – major sub-assemblies are.',opts:['Barrel, pitch lock assembly, low pitch lock assembly and dome assembly','Compressor, turbine and nozzle','Gearbox and propeller shaft only'],ans:0,exp:'A) Barrel, pitch lock assembly, low pitch lock assembly and dome assembly'},
+    {topic:'',q:'Pilot can manually synchronize the propeller when.',opts:['Automatic synchronization is fitted','Synchronization is not fitted','During take-off only'],ans:1,exp:'B) Synchronization is not fitted'},
+    {topic:'',q:'During take-off maximum thrust is required, then constant speed propeller is at.',opts:['High blade angle or pitch','Medium blade angle','Low blade angle or pitch. The low blade angle keeps the AOA small'],ans:2,exp:'C) Low blade angle or pitch. The low blade angle keeps the AOA small Engineering& Technology'},
+    {topic:'',q:'Apparent engine roughness is often a result of propeller unbalance. The effect of an unbalanced propeller will usually be.',opts:['Greater at low RPM','Same at all RPM','Greater at high RPM'],ans:2,exp:'C) Greater at high RPM'},
+    {topic:'',q:'The governor controlled constant speed propeller.',opts:['Changes the blade angle manually to control RPM','Changes the blade angle automatically, keeping engine RPM constant','Changes engine power to control RPM'],ans:1,exp:'B) Changes the blade angle automatically, keeping engine RPM constant'},
+    {topic:'',q:'When high speed occurs in the governor.',opts:['The flyweights move inward','The flyweights remain stationary','The flyweights tilt outward'],ans:2,exp:'C) The flyweights tilt outward EducationalResources'},
+    {topic:'',q:'Maximum efficiency of a propeller is derived by.',opts:['Hub speed','Tip speed','Maintaining constant RPM'],ans:1,exp:'B) Tip speed'},
+    {topic:'',q:'The gear ratio of the reduction gear of a propeller assembly. The correct option is related to.',opts:['Spur gear planetary – ratio depends on teeth of drive gear and driven gear','Bevel gear planetary – ratio depends on teeth of ring driven gear and ring driving gear','Both'],ans:3,exp:'D) Both'}
+  ]
+};

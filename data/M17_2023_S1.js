@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2023 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2023 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2023'
+  },
+  questions: [
+    {topic:'',q:'Thrust depends on.',opts:['Engine size','Propeller diameter','Thrust × Velocity'],ans:2,exp:'C) Thrust × Velocity'},
+    {topic:'',q:'Power.',opts:['RPM × Torque','Thrust × Velocity','Force × Area'],ans:1,exp:'B) Thrust × Velocity'},
+    {topic:'',q:'Geometric pitch is.',opts:['Angle of attack','Distance blade moves in one rotation','Width of the blade'],ans:1,exp:'B) Distance blade moves in one rotation'},
+    {topic:'',q:'Propeller blade has.',opts:['Rectangular platform','Elliptical shape','Irregular platform'],ans:2,exp:'C) Irregular platform'},
+    {topic:'',q:'Propeller designed with twisted components for.',opts:['Balance','Noise reduction','Pitch distribution'],ans:2,exp:'C) Pitch distribution'},
+    {topic:'',q:'Blade angle changes with.',opts:['Forward speed of aircraft','Blade length','Air pressure'],ans:0,exp:'A) Forward speed of aircraft'},
+    {topic:'',q:'Centrifugal force is.',opts:['Inward pulling force','Outward acting force','Gravity'],ans:1,exp:'B) Outward acting force'},
+    {topic:'',q:'Torque bending force tends to.',opts:['Bend blade forward','Bend blade opposite to rotation','Twist blade tip'],ans:1,exp:'B) Bend blade opposite to rotation'},
+    {topic:'',q:'CTM acts.',opts:['Towards high blade angle','Towards low blade angle','On RPM'],ans:1,exp:'B) Towards low blade angle'},
+    {topic:'',q:'Governor operates.',opts:['Electrically','Manually','Hydraulically'],ans:2,exp:'C) Hydraulically'},
+    {topic:'',q:'CTM acts on counterweights.',opts:['Towards low blade angle','Towards high blade angle','Against airflow'],ans:1,exp:'B) Towards high blade angle'},
+    {topic:'',q:'If governor fails, it results in.',opts:['Loss of propeller','Overspeed','Speeder rack issue'],ans:2,exp:'C) Speeder rack issue'},
+    {topic:'',q:'MTCS: When aircraft is not fitted with synchronization, the pilot.',opts:['Does nothing','Waits for auto sync','Manually synchronizes propeller'],ans:2,exp:'C) Manually synchronizes propeller'},
+    {topic:'',q:'Synchronization for propeller is done for.',opts:['Engine RPM constant','Pitch distribution','Propeller RPM constant'],ans:2,exp:'C) Propeller RPM constant'},
+    {topic:'',q:'MTCS (Type I synchro system) will be OFF during.',opts:['Cruise','Landing & Takeoff','Taxi'],ans:1,exp:'B) Landing & Takeoff'},
+    {topic:'',q:'Synchrophasing is used in.',opts:['Pitch change','Blade angle setting','Noise reduction'],ans:2,exp:'C) Noise reduction'},
+    {topic:'',q:'Master motor synchronization refers to.',opts:['All engines as master','Left engine master','One engine as master'],ans:2,exp:'C) One engine as master'},
+    {topic:'',q:'One engine master synchronization is.',opts:['Automatic','Manual','Semi-auto'],ans:0,exp:'A) Automatic'},
+    {topic:'',q:'Cyclic timer is used for.',opts:['Blade pitch control','Time display','Heating control'],ans:2,exp:'C) Heating control'},
+    {topic:'',q:'Runback helps in.',opts:['Increasing RPM','Control of heating intervals','Propeller synchronization'],ans:1,exp:'B) Control of heating intervals'},
+    {topic:'',q:'To prevent element overheating.',opts:['Use cyclic timer','Use governor','Check fuel flow'],ans:0,exp:'A) Use cyclic timer'},
+    {topic:'',q:'Balanced ice removal is done to.',opts:['Prevent overspeed','Prevent vibration','Increase airflow'],ans:1,exp:'B) Prevent vibration'},
+    {topic:'',q:'De-icing boots are checked to.',opts:['Feel heat & monitor load meter','Monitor engine RPM','Check pitch angle'],ans:0,exp:'A) Feel heat & monitor load meter'},
+    {topic:'',q:'MTCS etching is done on.',opts:['Steel parts only','Aluminium parts only','Bronze parts'],ans:1,exp:'B) Aluminium parts only'},
+    {topic:'',q:'If engine hub appears to swing in slight orbit.',opts:['It is vibration','Tracking issue','MTCS issue'],ans:2,exp:'C) MTCS issue'},
+    {topic:'',q:'Removal of weight at acceptable location is.',opts:['Allowed','Not allowed','Partially allowed'],ans:1,exp:'B) Not allowed'},
+    {topic:'',q:'If tracking is correct, but still vibration occurs.',opts:['Replace governor','Options not remembered','Replace propeller'],ans:1,exp:'B) Options not remembered'},
+    {topic:'',q:'If propeller installed for up to 3 months.',opts:['It should be feathered and unfeathered','Remove it','Corrosion check'],ans:0,exp:'A) It should be feathered and unfeathered'},
+    {topic:'',q:'If installed for more than 3 months.',opts:['Use inhibiting oil','No action','Corrosion check only'],ans:0,exp:'A) Use inhibiting oil'},
+    {topic:'',q:'For variable pitch propeller (bearing) storage.',opts:['No check required','Remove & examine for corrosion','Apply grease'],ans:1,exp:'B) Remove & examine for corrosion'},
+    {topic:'',q:'Components retained in storage should be marked with.',opts:['Manufacturing date','Overhaul date','Original date of storage'],ans:2,exp:'C) Original date of storage'},
+    {topic:'',q:'Disadvantage of reverse pitch propeller is.',opts:['Reduced thrust','High fuel burn','Ingestion of FOD'],ans:2,exp:'C) Ingestion of FOD'}
+  ]
+};

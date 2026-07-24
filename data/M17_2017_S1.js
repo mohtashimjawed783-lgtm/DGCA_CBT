@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2017 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2017 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2017'
+  },
+  questions: [
+    {topic:'',q:'The force that tends to pull the propeller blades out of the hub.',opts:['Centrifugal Force','C.T.F','A.T.F'],ans:0,exp:'A) Centrifugal Force'},
+    {topic:'',q:'The purpose of drain hole in wooden propeller tipping.',opts:['To drain out the engine oil stuck in piston by centrifugal force','To drain away moisture by centrifugal action','To drain away anti-ice fluid by centrifugal force'],ans:1,exp:'B) To drain away moisture by centrifugal action'},
+    {topic:'',q:'What component allows oil to pass from the stationary engine to the rotating propeller hub.',opts:['Oil transfer sleeve','Pilot valve','Pitch change actuator'],ans:0,exp:'A) Oil transfer sleeve'},
+    {topic:'',q:'In de-icing system, electrical power is transferred through.',opts:['Slip rings','Brush','Slip rings and Brush'],ans:2,exp:'C) Slip rings and Brush'},
+    {topic:'',q:'Electrical de-icing systems are usually designed for.',opts:['Continuous application','Intermittent application','None'],ans:1,exp:'B) Intermittent application'},
+    {topic:'',q:'Blade tracking is carried out in propeller to determine.',opts:['Actual position of propeller blades','Relative position of propeller blades','As in (B) and out-of-track propeller as easy to dynamically balance','ATA'],ans:2,exp:'C) As in (B) and out-of-track propeller as easy to dynamically balance'},
+    {topic:'',q:'When aircraft comes back from flight, ground servicing of propeller.',opts:['Blade angle increases to negative pitch to reduce drag','Blade angle decreases to negative pitch to reduce drag','Blade angle neither decreases nor increases to reduce drag'],ans:1,exp:'B) Blade angle decreases to negative pitch to reduce drag'},
+    {topic:'',q:'Purpose of metal tipping in L.E. of wooden propeller is to.',opts:['Prevent formation of ice and snow','Protect blade from FOD caused by flying objects and erosion','Reduce drag and increase efficiency'],ans:1,exp:'B) Protect blade from FOD caused by flying objects and erosion'},
+    {topic:'',q:'MTCS – Ground adjustable propellers.',opts:['Adjust blade angle only on ground','Adjust blade angle only in flight','Adjust blade angle in both ground and flight'],ans:0,exp:'A) Adjust blade angle only on ground'},
+    {topic:'',q:'The purpose of reverse pitch in propellers is.',opts:['Blade angle is changed to reverse pitch to provide negative thrust','Blade angle is changed to forward pitch to provide positive thrust','Blade angle is not changed at all'],ans:0,exp:'A) Blade angle is changed to reverse pitch to provide negative thrust'},
+    {topic:'',q:'In propeller governor, the purpose of pilot valve.',opts:['To control the propeller RPM','To control the engine RPM','To control both engine and propeller RPM'],ans:0,exp:'A) To control the propeller RPM'},
+    {topic:'',q:'In feathering, the source of hydraulic pressure is from.',opts:['Dedicated propeller hydraulic system','Aircraft hydraulic system','Engine lubrication system'],ans:0,exp:'A) Dedicated propeller hydraulic system'},
+    {topic:'',q:'During feathering of propellers, what happens.',opts:['Hydraulic pressure moves blades toward low pitch','Hydraulic pressure moves blades toward high pitch','Hydraulic pressure moves blades toward reverse pitch'],ans:0,exp:'A) Hydraulic pressure moves blades toward low pitch'},
+    {topic:'',q:'When it is difficult to determine the probable cause of engine vibration.',opts:['Propeller hub appears to swing in slight orbit','Propeller tips appear to swing in slight orbit','None of the above'],ans:1,exp:'B) Propeller tips appear to swing in slight orbit'},
+    {topic:'',q:'Bearing storage up to twelve months.',opts:['Bearing must be removed and examined for fretting and corrosion','If it is found satisfactory, it must be assembled on the blade','Both (A) & (B)'],ans:2,exp:'C) Both (A) & (B)'},
+    {topic:'',q:'The primary function of front and rear cones when splined propeller shaft.',opts:['To center the propeller on the crankshaft','To prevent the propeller from loosening','To transmit engine torque to the propeller'],ans:1,exp:'B) To prevent the propeller from loosening'},
+    {topic:'',q:'When flyweights overcome the speeder spring pressure, it means.',opts:['Propeller is rotating underspeed','Propeller is rotating overspeed','Engine is in underspeed'],ans:1,exp:'B) Propeller is rotating overspeed'},
+    {topic:'',q:'Auto feathering accomplishes.',opts:['Set automatically','Manually by pilot','Both automatically and manually'],ans:2,exp:'C) Both automatically and manually'},
+    {topic:'',q:'When speeder spring force decreases, the blade angle will be.',opts:['Increase','Decrease','Remain same','None'],ans:1,exp:'B) Decrease'},
+    {topic:'',q:'If a propeller settles in underspeed condition, the blade angle will be.',opts:['Fine pitch','Coarse pitch','Smooth pitch','Retarded pitch'],ans:0,exp:'A) Fine pitch'},
+    {topic:'',q:'Hygroscopic coating on propeller while storing.',opts:['It makes a layer between blade and atmosphere','It cannot absorb moisture','It absorbs moisture','Both (A) and (C)'],ans:3,exp:'D) Both (A) and (C)'},
+    {topic:'',q:'Phosphate is used as anti-icing fluid in place of isopropyl alcohol due to.',opts:['Expensive','Flammability','Corrosive','All'],ans:1,exp:'B) Flammability'},
+    {topic:'',q:'Static balancing is done by.',opts:['Suspension test stand','Knife edge test stand','No stand is require'],ans:1,exp:'B) Knife edge test stand'},
+    {topic:'',q:'Storage of propellers should be.',opts:['On tip suspension','Not on tip','Dip in oil'],ans:1,exp:'B) Not on tip'},
+    {topic:'',q:'Nicks and abrasions are.',opts:['Permissible','Not permissible','Allowed only during testing'],ans:1,exp:'B) Not permissible'},
+    {topic:'',q:'Hydromatic propellers are.',opts:['Feathering propellers','Non-feathering propellers','Fixed pitch propellers'],ans:1,exp:'B) Non-feathering propellers'},
+    {topic:'',q:'Material of propellers.',opts:['Duralumin','Anodized Aluminium','Anodized Magnesium','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'During preservation, the propeller should be checked for.',opts:['Moisture & Sunlight','Physical damage & Corrosion','Internal damage','Both (A) & (B)'],ans:3,exp:'D) Both (A) & (B)'},
+    {topic:'',q:'Static unbalance is due to.',opts:['When CG of the propeller doesn’t coincide with the axis of rotation','When CG of the propeller or similar elements don’t follow in the same plane','When CG of the propeller coincides with the axis of rotation'],ans:0,exp:'A) When CG of the propeller doesn’t coincide with the axis of rotation'},
+    {topic:'',q:'Anti-icing is done.',opts:['On ground','As in (A), for some time period','In flight at high altitude','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Hydromatic propeller lubrication.',opts:['Uses special oil','With its own engine oil under RPM','Not received lubrication'],ans:1,exp:'B) With its own engine oil under RPM'},
+    {topic:'',q:'Slip is.',opts:['Geometric pitch – Effective pitch','Effective pitch – Geometric pitch','Geometric pitch + Effective pitch'],ans:0,exp:'A) Geometric pitch – Effective pitch'}
+  ]
+};

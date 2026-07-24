@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2020 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2020 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2020'
+  },
+  questions: [
+    {topic:'',q:'What is used for brush block monitoring.',opts:['Single input','Double input','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'In MTCS, alpha range is controlled by.',opts:['Oil temperature','Flyball actuated governor','Feathering pump'],ans:1,exp:'B) Flyball actuated governor'},
+    {topic:'',q:'In a Constant Speed Propeller (CSP), which fluid is used for actuation.',opts:['Fuel','Engine oil','Hydraulic fluid'],ans:1,exp:'B) Engine oil'},
+    {topic:'',q:'Aluminium propellers are cleaned by.',opts:['Detergent and water','Washing and suitable solvent','Abrasive brush'],ans:1,exp:'B) Washing and suitable solvent'},
+    {topic:'',q:'The shape of a propeller blade is best described as.',opts:['Rectangular','Airfoil in irregular platform','Symmetrical'],ans:1,exp:'B) Airfoil in irregular platform'},
+    {topic:'',q:'Wooden propellers are rejected due to.',opts:['Dents','Elongated holes','Surface scratches'],ans:1,exp:'B) Elongated holes'},
+    {topic:'',q:'A propeller on a piston engine acts as.',opts:['Drag device','Rotating wing','Windmill'],ans:1,exp:'B) Rotating wing'},
+    {topic:'',q:'A 3-bladed propeller is stored on.',opts:['Workshop floor','Propeller stand','Engine crankshaft'],ans:1,exp:'B) Propeller stand'},
+    {topic:'',q:'Feathering is required to.',opts:['Reduce thrust','Stop windmilling','Increase RPM'],ans:1,exp:'B) Stop windmilling'},
+    {topic:'',q:'Feathering is commonly used in.',opts:['Light single-engine aircraft','Multi-engine aircraft','Helicopters'],ans:1,exp:'B) Multi-engine aircraft'},
+    {topic:'',q:'Turboprop synchronization is related to.',opts:['RPM','Angle of Attack','AOA'],ans:2,exp:'C) AOA'},
+    {topic:'',q:'The pusher propeller is located.',opts:['On upstream','On the downstream','Inside the nacelle'],ans:1,exp:'B) On the downstream'},
+    {topic:'',q:'Propeller electrical de-icing operation is checked by.',opts:['Voltmeter only','Feeling by hand and one person observing','Airspeed gauge'],ans:1,exp:'B) Feeling by hand and one person observing'},
+    {topic:'',q:'A typical de-icing system includes.',opts:['Boots only','Fluid spray only','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'Magnetic pickup for RPM sensing is fitted on.',opts:['Left engine','One engine','Both engines'],ans:1,exp:'B) One engine'},
+    {topic:'',q:'Automatic pitch control ensures.',opts:['Manual pitch setting','Automatic pitch setting','Fixed pitch'],ans:1,exp:'B) Automatic pitch setting'},
+    {topic:'',q:'A slave governor is used on.',opts:['Both engines','One engine','No engine'],ans:1,exp:'B) One engine'},
+    {topic:'',q:'In MTCS, de-icing is performed by.',opts:['Fluid spraying','Electric motor-driven contractor','Engine bleed air'],ans:1,exp:'B) Electric motor-driven contractor'},
+    {topic:'',q:'Propeller blade tracking shows.',opts:['Vibration','Relative position','RPM'],ans:1,exp:'B) Relative position'},
+    {topic:'',q:'If one propeller produces more thrust than others, it is corrected by.',opts:['RPM adjustment','Countering one blade angle','Mixture control'],ans:1,exp:'B) Countering one blade angle'},
+    {topic:'',q:'Electrical de-icing systems are generally.',opts:['Continuous','Intermittent','Battery powered'],ans:1,exp:'B) Intermittent'},
+    {topic:'',q:'Re-inhibiting of propeller is done every.',opts:['6 months','12 months','24 months'],ans:1,exp:'B) 12 months'},
+    {topic:'',q:'The B) 12 months power source for CSP engine line is.',opts:['Battery','Generator','Both are correct'],ans:2,exp:'C) Both are correct'},
+    {topic:'',q:'Fixed pitch propellers are described as.',opts:['Pitch cannot be changed','Featherable','Controlled by governor'],ans:0,exp:'A) Pitch cannot be changed'},
+    {topic:'',q:'Ice formation on propellers occurs on.',opts:['Blade tip only','Spinner','Both blade and spinner'],ans:2,exp:'C) Both blade and spinner'},
+    {topic:'',q:'MTCS detects nicks/cracks on aluminum propellers using.',opts:['Fluorescent dye','Visual inspection','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'De-icing in MTCS is done using.',opts:['Pneumatic boots','Hot air','Electric motor-driven contractor'],ans:2,exp:'C) Electric motor-driven contractor'},
+    {topic:'',q:'While retaining a propeller in storage, it is important to note.',opts:['Serial number','Original date of storage','Blade angle'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'In MTCS, ATM (Aerodynamic Twisting Moment) force tends to.',opts:['Low pitch','High pitch','No pitch change'],ans:1,exp:'B) High pitch'},
+    {topic:'',q:'To improve performance and reducetip speed,which components are used.',opts:['Propeller governor','3-bladed propeller','Reduction gear','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'In a hydromatic propeller, if the oil supply fails during high RPM flight, what is the immediate effect on blade angle.',opts:['Blade angle increases towards feather','Blade angle decreases causing overspeed','Blade angle remains unchanged'],ans:1,exp:'B) Blade angle decreases causing overspeed'},
+    {topic:'',q:'Why is centrifugal twisting moment (CTM) critical in the operation of a variable pitch propeller.',opts:['It resists aerodynamic loads at low altitude','It helps return the blades to feather during shutdown','It tends to move the blades toward fine pitch and must be counteracted by governor oil pressure'],ans:2,exp:'C) It tends to move the blades toward fine pitch and must be counteracted by governor oil pressure'}
+  ]
+};

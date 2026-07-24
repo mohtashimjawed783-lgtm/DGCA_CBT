@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2017 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2017 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2017'
+  },
+  questions: [
+    {topic:'',q:'Length of propeller blades are limited because.',opts:['Excessive tip speed reduces efficiency.','Excessive tip speed produces vibration.','Lower tip speed produces less thrust.','Both A & B'],ans:3,exp:'D) Both A & B'},
+    {topic:'',q:'Forces acting on propeller.',opts:['C.F.M.','A.T.M.','Torque bending force.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Pusher propeller is.',opts:['Mounted upstream of drive shaft.','Mounted downstream of drive shaft.','Fixed pitch propeller.'],ans:1,exp:'B) Mounted downstream of drive shaft.'},
+    {topic:'',q:'On which type of turbo-propeller would you expect to find a parking brake.',opts:['Compound twin spool.','Direct coupled twin spool.','Free turbine.'],ans:2,exp:'C) Free turbine.'},
+    {topic:'',q:'Vibration in aircraft may be due to.',opts:['Hydraulic leak','Propeller unbalance','Excess fuel flow'],ans:1,exp:'B) Propeller unbalance'},
+    {topic:'',q:'Geometric pitch is.',opts:['Distance a propeller should advance in 1 revolution','Angle between hub and tip','Diameter of propeller blade'],ans:0,exp:'A) Distance a propeller should advance in 1 revolution'},
+    {topic:'',q:'Anti-icing fluid flows.',opts:['Laterally along leading edge of blade','Downward along trailing edge','From hub to tip only'],ans:0,exp:'A) Laterally along leading edge of blade'},
+    {topic:'',q:'Anti-icing is done.',opts:['In flight at high altitude','On ground','As (B) and required for some time period'],ans:2,exp:'C) As (B) and required for some time period'},
+    {topic:'',q:'Hydromatic propeller lubrication.',opts:['With unspecified oil','As per Q.M. (Quality Manual)','With its own engine oil'],ans:2,exp:'C) With its own engine oil'},
+    {topic:'',q:'Slip = .',opts:['Geometric pitch + Effective pitch','Geometric pitch – Effective pitch','Effective pitch – Geometric pitch'],ans:0,exp:'A) Geometric pitch + Effective pitch'},
+    {topic:'',q:'Flat side of propeller blade is called.',opts:['Blade back','Blade face','Blade edge'],ans:1,exp:'B) Blade face'},
+    {topic:'',q:'Propeller produces.',opts:['Forward thrust and rotary motion','Backward thrust only','Upward lift only'],ans:0,exp:'A) Forward thrust and rotary motion'},
+    {topic:'',q:'Wooden propeller should be stored.',opts:['Vertically','Horizontally','At 45° angle'],ans:1,exp:'B) Horizontally'},
+    {topic:'',q:'Electrical de-icing converts.',opts:['Heat energy to electrical energy','Kinetic energy to thermal energy','Electrical energy to heat energy in heating element'],ans:2,exp:'C) Electrical energy to heat energy in heating element'},
+    {topic:'',q:'Propeller vibration occurs when.',opts:['Propeller hub rotates in a slight orbit.','Propeller hub does not rotate.','Engine is stopped.'],ans:0,exp:'A) Propeller hub rotates in a slight orbit.'},
+    {topic:'',q:'Propeller blade tracking.',opts:['Shows only position of blades.','Shows only relative position of blades.','Shows actual position of blades.'],ans:1,exp:'B) Shows only relative position of blades.'},
+    {topic:'',q:'There is doubt whether de-icing system is functioning or not, it should be checked during engine ground run by.',opts:['Functional test.','Flow test.','Inhibiting test.'],ans:0,exp:'A) Functional test.'},
+    {topic:'',q:'MICS: Fixed pitch propeller blade.',opts:['Can be changed in angle.','Cannot be changed in angle.','Has automatic angle change.'],ans:1,exp:'B) Cannot be changed in angle.'},
+    {topic:'',q:'MICS: Fixed pitch is one piece of.',opts:['Wood or aluminium alloy.','Steel.','Brass.'],ans:0,exp:'A) Wood or aluminium alloy.'},
+    {topic:'',q:'Synchronization is used for.',opts:['Dissimilar RPM setting & increase vibration.','Dissimilar RPM setting & reduce vibration.','Same RPM setting & reduce vibration noise'],ans:1,exp:'B) Dissimilar RPM setting & reduce vibration.'},
+    {topic:'',q:'Synchrophaser consist of.',opts:['Phase transducer.','Phase shifter.','Magnetic pickup.','All.'],ans:3,exp:'D) All.'},
+    {topic:'',q:'The synchronizer master unit consists of.',opts:['Separate alternator for each propeller.','None of the above','Master motor which mechanically drives all contactors electrically connected to an alternator.'],ans:2,exp:'C) Master motor which mechanically drives all contactors electrically connected to an alternator.'},
+    {topic:'',q:'Propeller cone or hub seats show evidence of galling and wear, likely cause.',opts:['Propeller retaining nut not tight enough from previous operation.','Blade imbalance.','Overheating.'],ans:0,exp:'A) Propeller retaining nut not tight enough from previous operation.'},
+    {topic:'',q:'If ice formation on propeller when aircraft is in flight will.',opts:['Increase thrust.','No effect','Decrease thrust and cause excessive vibration.'],ans:2,exp:'C) Decrease thrust and cause excessive vibration.'},
+    {topic:'',q:'MTCS station number.',opts:['Measured from centre of hub (in inches).','From centre of propeller shank.','Measured in centimetre.'],ans:0,exp:'A) Measured from centre of hub (in inches).'},
+    {topic:'',q:'Blade angle.',opts:['Increases from root to tip.','Decreases from root to tip.','Constant throughout the blade.'],ans:1,exp:'B) Decreases from root to tip.'},
+    {topic:'',q:'The feed shoes are molded on blade leading edge.',opts:['Fluid flows from blade shank toward tip by centrifugal force.','Flow laterally from channel on leading edge of blade.','Mixture of moisture & fluid reduces formation of ice.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Visual inspection of propeller is for.',opts:['Scratches & cracks.','Dent & erosion.','Bruises.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Hub cone seat, shaft are examined to detect.',opts:['Undue wear.','Galling.','Corrosion.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'The propeller blade farthest from the hub generally defined as the last 6 in of the blade.',opts:['Blade tip.','Face.','Back.'],ans:0,exp:'A) Blade tip.'},
+    {topic:'',q:'On large aircraft, which pitch changing mechanism is used on propeller blade.',opts:['Engine-driven propeller governor.','Hydraulic actuator.','Manual pitch lever.'],ans:0,exp:'A) Engine-driven propeller governor.'},
+    {topic:'',q:'Potential energy derived from.',opts:['Velocity.','Condition.','Movement.','Position'],ans:3,exp:'D) Position'}
+  ]
+};

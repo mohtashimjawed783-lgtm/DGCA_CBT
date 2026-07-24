@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2025 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2025 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2025'
+  },
+  questions: [
+    {topic:'',q:'A hydraulic cylinder is mounted on the rotational axis. It is connected to the.',opts:['Blade hub','Counterweights','Blade clamps','Blade shank'],ans:3,exp:'D) Blade shank'},
+    {topic:'',q:'Blade Cuff.',opts:['Not attached by mechanical clamping because it causes corrosion','Rubber-based adhesives and epoxy adhesives generally used','Organic adhesive','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'Blade Tracking.',opts:['Relative position of the blades to each other','Position of the tips of the blades to each other','Blade angle matching','None of the above'],ans:1,exp:'B) Position of the tips of the blades to each other'},
+    {topic:'',q:'Methods NOT used.',opts:['Etching and chromic acid used in aluminum parts','Etching and chromic acid used in steel parts','Dye penetrant use in sub-surface','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'If propeller vibration is not there, engine vibration is there.',opts:['Hub appears to swing in flight only','Hub does not appear to rotate in an orbit','Hub rotates in elliptical path','Both A and B'],ans:3,exp:'D) Both A and B'},
+    {topic:'',q:'The propeller experiences tension due to centrifugal force at.',opts:['Blade face','Blade root','Blade hub','Blade bolt'],ans:1,exp:'B) Blade root'},
+    {topic:'',q:'When the CG of the propeller does not coincide with the axis of rotation.',opts:['Static imbalance','Dynamic imbalance','Aerodynamic imbalance','Both A and B'],ans:0,exp:'A) Static imbalance'},
+    {topic:'',q:'Any difference in RPM between engine and the master motor will cause the corresponding contactor unit to operate the pitch change. mechanism.',opts:['Under-speed','Over-speed','Both over-speed and under-speed','Normal speed'],ans:2,exp:'C) Both over-speed and under-speed'},
+    {topic:'',q:'Flyweights move outward against the force of the speeder spring raising the pilot valve in.',opts:['Over-speed condition','Under-speed condition','Over-speed protection','Under-speed protection'],ans:0,exp:'A) Over-speed condition'},
+    {topic:'',q:'Miscellaneous about synchronization.',opts:['Synchronization reduces vibration and eliminates unpleasant beat','Synchronization is unnecessary','Synchronization is optional','Synchronization increases thrust'],ans:0,exp:'A) Synchronization reduces vibration and eliminates unpleasant beat'},
+    {topic:'',q:'Which force tends to high pitch.',opts:['ATM','Centrifugal force','Torque','Bending force'],ans:1,exp:'B) Centrifugal force'},
+    {topic:'',q:'Torque bending force.',opts:['Move tips in the direction of thrust','Oppose the blade in the direction of rotation','Bend the propeller opposite to the direction of rotation','Bend the propeller in direction of rotation'],ans:2,exp:'C) Bend the propeller opposite to the direction of rotation'},
+    {topic:'',q:'Wooden propellers should be stored in.',opts:['Vertical position','Horizontal position to keep the moisture in balanced position','In any position','Flat surface'],ans:1,exp:'B) Horizontal position to keep the moisture in balanced position'},
+    {topic:'',q:'Three-bladed propellers are stored.',opts:['Horizontally','Vertically because space does not matter on stand','Any position','Slanted stand'],ans:0,exp:'A) Horizontally'},
+    {topic:'',q:'To prevent runback effect.',opts:['Heating is controlled by off switch','Heating is controlled by cycle timer','Automatic switch','Thermostat'],ans:1,exp:'B) Heating is controlled by cycle timer'},
+    {topic:'',q:'Angle of attack of propeller is the angle between.',opts:['Blade and the horizontal axis of propeller','Blade and a vertical axis','Blade and the relative airflow strike','Blade and horizontal plane'],ans:2,exp:'C) Blade and the relative airflow strike'},
+    {topic:'',q:'Electrical power from the A.C. system is transferred to propeller by.',opts:['Slip rings','Brushes','Slip rings & brushes','Suitable converter'],ans:2,exp:'C) Slip rings & brushes'},
+    {topic:'',q:'Aluminum propeller cleaned with.',opts:['Acid','Caustic','Suitable solvent','Soap water'],ans:2,exp:'C) Suitable solvent'},
+    {topic:'',q:'If the propeller engine is likely to be out for more than 3 months.',opts:['Keep clean and inspect for corrosion','Keep clean','Rusted with inhibitor oil','Packed airtight'],ans:0,exp:'A) Keep clean and inspect for corrosion'},
+    {topic:'',q:'Blades are divided into segments. Station number.',opts:['From the center, not from the tip','From the tip','From center of the hub','From blade face'],ans:0,exp:'A) From the center, not from the tip'},
+    {topic:'',q:'Pilot controls the operation of the de-ice system by.',opts:['Turning one or more switches','Toggle switch for each propeller','A selector switch to adjust for light or heavy icing condition','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'Synchronization in the control links to.',opts:['Engine RPM','Propeller RPM','Engine’s Propeller RPM'],ans:2,exp:'C) Engine’s Propeller RPM'},
+    {topic:'',q:'MTG when blade angle decreases.',opts:['RPM of propeller decreases','It lets air handle per revolution','Amount of air handled per revolution is independent of blade angle'],ans:0,exp:'A) RPM of propeller decreases'},
+    {topic:'',q:'In a variable pitch propeller, if engine RPM is constant and airspeed increases then.',opts:['Pitch will increase','Pitch will decrease','Pitch remains constant'],ans:0,exp:'A) Pitch will increase'},
+    {topic:'',q:'After lift-off, blade angle will.',opts:['Remain constant','Decrease','Increase'],ans:2,exp:'C) Increase'},
+    {topic:'',q:'Slugging MTG.',opts:['Have holes to transfer the fluid','Use centrifugal force, fluid is transferred through the discharge nozzles to the each blade root','— (incomplete option)'],ans:1,exp:'B) Use centrifugal force, fluid is transferred through the discharge nozzles to the each blade root'},
+    {topic:'',q:'Torque bending in which force tends the propeller blades to rotate in the opposite to the direction of blade.',opts:['CTM','ATM','Torque bending force'],ans:2,exp:'C) Torque bending force'},
+    {topic:'',q:'During cruise, constant speed propeller blade angle.',opts:['Decreases to prevent just enough engine RPM for decreasing','Increase blade angle to decrease engine RPM','Increase blade angle to increase engine RPM'],ans:1,exp:'B) Increase blade angle to decrease engine RPM'},
+    {topic:'',q:'If the two signals are different, then the propeller are out of synchronization.',opts:['Synchronizer control generates a D.C. pulse which is sent to slave propeller unit','Propellers are out of synchronization','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'Torque Bending Definition.',opts:['Bending of propeller blades due to aerodynamic lift','Bending of propeller blades caused by engine torque during rotation','Bending of propeller blades due to centrifugal force'],ans:1,exp:'B) Bending of propeller blades caused by engine torque during rotation'},
+    {topic:'',q:'When A/C is not equipped with synchronization.',opts:['Pilot manually synchronizes the propellers','If wheel rotates clockwise direction, left engine is running faster','If wheel rotates counterclockwise, right engine is running faster'],ans:0,exp:'A) Pilot manually synchronizes the propellers'},
+    {topic:'',q:'Brush block MTG (Mounting).',opts:['On the propeller hub','Inside the spinner','Behind the reduction gearbox'],ans:1,exp:'B) Inside the spinner'}
+  ]
+};

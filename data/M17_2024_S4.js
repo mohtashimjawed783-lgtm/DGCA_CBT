@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2024 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2024 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2024'
+  },
+  questions: [
+    {topic:'',q:'Oil goes to slinger ring from tank in electrical de-icing by.',opts:['By gravity','Independent centrifugal pump','Independent electric pump'],ans:2,exp:'C) Independent electric pump'},
+    {topic:'',q:'When propeller is removed from A/C, then blade bolt hole is examined by.',opts:['NDT','Magnifying glass (10X)','Go-NoGo gauge'],ans:1,exp:'B) Magnifying glass (10X)'},
+    {topic:'',q:'Blade angle is the angle between.',opts:['Chord line and relative airflow','Chord line and plane of rotation','Chord line and LT'],ans:1,exp:'B) Chord line and plane of rotation'},
+    {topic:'',q:'Blade angle is.',opts:['The angle between the blade and the direction of the incoming fluid flow','The angle between the blade and the rotor shaft axis','The angle between the blade and the tangential velocity of the rotor'],ans:0,exp:'A) The angle between the blade and the direction of the incoming fluid flow'},
+    {topic:'',q:'During take-off, position of blade is.',opts:['Low blade angle & Low AoA','High blade angle & High AoA','High blade angle & Low AoA'],ans:0,exp:'A) Low blade angle & Low AoA'},
+    {topic:'',q:'If propeller is overspeeding in excess of 110% of RPM limit, then.',opts:['Adjust low pitch','Adjust high pitch','Return to manufacturer'],ans:2,exp:'C) Return to manufacturer'},
+    {topic:'',q:'Advantage of pusher propeller is.',opts:['Better rear visibility','Improved engine cooling','Higher fuel efficiency'],ans:0,exp:'A) Better rear visibility'},
+    {topic:'',q:'Blade face is.',opts:['Flat side of propeller blade','Flat side of propeller blade, where aerodynamic reaction takes place','Cambered surface'],ans:0,exp:'A) Flat side of propeller blade'},
+    {topic:'',q:'Runback in de-icing is.',opts:['De-icing fluid used with de-icing system','Sufficient heating for entire water evaporation','Used until removal of internal ice layer'],ans:2,exp:'C) Used until removal of internal ice layer'},
+    {topic:'',q:'Force that bends the propeller blade in forward direction.',opts:['Thrust bending force','Torque bending force','Centrifugal twisting momen'],ans:0,exp:'A) Thrust bending force'},
+    {topic:'',q:'A typical way to pump oil to slinger ring from supply tank is by.',opts:['Independent electric pump','Engine pump','Independent mechanical pump'],ans:0,exp:'A) Independent electric pump'},
+    {topic:'',q:'What signal is sent to actuator to increase RPM of slow propeller.',opts:['Clockwise','Anti-clockwise','Opposite to direction of rotation'],ans:2,exp:'C) Opposite to direction of rotation'},
+    {topic:'',q:'Propeller synchronization is done to.',opts:['Decrease engine RPM','Decrease propeller RPM','Decrease engine vibration'],ans:2,exp:'C) Decrease engine vibration'},
+    {topic:'',q:'The distance a propeller would advance in one revolution is.',opts:['Effective pitch','Geometric pitch','Slip'],ans:0,exp:'A) Effective pitch'},
+    {topic:'',q:'What shows propeller blade tracking.',opts:['Tracking shows only position of blade','Tracking shows only actual position','Tracking shows relative position'],ans:2,exp:'C) Tracking shows relative position'},
+    {topic:'',q:'What pressure is required to governor for pitch change mechanism.',opts:['Booster case pump','Auxiliary pump','Accumulator oil pressure'],ans:2,exp:'C) Accumulator oil pressure'},
+    {topic:'',q:'If propeller cone or hub seats show evidence of galling or wear, the most likely cause is.',opts:['Propeller starting nut was not tight enough during previous operation','The front cone was not fully bottomed against the crankshaft splines during installation','Pitch change movement was started too soon, causing the cone seat to act as the pitch stop'],ans:1,exp:'B) The front cone was not fully bottomed against the crankshaft splines during installation'},
+    {topic:'',q:'The ice formation on propeller blades during flight will cause.',opts:['Decrease engine power','Increase A/C stall speed','Cause vibration & decrease thrust'],ans:2,exp:'C) Cause vibration & decrease thrust'},
+    {topic:'',q:'Storage of 3-bladed propellers.',opts:['One blade down','Two blades down','Any position','All of above'],ans:3,exp:'D) All of above'},
+    {topic:'',q:'Propeller station numbers, measured in inches, are taken from.',opts:['Centre of shank','Centre of hub','Centre of shaft','All of above'],ans:3,exp:'D) All of above'},
+    {topic:'',q:'Feathering process occurs due to.',opts:['Engine oil pressure','Counterweight & feathering spring','Feathering spring & feathering pump'],ans:2,exp:'C) Feathering spring & feathering pump'},
+    {topic:'',q:'Labelling on stored propellers.',opts:['Part numbers','Original date of storage','Modificatio'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'In master motor synchronization, which does the pitch change mechanism.',opts:['Constant speed unit','RPM control levers','Tachometer'],ans:0,exp:'A) Constant speed unit'},
+    {topic:'',q:'Synchronization system is used on.',opts:['All type of flight operations','All phases of flight, except landing & takeoff','All phases of flight, except takeoff'],ans:1,exp:'B) All phases of flight, except landing & takeoff'},
+    {topic:'',q:'Anti-icing fluid flows through the blades by.',opts:['Centrifugal force','Due to rotation','Pressure difference'],ans:0,exp:'A) Centrifugal force'},
+    {topic:'',q:'In De-Icing system.',opts:['Consists of master switch & de-ice selector switch which select & adjust for light or heavy icing condition','Uses only automatic sensors to detect ice formation','Is independent of pilot control and operates continuously'],ans:0,exp:'A) Consists of master switch & de-ice selector switch which select & adjust for light or heavy icing condition'},
+    {topic:'',q:'Blade cuff.',opts:['Attached by mechanical clamps, chemical bonding or epoxy adhesive','Bonding by epoxy adhesive','Bonding by organic adhesi'],ans:0,exp:'A) Attached by mechanical clamps, chemical bonding or epoxy adhesive'},
+    {topic:'',q:'Blade tip clearance is.',opts:['The distance between the blade tip and the casing or housing','The thickness of the blade at the tip','The angle at which the blade tip is twisted'],ans:0,exp:'A) The distance between the blade tip and the casing or housing'},
+    {topic:'',q:'In hydromatic propeller, which oil is used.',opts:['Hydraulic oil','Engine inhibition oil','Preservative oil'],ans:0,exp:'A) Hydraulic oil'},
+    {topic:'',q:'Three-bladed propeller. storage.',opts:['Stored horizontally','One blade up, two blades down','Stored on rack','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'In propeller, where is magnetic pickup mounted.',opts:['Speeder spring','Feathering pump','Governor'],ans:2,exp:'C) Governor'},
+    {topic:'',q:'Which is typically controlling feathering action.',opts:['Power levers','PCU (Propeller Control Unit)','Hydraulic system'],ans:1,exp:'B) PCU (Propeller Control Unit)'}
+  ]
+};

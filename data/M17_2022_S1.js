@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2022 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2022 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2022'
+  },
+  questions: [
+    {topic:'',q:'Counterweights attached to the propeller.',opts:['Blade face','Blade back','Blade hub','Blade clamp'],ans:1,exp:'B) Blade back'},
+    {topic:'',q:'The propeller experiences tension due to centrifugal force at.',opts:['Blade face','Blade root','Blade hub','Blade back'],ans:1,exp:'B) Blade root'},
+    {topic:'',q:'MTCS.',opts:['Torque bending force tries to throw out the blades from the hub','Centrifugal force opposes the plane of rotation','Aerodynamic twisting force increases the blade angle/pitch'],ans:0,exp:'A) Torque bending force tries to throw out the blades from the hub'},
+    {topic:'',q:'In electric de-icing system, the cyclic timers are used to.',opts:['Measure the current','Energize the heating element circuit'],ans:2,exp:'C) Energize the heating element circuit'},
+    {topic:'',q:'In electric de-icing system.',opts:['10–15 seconds ON, cycle time 5 mins','15–30 seconds ON, cycle time 5 mins','10–15 seconds ON, cycle time 2 mins'],ans:1,exp:'B) 15–30 seconds ON, cycle time 5 mins'},
+    {topic:'',q:'The blade cuffs are attached to the blades.',opts:['Using organic adhesives','By mechanical damping devices or bonding materials','Rubber-based adhesives and epoxy adhesives are used'],ans:2,exp:'C) Rubber-based adhesives and epoxy adhesives are used'},
+    {topic:'',q:'Tractor propeller definition.',opts:['Propeller mounted ahead of engine, pulls the aircraft forward','Propeller mounted behind the engine','Mounted on pylon'],ans:0,exp:'A) Propeller mounted ahead of engine, pulls the aircraft forward'},
+    {topic:'',q:'Pusher propeller definition',opts:['Propeller mounted ahead of engine','Propeller mounted behind engine, pushes the aircraft','Propeller fitted in engine nacelle'],ans:1,exp:'B) Propeller mounted behind engine, pushes the aircraft'},
+    {topic:'',q:'All propellers/components stored should be labelled with.',opts:['Date/year of manufacture','Original date of storage','Manufacturer name'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'If not stored in original packing, re-inhibition required every.',opts:['3 months','6 months','12 months'],ans:1,exp:'B) 6 months'},
+    {topic:'',q:'Rubber components are normally subject to.',opts:['A specific life','Life under which operation is not prohibited'],ans:0,exp:'A) A specific life'},
+    {topic:'',q:'Inhibition, re-inhibition, and distribution of propeller is done according to.',opts:['Manufacturer’s recommendation','Quality control manager','Aircraft flight manual'],ans:0,exp:'A) Manufacturer’s recommendation'},
+    {topic:'',q:'In synchronization.',opts:['Type I assigns master & slave to engine','Type II assigns master & slave to engine','Type I compares RPM & raises engine speed running at low RPM'],ans:2,exp:'C) Type I compares RPM & raises engine speed running at low RPM'},
+    {topic:'',q:'Master motor unit.',opts:['Incorporates master motor with 4 contactor units','Each contactor electrically connected to alternator','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'The contactors of master motor synchronizers are driven by.',opts:['Mastermate','Accessory drive of the engine','Pump'],ans:1,exp:'B) Accessory drive of the engine'},
+    {topic:'',q:'In turbopropeller assembly.',opts:['Major subassemblies are barrel, dome, low-pitch stop, pitch-lock regulator','Central assembly mounted on non-rotating extension of barrel','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'In electrical de-icing system, fluid is pumped to slinger ring by.',opts:['Motor','Independent centrifugal pump','Independent electric pump'],ans:2,exp:'C) Independent electric pump'},
+    {topic:'',q:'In electric de-icing system, power is supplied via.',opts:['Feed pipes','Slip ring & brush assembly','Nozzle'],ans:1,exp:'B) Slip ring & brush assembly'},
+    {topic:'',q:'Gear ratio formula question.',opts:['(No info provided, assume typical: Gear ratio = Driven/Driver)'],ans:0,exp:'A) (No info provided, assume typical: Gear ratio = Driven/Driver)'},
+    {topic:'',q:'Pitch change mechanism on hydraulic piston propeller is via.',opts:['Rack & pinion','Gear & pinion','Rack and force assembly'],ans:0,exp:'A) Rack & pinion'},
+    {topic:'',q:'Feathering is used in.',opts:['Single engine airplanes','Multi-engine aircrafts','Single turbine engine aircrafts'],ans:1,exp:'B) Multi-engine aircrafts'},
+    {topic:'',q:'In constant speed propeller at takeoff.',opts:['Low blade angle is kept to keep AOA low','High blade angle is kept to keep AOA low','Engine RPM is set low to get max thrust'],ans:0,exp:'A) Low blade angle is kept to keep AOA low'},
+    {topic:'',q:'Which force bends the propeller blades forward.',opts:['Torque','Thrust','Centrifugal'],ans:1,exp:'B) Thrust'},
+    {topic:'',q:'Checking de-icing boots done by.',opts:['Feeling with hand + load meter monitoring','Only feeling the boot','Only load meter'],ans:0,exp:'A) Feeling with hand + load meter monitoring'},
+    {topic:'',q:'MTCS – Propeller imbalance.',opts:['Static imbalance = CG ≠ rotation axis','Dynamic imbalance = CG ≠ rotation axis','Dynamic imbalance = blade/counterweight not in same plane','Track check not required'],ans:2,exp:'C) Dynamic imbalance = blade/counterweight not in same plane'},
+    {topic:'',q:'To check blade angle of propeller use.',opts:['Universal propeller protractor','Sine bar','Vernier caliper'],ans:0,exp:'A) Universal propeller protractor'},
+    {topic:'',q:'In constant speed propeller, RPM is controlled by.',opts:['Constant speed control unit','Governor','Motor'],ans:1,exp:'B) Governor'},
+    {topic:'',q:'MTCS – Blade tracking.',opts:['Shows relative blade position','Shows relative position, not actual path','Shows both'],ans:1,exp:'B) Shows relative position, not actual path'},
+    {topic:'',q:'Synchronization is achieved by.',opts:['Synchronizing propeller & engine RPM','Synchronizing engine speed','Synchronizing RPM'],ans:2,exp:'C) Synchronizing RPM'},
+    {topic:'',q:'In one engine master system, correction signal goes to.',opts:['Master/special governor','Slave governor','Synchronizer unit','Pitch changing mechanism'],ans:1,exp:'B) Slave governor'},
+    {topic:'',q:'Turbo-propeller section question.',opts:['Turbo-prop uses reduction gearbox to match prop speed','Direct drive','No gearbox needed'],ans:0,exp:'A) Turbo-prop uses reduction gearbox to match prop speed'},
+    {topic:'',q:'Thrust bending force acts to.',opts:['Bend the blade forward (in direction of thrust)','Bend backward','Rotate blade about axis'],ans:0,exp:'A) Bend the blade forward (in direction of thrust)'}
+  ]
+};

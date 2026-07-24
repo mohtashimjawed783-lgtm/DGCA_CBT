@@ -1,0 +1,42 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 05 | 2018 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 05 – 2018 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 05 — 1 Session of 2018'
+  },
+  questions: [
+    {topic:'',q:'ARINC used to aircraft data from airborne weather radar receive to.aircraft radar display.',opts:['708','629','575'],ans:0,exp:'A) 708'},
+    {topic:'',q:'Catastrophic failure level.',opts:['Level A','Leve C','Level C','Level B'],ans:0,exp:'A) Level A'},
+    {topic:'',q:'Deferential BUS Uses.',opts:['noise re-education and long distance data transmission'],ans:0,exp:'A) noise re-education and long distance data transmission'},
+    {topic:'',q:'If change in hardware is carried out.',opts:['No need to update software','Corresponding software need to update ,if loaded'],ans:1,exp:'B) Corresponding software need to update ,if loaded'},
+    {topic:'',q:'Filter Used for ADC.',opts:['Low Pass filter','Low Pass filter'],ans:0,exp:'A) Low Pass filter'},
+    {topic:'',q:'If no f bite increased Resolution of ADC.',opts:['Increased','Decreased','No Effect'],ans:0,exp:'A) Increased'},
+    {topic:'',q:'Quantisation definition.',opts:['Converting analog values into discrete digital steps','Changing binary data into analog signals','Amplifying weak analog signals'],ans:0,exp:'A) Converting analog values into discrete digital steps'},
+    {topic:'',q:'EMI Definition',opts:['Interference caused by internal software errors','Signal loss due to low voltage','Electromagnetic interference affecting signal integrity'],ans:2,exp:'C) Electromagnetic interference affecting signal integrity'},
+    {topic:'',q:'If high intensity radio frequency propagates in space, in space it creates.',opts:['EMI','HIRF','High voltage'],ans:1,exp:'B) HIRF'},
+    {topic:'',q:'In GPS satellite principle works on.',opts:['Speed','altitude','Range'],ans:2,exp:'C) Range'},
+    {topic:'',q:'Wave in fibre optics if radiated with electrometric wave.',opts:['Can pass with heavy loss','can’t pass','Can pass with low pass','None'],ans:1,exp:'B) can’t pass'},
+    {topic:'',q:'LCD uses which voltage.',opts:['DC','AC','low current with DC','low voltage with AC'],ans:3,exp:'D) low voltage with AC'},
+    {topic:'',q:'MCTS on Optical fibre.',opts:['Core of silica glass with cladding','Optical fibre consists of cylindrical silica glass core with glass cladding'],ans:0,exp:'A) Core of silica glass with cladding'},
+    {topic:'',q:'Ray entering form he edges will.',opts:['Take a longer path through the fibre but will travel faster','Take a longer path through the fibre and arrive later','Take a shorter path and reach earlier'],ans:1,exp:'B) Take a longer path through the fibre and arrive later'},
+    {topic:'',q:'In logic gate if we have 4 in puts then how may output will be them.',opts:['16','32','8','64'],ans:0,exp:'A) 16'},
+    {topic:'',q:'In octal how may digits use.',opts:['0-7','0-8','0-16'],ans:0,exp:'A) 0-7'},
+    {topic:'',q:'_________ is Use for removing or presenting the display in secondary information on the lower display unit in ECAS.',opts:['Display Switch','status switch','Event Switch','Computer select switch EHJ posset integrated.'],ans:1,exp:'B) status switch'},
+    {topic:'',q:'Regulator used in electrical system is to.',opts:['Control speed','Control Range','Control voltage'],ans:2,exp:'C) Control voltage'},
+    {topic:'',q:'AOA sensor if used in aircraft in aircraft signal from AOA sensors can be programed to show in display.',opts:['Only red warning without any stick input','Text-only display without any color or tactile alert','Red yellow, green with control stick shocker'],ans:2,exp:'C) Red yellow, green with control stick shocker'},
+    {topic:'',q:'Warnings show in EICAS',opts:['Red with alert sound','Red with No sound','Yellow','Red, Yellow, Blue'],ans:0,exp:'A) Red, Yellow, Blue'},
+    {topic:'',q:'High regulation is required in display.',opts:['AMLCD','LCD','C) CRT'],ans:0,exp:'A) AMLCD'},
+    {topic:'',q:'In FMS crew can.',opts:['Can select RPM','Can select air speed to show on display','Can see select command message in number data','Can select command bug slow altitude'],ans:3,exp:'D) Can select command bug slow altitude'},
+    {topic:'',q:'The pattern required to display alphanumeric character in CRT controller stored in.',opts:['Character generator to ROM','RAM buffer','Display register'],ans:0,exp:'A) Character generator to ROM'},
+    {topic:'',q:'Chip in rom contain data is used for.',opts:['Software','Firmware','Hardware'],ans:1,exp:'B) Firmware'},
+    {topic:'',q:'In Mask programed ROM.',opts:['Can be programed by manufacturer','Can be by user','Can be by manufacturer or user'],ans:0,exp:'A) Can be programed by manufacturer'},
+    {topic:'',q:'Data format in DFLD.',opts:['Binary','Hex Decimal','Either A or B'],ans:2,exp:'C) Either A or B'},
+    {topic:'',q:'If material from same triboelectric polarity are rubbed together.',opts:['Can produce voltage and cause a threat','Little or no voltage is produced','Large current is generated instantly'],ans:1,exp:'B) Little or no voltage is produced'},
+    {topic:'',q:'MTCS in ESDS.',opts:['Should be packed with conductive bag.','PCB can touch by Hand………'],ans:1,exp:'B) PCB can touch by Hand…'},
+    {topic:'',q:'HIRF can be minimized by.',opts:['Grounding and Bonding','Increasing antenna length','Removing shielding from cables'],ans:0,exp:'A) Grounding and Bonding'},
+    {topic:'',q:'Flight Director Function.',opts:['Controls engine thrust automatically','Monitors airspeed only','Provides steering commands'],ans:2,exp:'C) Provides steering commands'},
+    {topic:'',q:'Hex equivalent of binary 000101111.',opts:['1F','2F','1C','Output is HIGH only if both inputs are HIGH'],ans:1,exp:'B) Set of instructions for processor'}
+  ]
+};

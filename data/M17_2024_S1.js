@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2024 – 1 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2024 Session 1',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 1 Session of 2024'
+  },
+  questions: [
+    {topic:'',q:'GP (Geometric Pitch) is.',opts:['Distance a propeller should advance in one revolution','Ratio of thrust horsepower to brake horsepower','Angle between chord or face of propeller to plane of rotation'],ans:0,exp:'A) Distance a propeller should advance in one revolution'},
+    {topic:'',q:'Propeller efficiency is defined as.',opts:['Ratio of thrust horsepower to brake horsepower','Angle between chord of blade and axis','Ratio of input to output power'],ans:0,exp:'A) Ratio of thrust horsepower to brake horsepower'},
+    {topic:'',q:'Blade angle is defined as.',opts:['Angle between chord or face of propeller to plane of rotation','Angle between pitch and chord line','Angle between thrust axis and flight path'],ans:0,exp:'A) Angle between chord or face of propeller to plane of rotation'},
+    {topic:'',q:'ATF or ATM (Aerodynamic Twisting Force or Moment) tends to rotate propeller blade.',opts:['To low blade angle','To high blade angle','Has no effect on blade angle'],ans:1,exp:'B) To high blade angle'},
+    {topic:'',q:'MTCS: When CTM is greater than ATM, propeller blade moves.',opts:['Towards high blade angle','Towards low blade angle','CTM is greater than ATM & blade moves towards low blade angle'],ans:2,exp:'C) CTM is greater than ATM & blade moves towards low blade angle'},
+    {topic:'',q:'Wooden propeller should be stored when engine is inactive for extended period.',opts:['In vertical position','In horizontal position to maintain equal moisture','In any position'],ans:1,exp:'B) In horizontal position to maintain equal moisture'},
+    {topic:'',q:'Piston cylinder is mounted on ……. in variable pitch propeller.',opts:['Blade clamp','Front on spinner','Shank','Governor'],ans:0,exp:'A) Blade clamp'},
+    {topic:'',q:'Fixed pitch propeller – blade angle.',opts:['Cannot be changed after propeller is built','Can be changed manually','Can be changed in flight'],ans:0,exp:'A) Cannot be changed after propeller is built'},
+    {topic:'',q:'Last two digits in propeller data information indicate.',opts:['Inches pitch at 0.75R radius','Propeller diameter in inches','Basic design number'],ans:0,exp:'A) Inches pitch at 0.75R radius'},
+    {topic:'',q:'The hydraulic piston cylinder which provides power for pitch change is mounted at.',opts:['Shank','Blade clamp','Front of hub','Governor'],ans:2,exp:'C) Front of hub'},
+    {topic:'',q:'Absorbs thrust, torque, and centrifugal force in propeller.',opts:['Shank','Near the hub','Blade clamp'],ans:1,exp:'B) Near the hub'},
+    {topic:'',q:'When 3-bladed propeller is stored, it should be stored in.',opts:['One blade down vertical position','Horizontal position','Any position'],ans:0,exp:'A) One blade down vertical position'},
+    {topic:'',q:'If engine vibration occurs and the hub is rotating in slight orbits, vibration is caused by.',opts:['Engine vibration','Propeller vibration'],ans:1,exp:'B) Propeller vibration'},
+    {topic:'',q:'MTCS: If two signals are different, the propeller is.',opts:['Out of synchronization','Synchronize control generates DC pulses which are sent to slave unit','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'Oil goes to slinger ring from tank by.',opts:['Gravity','Independent centrifugal pump','Independent electric pump'],ans:2,exp:'C) Independent electric pump'},
+    {topic:'',q:'Contactor of master motor synchronizer is driven by.',opts:['Master motor','Alternator','Accessory drive'],ans:0,exp:'A) Master motor'},
+    {topic:'',q:'On right-hand engine, which one is mounted.',opts:['Special governor','Slave governor, synchro control unit','Actuator','Both'],ans:3,exp:'D) Both'},
+    {topic:'',q:'MTCS: Type I prop is normally OFF during takeoff and landing.',opts:['Type I prop is normally OFF during takeoff and landing','Type I prop is normally ON during taxi','Type II prop is normally OFF during taxi'],ans:0,exp:'A) Type I prop is normally OFF during takeoff and landing'},
+    {topic:'',q:'For storage of propellers more than 3 months, the propeller should be.',opts:['Removed and stored','Feathered if unfeathering using feathering pump','Pitch mechanism exercised using another engine'],ans:1,exp:'B) Feathered if unfeathering using feathering pump'},
+    {topic:'',q:'De-icing sls consist of.',opts:['Slip ring','Brush','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'When propeller is removed from aircraft, the blade bolt hole is examined by.',opts:['Pitot','GO & NO-GO gauge','Magnifying glass'],ans:1,exp:'B) GO & NO-GO gauge'},
+    {topic:'',q:'Rubber overshoe on propeller in de-icing.',opts:['Inhibiting with rubber shoe installed','Clean rubber overshoe','Remove before inhibiting'],ans:2,exp:'C) Remove before inhibiting'},
+    {topic:'',q:'Propeller used in piston engine is for.',opts:['Thrust','Torque','Speed'],ans:0,exp:'A) Thrust'},
+    {topic:'',q:'MTCS (Motor Timing Control System).',opts:['Electric motor drives contacts that control power contacts in separate sections of CRT','Cycle timer is used for 5 min','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'As oil is drained out of propeller cylinder, the centrifugal force acting on counterweight turns the blade to.',opts:['Higher angle','Lower angle','Remains same position'],ans:0,exp:'A) Higher angle'},
+    {topic:'',q:'When propeller de-icing is not functioning properly, then.',opts:['Flow of fluid is then checked','Functional test','Inhibiting'],ans:1,exp:'B) Functional test'},
+    {topic:'',q:'MTCS unfeather speed card.',opts:['Centrifugal force extended by flyweight decreases','Oil flow through the actuator port','Pilot valve moves downward so low-pitch propeller spring is below the pilot valve','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Automatic pitch change mechanism is used in.',opts:['Constant speed propeller','Ground adjustable mechanism','Automatic pitch change propeller'],ans:2,exp:'C) Automatic pitch change propeller'},
+    {topic:'',q:'In typical turbo-prop assembly, synchronization consists of.',opts:['Pulse generator','Electronic synchronizer','Servo bias assembly','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'If blade tracking is correct but still vibration occurs, the reason is.',opts:['Blade angle incorrect','Hub crack','Incorrect pitch'],ans:0,exp:'A) Blade angle incorrect'},
+    {topic:'',q:'A propeller must be capable of withstanding several stresses caused by centrifugal force and thrust.',opts:['Near the hub','Shank','Blade root','Blade face'],ans:0,exp:'A) Near the hub'},
+    {topic:'',q:'What happens if the propeller blade pitch angle is increased beyond the optimum at constant RPM.',opts:['Thrust increases due to higher angle of attack.','Blades stall, thrust decreases, and engine torque increases.','Fuel consumption decreases due to less drag'],ans:1,exp:'B) Blades stall, thrust decreases, and engine torque increases.'}
+  ]
+};

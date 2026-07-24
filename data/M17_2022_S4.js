@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2022 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2022 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2022'
+  },
+  questions: [
+    {topic:'',q:'If propellers are not retained in original packing, they should be re-inhibited after.',opts:['6 months','9 months','12 months'],ans:2,exp:'C) 12 months'},
+    {topic:'',q:'A typical propeller blade can be hoisted from the.',opts:['Tip','Airfoil of irregular platform','Leading edg'],ans:1,exp:'B) Airfoil of irregular platform'},
+    {topic:'',q:'Piston engine propellers are used to.',opts:['Decrease vibration','Maintain RPM','Increase thrust'],ans:2,exp:'C) Increase thrust'},
+    {topic:'',q:'Ice formation on propeller in flight causes.',opts:['Increased efficiency','Decreased thrust and excessive vibration','Stable RPM'],ans:1,exp:'B) Decreased thrust and excessive vibration'},
+    {topic:'',q:'Feathering system uses.',opts:['Hydraulic oil','Engine oil','Coolant'],ans:1,exp:'B) Engine oil'},
+    {topic:'',q:'Auto-feathering system operates.',opts:['Only manually','Automatically','With manual override only'],ans:1,exp:'B) Automatically'},
+    {topic:'',q:'Pusher propellers are mounted on the.',opts:['Nose of aircraft','Downstream of drive shaft','Wingtip'],ans:1,exp:'B) Downstream of drive shaft'},
+    {topic:'',q:'Propellers retained in storage should be tagged with.',opts:['Maintenance interval','Original date of storage','Date of manufacture'],ans:0,exp:'A) Both'},
+    {topic:'',q:'Wooden propellers are rejected for.',opts:['Surface polish','Nicks/cracks','Weight difference'],ans:1,exp:'B) Nicks/cracks'},
+    {topic:'',q:'Cyclic timers in electric de-icing are powered by.',opts:['Mechanical relays','Electric motor & control power contactor','Pneumatic switch'],ans:1,exp:'B) Electric motor & control power contactor'},
+    {topic:'',q:'Blade tracking should be done on.',opts:['Blade A','Blade B','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'Magnetic pickup for synchronization is used in.',opts:['Both engines','One engine (master)','Propeller blades'],ans:1,exp:'B) One engine (master)'},
+    {topic:'',q:'Electrical de-icing is checked by.',opts:['Load meter indication','Feeling sequence of heat','Thermocouple'],ans:1,exp:'B) Feeling sequence of heat'},
+    {topic:'',q:'Propeller synchronization helps to.',opts:['Increase power','Reduce vibration','Reduce drag'],ans:1,exp:'B) Reduce vibration'},
+    {topic:'',q:'Fixed pitch propeller pitch can be changed.',opts:['During flight','After installation','Cannot be changed after manufacturing'],ans:2,exp:'C) Cannot be changed after manufacturing'},
+    {topic:'',q:'In MTCS, ATF force tends to.',opts:['Decrease pitch','Increase blade angle','Neutralize oil pressur'],ans:1,exp:'B) Increase blade angle'},
+    {topic:'',q:'Synchronophasing system uses.',opts:['Pulse detector','Electronic circuit','All of the above'],ans:2,exp:'C) All of the above'},
+    {topic:'',q:'Wooden propeller is rejected if.',opts:['Bolt head is shiny','Hub is loose','All of the above'],ans:2,exp:'C) All of the above'},
+    {topic:'',q:'Tip speed is reduced by using.',opts:['Large spinner','Balancing disc','Reduction gear'],ans:2,exp:'C) Reduction gear'},
+    {topic:'',q:'The purpose of feathering is to.',opts:['Increase blade drag','Stop windmilling','Increase RPM'],ans:1,exp:'B) Stop windmilling'},
+    {topic:'',q:'Feathering is used in.',opts:['Single-engine aircraft','Twin-engine aircraft','Multi-engine aircraft'],ans:2,exp:'C) Multi-engine aircraft'},
+    {topic:'',q:'When one propeller produces more thrust, it is corrected by.',opts:['Blade heating','Counter blade angle adjustment','Manual reduction gear'],ans:1,exp:'B) Counter blade angle adjustment'},
+    {topic:'',q:'Boost of de-icing is controlled by.',opts:['Brush','Slip ring','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'Multi-bladed propeller should be stored.',opts:['In horizontal position','Vertically fixed','On stand'],ans:2,exp:'C) On stand'},
+    {topic:'',q:'If engine power increases, then.',opts:['Blade angle increases only','Blade angle and RPM both increase','RPM increases only'],ans:0,exp:'A) Blade angle increases only'},
+    {topic:'',q:'Brush-related questions are typically about.',opts:['Current block','Brush block','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'At high altitude, blade angle is adjusted for.',opts:['Engine efficiency','Fuel consumption','Both A & B'],ans:0,exp:'A) Engine efficiency'},
+    {topic:'',q:'Electrical de-icing is related to.',opts:['Load meter','MTCS','Both are correct'],ans:2,exp:'C) Both are correct'},
+    {topic:'',q:'Sync engine is used in.',opts:['Both engines','Master engine synchronization','Governor blade control'],ans:1,exp:'B) Master engine synchronization'},
+    {topic:'',q:'MTCS tends to.',opts:['Decrease thrust','Increase blade angle','Prevent feathering'],ans:1,exp:'B) Increase blade angle'},
+    {topic:'',q:'Alpha range is controlled by.',opts:['Manual over ride','RPM sensor','Flyweight governor'],ans:2,exp:'C) Flyweight governor'},
+    {topic:'',q:'At high engine load, blade angle is.',opts:['Constant','Reduced','Increased'],ans:2,exp:'C) Increased'}
+  ]
+};

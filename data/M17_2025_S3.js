@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2025 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2025 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2025'
+  },
+  questions: [
+    {topic:'',q:'In Synchrophaser.',opts:['Slave keyed each engine','Slave keyed master engine on LH side','Pilot turns knob on Synchrophaser panel to reduce vibration','All wrong'],ans:2,exp:'C) Pilot turns knob on Synchrophaser panel to reduce vibration'},
+    {topic:'',q:'When centre of gravity doesn’t coincide with the axis of rotation.',opts:['Static unbalance','Dynamic unbalance','Aerodynamic unbalance'],ans:0,exp:'A) Static unbalance'},
+    {topic:'',q:'If the propeller blade tracking and low pitch setting angle not correct, the prop is statically balance.',opts:['Send to manufacturer'],ans:0,exp:'A) Send to manufacturer'},
+    {topic:'',q:'Instrument used on turbo-prop engine.',opts:['Synchrophase & tachometer','Tachometer & manifold pressure gauge','Manifold pressure gauge'],ans:1,exp:'B) Tachometer & manifold pressure gauge'},
+    {topic:'',q:'Wooden propeller stored.',opts:['Vertically','Horizontally'],ans:1,exp:'B) Horizontally'},
+    {topic:'',q:'De-icing fluid goes to blade shank.',opts:['Feed pump (electric pump)'],ans:0,exp:'A) Feed pump (electric pump)'},
+    {topic:'',q:'Contactor of master motor synchronizer is driven by.',opts:['Master motor','Alternator','Accessory drive'],ans:1,exp:'B) Alternator'},
+    {topic:'',q:'Blade are divided into segment, station no 1.',opts:['From the center of blade hub'],ans:0,exp:'A) From the center of blade hub'},
+    {topic:'',q:'Oil for operating different types of hydraulic pitch changing mechanism.',opts:['Hydraulic oil','Engine oil'],ans:1,exp:'B) Engine oil'},
+    {topic:'',q:'Which of following cause wooden prop rejection.',opts:['Elongated bolt hole','Solder removed after screw','No polish on the prop blade','N/A'],ans:0,exp:'A) Elongated bolt hole'},
+    {topic:'',q:'To prevent Runback.',opts:['Sufficient heat applied to melt face of ice','Sufficient heat applied to evaporate water'],ans:0,exp:'A) Sufficient heat applied to melt face of ice'},
+    {topic:'',q:'Master engine governor mounted on.',opts:['RH side','LH side','Centre'],ans:1,exp:'B) LH side'},
+    {topic:'',q:'Variable pitch prop store up to 3 months.',opts:['Filled with inhibiting oil','Free circulation','Wax'],ans:0,exp:'A) Filled with inhibiting oil'},
+    {topic:'',q:'What causes the propeller blade into high pitch configuration.',opts:['ATM','LTM','Thrust bending force'],ans:2,exp:'C) Thrust bending force'},
+    {topic:'',q:'Typical prop blade camber twisted.',opts:['Airfoil of regular planform','Airfoil of irregular planform'],ans:1,exp:'B) Airfoil of irregular planform'},
+    {topic:'',q:'In piston engine propeller used for.',opts:['Convert heat to mechanical energy','The rotating wing','Help to increase the thrust'],ans:2,exp:'C) Help to increase the thrust'},
+    {topic:'',q:'Synchronization control RPM within what range.',opts:['50 RPM','100 RPM','150 RPM'],ans:1,exp:'B) 100 RPM'},
+    {topic:'',q:'Disadvantage of reverse pitch propeller.',opts:['Increase ground maneuverability','Will result into damage from stone, etc','Increase forward thrust instead of backward','All'],ans:1,exp:'B) Will result into damage from stone, etc'},
+    {topic:'',q:'Centrifugal force, due to rotation of prop, tends to move the counterweight into.',opts:['Axis','Away from axis','The plane of rotation'],ans:2,exp:'C) The plane of rotation'},
+    {topic:'',q:'For climb, after take-off, the power output of the engine.',opts:['Recline blade angle','Decreasing manifold pressure and increase the blade angle','Power lever side to side and increase manifold pressure'],ans:1,exp:'B) Decreasing manifold pressure and increase the blade angle'},
+    {topic:'',q:'Centrifugal force of blade as 25 tons is transmitted to the hub through.',opts:['Blade clamp','Bushing inside the blade shank','Blade clamp and then ball bearing','Ball bearing'],ans:2,exp:'C) Blade clamp and then ball bearing'},
+    {topic:'',q:'The propeller thrust and engine torque is transmitted from the blade to hub through.',opts:['Ball bearing','Blade clamp','Bushing inside the blade shank','Blade clamp and the ball bearing'],ans:1,exp:'B) Blade clamp'},
+    {topic:'',q:'In electric de-icing, the protective device is.',opts:['Current limiters','Ammeters','Loadmeter'],ans:0,exp:'A) Current limiters'},
+    {topic:'',q:'The frequency of voltage produced by generator is.',opts:['The frequency of voltage produced by generator is directly proportional to engine accessory speed','The frequency of voltage produced by generator is directly proportional to its inductor'],ans:0,exp:'A) The frequency of voltage produced by generator is directly proportional to engine accessory speed'},
+    {topic:'',q:'Thrust load that bend prop blade forward as aircraft is pulled through air.',opts:['Thrust bending force','Aerodynamic twisting moment','Centrifugal force'],ans:0,exp:'A) Thrust bending force'},
+    {topic:'',q:'Hydromatic prop use.',opts:['Engine oil','Hydraulic oil'],ans:0,exp:'A) Engine oil'},
+    {topic:'',q:'Location of removal/installation of weight for prop unbalance correction has determined by.',opts:['Manufacture','DGCA','Civil Aviation Authority'],ans:0,exp:'A) Manufacture'},
+    {topic:'',q:'For best efficiency & reduce tip speed.',opts:['Reduction gear','Governor'],ans:0,exp:'A) Reduction gear'},
+    {topic:'',q:'At high altitude, a constant-speed propeller with hydraulic governor can’t hold RPM though MAP is normal. Most likely cause.',opts:['Low oil pressure from cold temp','Aero-twist beats counterweights','Centrifugal twist drops with RPM','Excess thrust bending'],ans:0,exp:'A) Low oil pressure from cold temp'},
+    {topic:'',q:'A wooden fixed-pitch prop shows vibration only at mid-RPM, not at idle/full. Likely cause.',opts:['Moisture-caused dynamic unbalance','Hub bushings shift at mid-speed','Wrong blade twist angle','Thrust bending at mid-speed'],ans:0,exp:'A) Moisture-caused dynamic unbalance'},
+    {topic:'',q:'Effective pitch defined as.',opts:['The distance a propeller should advance in one revolution with no slippage','The actual distance a propeller in one revolution','GP – EP'],ans:1,exp:'B) The actual distance a propeller in one revolution'},
+    {topic:'',q:'Lubricating and storage propeller.',opts:['3 months','6 months','12 months'],ans:0,exp:'A) 3 months'}
+  ]
+};

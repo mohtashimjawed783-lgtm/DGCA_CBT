@@ -1,0 +1,41 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2024 – 2 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2024 Session 2',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 2 Session of 2024'
+  },
+  questions: [
+    {topic:'',q:'Feathering is used.',opts:['Single engine aircraft','Multi-engine aircraft','Helicopter'],ans:1,exp:'B) Multi-engine aircraft'},
+    {topic:'',q:'When one propeller produces more thrust.',opts:['Increase RPM','Power lever adjustment','Counter blade angle adjustment'],ans:2,exp:'C) Counter blade angle adjustment'},
+    {topic:'',q:'Brush of de-icing is.',opts:['Slip ring','Carbon brush','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Multi-bladed propeller is stored.',opts:['Horizontally','On stand','Vertically'],ans:1,exp:'B) On stand'},
+    {topic:'',q:'If engine power increases in a constant speed propeller.',opts:['Only blade angle increases','RPM increases','Thrust only increases'],ans:0,exp:'A) Only blade angle increases'},
+    {topic:'',q:'Question related to brush block.',opts:['Slip ring block','Carbon brush block','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'At high altitude, blade angle affects.',opts:['Engine efficiency and fuel consumption','Thrust only','RPM only'],ans:0,exp:'A) Engine efficiency and fuel consumption'},
+    {topic:'',q:'Electrical de-icing related MTCS.',opts:['Only first statement is correct','Only second statement is correct','Both are correct'],ans:2,exp:'C) Both are correct'},
+    {topic:'',q:'Slave engine is used in.',opts:['Independent propeller operation','One engine master synchronization','Manual synchronization'],ans:1,exp:'B) One engine master synchronization'},
+    {topic:'',q:'MTCS states that.',opts:['Beta range is controlled by oil pressure','Beta range is controlled by power lever','Alpha range is controlled by flyweight governor'],ans:2,exp:'C) Alpha range is controlled by flyweight governor'},
+    {topic:'',q:'Propellers not retained in original packing, the propellers re-inhibiting period is.',opts:['6 months','18 months','12 months'],ans:2,exp:'C) 12 months'},
+    {topic:'',q:'Typical propeller blade can be hoisted because of.',opts:['Rectangular platform','Symmetrical aerofoil','Aerofoil of irregular platform'],ans:2,exp:'C) Aerofoil of irregular platform'},
+    {topic:'',q:'Piston engine propellers are used to.',opts:['Reduce vibration','Increase thrust','Reduce fuel consumption'],ans:1,exp:'B) Increase thrust'},
+    {topic:'',q:'Ice formation on the propeller in flight causes.',opts:['Increase thrust','Decrease thrust and excessive vibration','No effect'],ans:1,exp:'B) Decrease thrust and excessive vibration'},
+    {topic:'',q:'Feathering is used by.',opts:['Hydraulic pump','Engine oil','Electrical motor'],ans:0,exp:'A) Engine oil'},
+    {topic:'',q:'Auto-feathering accomplishes.',opts:['Automatically','Semi-automatically','Manually'],ans:0,exp:'A) Automatically'},
+    {topic:'',q:'Pusher propellers are mounted.',opts:['On down stream of drive shaft','On gearbox','On up stream of drive shaft'],ans:0,exp:'A) On down stream of drive shaft'},
+    {topic:'',q:'Propellers retained in storage are counted from.',opts:['Date of inspection','Original date of storage','Date of overhaul'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'All wooden propellers.',opts:['Sanding only','Sealing only','Both'],ans:2,exp:'C) Both'},
+    {topic:'',q:'Cyclic timer consists of.',opts:['Heating element only','Electrical wiring only','Electric motor and control process contactor'],ans:2,exp:'C) Electric motor and control process contactor'},
+    {topic:'',q:'Blade tracking is checked by.',opts:['Dial gauge','Chalk method','Both A and B'],ans:2,exp:'C) Both A and B'},
+    {topic:'',q:'Magnetic pick-up is used in.',opts:['One engine master system','Two engine synchronizing system','Single engine aircraft','Multi engine aircraft'],ans:0,exp:'A) One engine master system'},
+    {topic:'',q:'Electrical de-icing is checked by.',opts:['Ammeter indication','Temperature rise','Feeling sequence of boot & load meter indication'],ans:2,exp:'C) Feeling sequence of boot & load meter indication'},
+    {topic:'',q:'Propeller synchronization is used to.',opts:['Increase RPM','Reduce vibration','Reduce noise only'],ans:1,exp:'B) Reduce vibration'},
+    {topic:'',q:'Fixed pitch propeller.',opts:['Pitch can be changed in flight','Pitch can be changed on ground','Pitch cannot be changed after manufacturing'],ans:2,exp:'C) Pitch cannot be changed after manufacturing'},
+    {topic:'',q:'MTCS states that ATF tends to.',opts:['Increase blade angle','Maintain blade angle','Decrease blade angle'],ans:0,exp:'A) Increase blade angle'},
+    {topic:'',q:'Synchrophasing system uses.',opts:['Pulse detector only','Servo bias only','Electronic unit','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Wooden propeller is rejected if.',opts:['Hub bolt loose','Protective coating missing','Missing solder','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'To reduce tip speed.',opts:['Increase RPM','Use direct drive','Reduction gear is used'],ans:2,exp:'C) Reduction gear is used'},
+    {topic:'',q:'Purpose of feathering.',opts:['Increase thrust','Stop windmilling','Reduce RPM'],ans:1,exp:'B) Stop windmilling'}
+  ]
+};

@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2020 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2020 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2020'
+  },
+  questions: [
+    {topic:'',q:'A propeller vibration at exactly half the engine RPM indicates.',opts:['Torsional vibration in crankshaft','Blade tracking error','Propeller imbalance'],ans:1,exp:'B) Blade tracking error'},
+    {topic:'',q:'Blade “index angle” refers to.',opts:['Angle between blade and hub face','Angle setting during manufacturing alignment','Angle at which governor engages pitch change'],ans:1,exp:'B) Angle setting during manufacturing alignment'},
+    {topic:'',q:'The propeller slipstream effect increases.',opts:['Induced drag on tailplane','Lift on the horizontal stabilizer','Control effectiveness of the elevator'],ans:2,exp:'C) Control effectiveness of the elevator'},
+    {topic:'',q:'During rapid throttle reduction, a constant-speed propeller first.',opts:['Moves to coarse pitch then reduces RPM','Moves to fine pitch briefly to avoid underspeed','Moves toward feather to reduce drag'],ans:1,exp:'B) Moves to fine pitch briefly to avoid underspeed'},
+    {topic:'',q:'Propeller tracking should be checked to prevent.',opts:['Unequal thrust production on each revolution','Excessive torque on blade mount bolts','Governor overspeed during run-up'],ans:0,exp:'A) Unequal thrust production on each revolution'},
+    {topic:'',q:'A “hydraulic lock” inside propeller hub during pitch change may cause.',opts:['Uncommanded feathering','Sudden RPM overshoot','Blade pitch freeze or sluggish movement'],ans:2,exp:'C) Blade pitch freeze or sluggish movement'},
+    {topic:'',q:'The most aerodynamic efficient blade section is found at.',opts:['30% from tip','70% radius','Exact blade center'],ans:1,exp:'B) 70% radius'},
+    {topic:'',q:'If a propeller blade root fillet crack propagates, the earliest warning is.',opts:['RPM fluctuation','Oil leakage','Change in vibration frequency'],ans:2,exp:'C) Change in vibration frequency'},
+    {topic:'',q:'A propeller with a smaller diameter but higher RPM is generally.',opts:['Less efficient because of higher slip','More efficient due to higher kinetic energy','Same efficiency as large propeller'],ans:0,exp:'A) Less efficient because of higher slip'},
+    {topic:'',q:'During storage engine fuel system generally filled with.',opts:['Preservative oil','Water','Engine oil','Hydraulic oil'],ans:0,exp:'A) Preservative oil'},
+    {topic:'',q:'In APU centrifugal compressor is used due to.',opts:['Smaller pressure rise per stage','Larger pressure rise per stage','To reduce temperature','To reduce fuel flow'],ans:1,exp:'B) Larger pressure rise per stage'},
+    {topic:'',q:'APU generator because the engine are not throttlable and run at.',opts:['40–60% RPM','60–80% RPM','80–100% RPM','20–40% RPM'],ans:2,exp:'C) 80–100% RPM'},
+    {topic:'',q:'In APU load compressor provides.',opts:['Cooling air','Pneumatic air','Oil pressure','Fuel pressure'],ans:1,exp:'B) Pneumatic air'},
+    {topic:'',q:'APU provides electrical power.',opts:['28V DC','200V AC 3ϕ','115V AC 3ϕ','400V AC'],ans:2,exp:'C) 115V AC 3ϕ'},
+    {topic:'',q:'In APU EEC controls.',opts:['Fuel control','Starter motor','Ignition unit','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'The starter is equipped with an output spline shaft having a shear section that permits the shaft shear if.',opts:['Temperature is high','Torque to the engine during starting cycle is excessive','Voltage is low','Air pressure is low'],ans:1,exp:'B) Torque to the engine during starting cycle is excessive'},
+    {topic:'',q:'The difference between full-flow system, pressure-relief system and total-loss system is.',opts:['Control of oil temperature','Control of oil flow to the bearings','Control of oil filtration only','Control of oil pressure only'],ans:1,exp:'B) Control of oil flow to the bearings'},
+    {topic:'',q:'Mach speed is speed of an object in relation to.',opts:['Local speed of air','Local speed of wind','Local speed of sound','Standard sea-level speed'],ans:2,exp:'C) Local speed of sound'},
+    {topic:'',q:'In engine drive, which unit allows autorotation without driving rotor.',opts:['Free-wheeling unit','Over-running clutch','Both free-wheeling and sprag clutch','Torque limiting clutch'],ans:2,exp:'C) Both free-wheeling and sprag clutch'},
+    {topic:'',q:'Oil inlet temperature is also used to indicate the proper operation of.',opts:['Fuel pump','Engine oil cooler','Air-oil separator','Scavenge pump'],ans:1,exp:'B) Engine oil cooler'},
+    {topic:'',q:'Engine mounting is done.',opts:['Using bolts, nuts and vibration-damping pads','Using welded mounts only','Using rubber seals only','By bonding only'],ans:0,exp:'A) Using bolts, nuts and vibration-damping pads'},
+    {topic:'',q:'Turbine cooling air passes through porous holes is called.',opts:['Film cooling','Transpiration cooling','Convection cooling','Blade root cooling'],ans:1,exp:'B) Transpiration cooling'},
+    {topic:'',q:'Jet engine fuel system consists of.',opts:['Engine-driven fuel pump only','Fuel nozzle only','Fuel control unit only','Engine-driven fuel pump, fuel filter, fuel control unit, fuel Nozzle'],ans:3,exp:'D) Engine-driven fuel pump, fuel filter, fuel control unit, fuel Nozzle'},
+    {topic:'',q:'Inlet air is diverged to reduce the speed of air to prevent reaching supersonic.',opts:['Inlet duct geometrically fixed','Movable inlet used','Variable bleed used','Auxiliary intake door used'],ans:1,exp:'B) Movable inlet used'},
+    {topic:'',q:'In centrifugal compressor, which component changes radial flow direction to axial direction.',opts:['Air outlet vane','Air outlet Elbow with cascade vanes','Diffuser plate Elbow with cascade vanes','Manifold ring Elbow with cascade vanes'],ans:1,exp:'B) Air outlet Elbow with cascade vanes'},
+    {topic:'',q:'Turbine function is to convert.',opts:['Mechanical energy into exhaust flow','Kinetic energy of exhaust into mechanical energy to drive compressor & accessories','Heat energy into electrical energy','Pressure energy into vacuum'],ans:1,exp:'B) Kinetic energy of exhaust into mechanical energy to drive compressor & accessories'},
+    {topic:'',q:'Which type of duct is used in high-speed single-engine aircraft in which the pilot sits low in fuselage and close to the nose.',opts:['Single entrance duct','Side-mounted duct','Over-nose duct','Divided-entrance duct'],ans:3,exp:'D) Divided-entrance duct'},
+    {topic:'',q:'Thrust augmentation depends upon.',opts:['Type of coolant used','The proportion of the ingredients','Quantity of coolant flow','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Water injection system functions only at.',opts:['Idle power','Low engine power','Cruise power','High engine power'],ans:3,exp:'D) High engine power'},
+    {topic:'',q:'In modern turbine engines, ignition system is used.',opts:['It is used to ignite the fuel in combustor and then it is switched off','Continuous ignition is used throughout operation','Ignition is used till take-off','Ignition is used only during landing'],ans:0,exp:'A) It is used to ignite the fuel in combustor and then it is switched off'},
+    {topic:'',q:'A propeller has diameter 2.4 m and rotates at 2200 RPM. What is the blade tip speed (approx) in m/s.',opts:['55 m/s','110 m/s','220 m/s','440 m/s'],ans:1,exp:'B) 110 m/s'},
+    {topic:'',q:'MTICS regarding stall prevention.',opts:['Lower the angle of attack on the front stage so that the high angle at low engine speed is reduced','Introduce a bleed valve into the front of the compressor to bleed air and decrease airflow in the front of the compressor at low engine speed','Place a variable guide vane at the front of the compressor and variable stator vanes so the angle of attack can be set to low angle','Use a variable-area exhaust nozzle to unload the compressor during acceleration'],ans:1,exp:'B) Introduce a bleed valve into the front of the compressor to bleed air and decrease airflow in the front of the compressor at low engine speed'}
+  ]
+};

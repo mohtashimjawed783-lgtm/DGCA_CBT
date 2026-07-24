@@ -1,0 +1,40 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2017 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2017 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2017'
+  },
+  questions: [
+    {topic:'',q:'CTM (Centrifugal Twisting Moment).',opts:['Turns blade towards low blade angle.','Turns blade towards high blade angle.','Tries to pull the blades away from hub.'],ans:0,exp:'A) Both'},
+    {topic:'',q:'Propeller blades when stored.',opts:['Are covered with non-hygroscopic material.','Are covered with hygroscopic material.','Are kept in cold & dry environment.'],ans:0,exp:'A) Are covered with non-hygroscopic material.'},
+    {topic:'',q:'Propeller blades are stored in condition.',opts:['Dry','Cool','Warm'],ans:0,exp:'A) Dry'},
+    {topic:'',q:'Blade angle is measured in.',opts:['Inches','Degrees','Millimeters'],ans:1,exp:'B) Degrees'},
+    {topic:'',q:'Blade station is measured in.',opts:['Inches','Degrees','Millimeters'],ans:0,exp:'A) Inches'},
+    {topic:'',q:'Blades are inspected for.',opts:['Oil & Grease','Welding or brazing faults','Nicks, scratches and other flaw'],ans:2,exp:'C) Nick, scratches and other flaw'},
+    {topic:'',q:'When blade angle is increased.',opts:['More air is handled per revolution.','Less air is handled per revolution.','Amount of air handled per revolution is independent of blade angle.'],ans:0,exp:'A) More air is handled per revolution.'},
+    {topic:'',q:'Hygroscopic materials are not used to cover propellers because.',opts:['They do not absorb moisture.','They absorb moisture.','They resist corrosion.'],ans:0,exp:'A) They do not absorb moisture.'},
+    {topic:'',q:'Vibration in the aircraft may be due to.',opts:['Propeller unbalance, static or dynamic.','Unbalanced tyre.','Antenna assembly.'],ans:0,exp:'A) Propeller unbalance, static or dynamic.'},
+    {topic:'',q:'What is the purpose of a propeller governor in a constant speed propeller system?',opts:['To change the blade angle manually during flight','To maintain a constant manifold pressure','To regulate oil pressure for controlling blade angle','To lock the propeller in fine pitch'],ans:2,exp:'C) To regulate oil pressure for controlling blade angle'},
+    {topic:'',q:'Anti-icing fluid.',opts:['Flows laterally along the T.E. of blade.','Flows laterally along the L.E. of blade.','Flows longitudinally along L.E. of blade.'],ans:0,exp:'A) Flows laterally along the T.E. of blade.'},
+    {topic:'',q:'Electrical de-icing of propellers.',opts:['Does not let ice form.','Removes ice after its formation.','Prevents erosion of blade.'],ans:1,exp:'B) Removes ice after its formation.'},
+    {topic:'',q:'Fixed-pitch propellers are used on.',opts:['Small aircraft.','Low horsepower engines.','When maximum efficiency at all conditions is important.'],ans:0,exp:'A) Small aircraft.'},
+    {topic:'',q:'Blade shank is.',opts:['Fits inside the hub','Thick and broad section of blade','At the root of the blade'],ans:2,exp:'C) At the root of the blade'},
+    {topic:'',q:'Length of propeller blades is limited because.',opts:['Excessive tip speed reduces efficiency','Lower tip speed produces less thrust','Higher blade length gives more torque'],ans:0,exp:'A) Excessive tip speed reduces efficiency'},
+    {topic:'',q:'Forces acting on propeller.',opts:['ATM (Aerodynamic Twisting Moment)','CTM (Centrifugal Twisting Moment)','Torque bending force only','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'MTCS station numbers.',opts:['Are measured in centimeters.','Are measured from center of hub','Are measured from center of propeller'],ans:1,exp:'B) Are measured from center of hub'},
+    {topic:'',q:'Blade angle.',opts:['Decreases from root to tip','Increases from root to tip','Decreases from tip to root'],ans:1,exp:'B) Increases from root to tip'},
+    {topic:'',q:'Propeller converts.',opts:['Engine force into thrust directly','Engine thrust into propeller RPM','Engine power into propulsive force'],ans:2,exp:'C) Engine power into propulsive force'},
+    {topic:'',q:'What happens to the blade angle of a constant-speed propeller during a climb.',opts:['It increases','It decreases','It remains the same'],ans:1,exp:'B) It decreases'},
+    {topic:'',q:'In wooden propellers, the head of screws in tipping are soldered to.',opts:['Prevent loosening.','Prevent removal by technician.'],ans:0,exp:'A) Prevent loosening.'},
+    {topic:'',q:'While storing propellers, the label indicates.',opts:['Part number.','Manufacturer Name.','Repair history.'],ans:0,exp:'A) Part number.'},
+    {topic:'',q:'Metal tipping is soldered in wooden propeller to prevent loosening.',opts:['Has head of the screws soldered.','A lock washer is used.','Locknut is fitted.'],ans:0,exp:'A) Has head of the screws soldered.'},
+    {topic:'',q:'MTCS.',opts:['CTM to high pitch.','CTM to low pitch.','Bending force towards engine.'],ans:1,exp:'B) CTM to low pitch.'},
+    {topic:'',q:'The control system permits variation in the pumping rate so that the quantity of fluid delivered to propeller can be varied.',opts:['Depending upon the ambient pressure.','Depending on severity of icing.','Depending on the engine RPM.'],ans:0,exp:'A) Depending upon the ambient pressure.'},
+    {topic:'',q:'The feed shoes are molded on blade leading edge.',opts:['Fluid flows along the trailing edge.','Fluid flows from blade shank to tip by centrifugal force.','Fluid flows along the trailing edge.','Moisture blocks fluid flow completely.'],ans:1,exp:'B) Fluid flows from blade shank to tip by centrifugal force.'},
+    {topic:'',q:'Visual inspection of propellers is for.',opts:['Scratches & cracks.','Bolt torque.','Blade angle check.'],ans:0,exp:'A) Scratches & cracks.'},
+    {topic:'',q:'What is the angle of incidence in a propeller.',opts:['Angle between the chord line and airflow','Angle between the propeller shaft and blade chord line','Angle between the aircraft’s longitudinal axis and relative airflow'],ans:1,exp:'B) Angle between the propeller shaft and blade chord line'},
+    {topic:'',q:'What effect does increasing blade angle have on propeller thrust.',opts:['Increases thrust at low speeds','Decreases RPM and increases efficiency at cruise'],ans:1,exp:'B) Decreases RPM and increases efficiency at cruise'}
+  ]
+};

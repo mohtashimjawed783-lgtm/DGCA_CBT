@@ -1,0 +1,40 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2019 – 3 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2019 Session 3',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 3 Session of 2019'
+  },
+  questions: [
+    {topic:'',q:'When brush blocks are fitted.',opts:['Clearance between the main body of brush block and slip ring should be checked through a complete revolution of propeller','Certain types of turbopropeller engines are individually weight balanced','Shims are never used for adjustment purpose','Both A and B'],ans:3,exp:'D) Both A and B'},
+    {topic:'',q:'Feathering propellers are used on.',opts:['Single engine','Multi engine','Twin engine'],ans:1,exp:'B) Multi engine'},
+    {topic:'',q:'Purpose of feathering propeller.',opts:['To reduce drag and stop windmilling effect','To increase torque','To reduce centrifugal load'],ans:0,exp:'A) To reduce drag and stop windmilling effect'},
+    {topic:'',q:'Automatic pitch changing system is used in.',opts:['Single position propeller','Multi-position propeller','Automatic propeller (or constant speed propeller)'],ans:2,exp:'C) Automatic propeller (or constant speed propeller)'},
+    {topic:'',q:'Pusher propeller is mounted on.',opts:['Upstream end of drive shaft','Downstream end of a drive shaft','Rear fuselage'],ans:1,exp:'B) Downstream end of a drive shaft'},
+    {topic:'',q:'In constant speed propeller, which oil is used for pitch change.',opts:['Hydraulic oil','Engine oil','Lubricating oil'],ans:1,exp:'B) Engine oil'},
+    {topic:'',q:'Propeller governors are equipped with magnetic pickup used in.',opts:['Master motor synchronizer','One-engine master system','Twin-engine system'],ans:1,exp:'B) One-engine master system'},
+    {topic:'',q:'Slave governor is fitted with actuator in.',opts:['Master motor sync','One-engine master system','Twin-engine system'],ans:1,exp:'B) One-engine master system'},
+    {topic:'',q:'Propeller synchronization is used to.',opts:['Reduce RPM','Reduce vibration and noise','Reduce blade angle'],ans:1,exp:'B) Reduce vibration and noise'},
+    {topic:'',q:'Ice formation on propeller blade causes.',opts:['Increase stall speed of aircraft','Decrease thrust','Increase vibration and noise','Both B and C'],ans:3,exp:'D) Both B and C'},
+    {topic:'',q:'Wooden propeller rejected.',opts:['Hub or bolt holes are deformed','Solder is missing','Protective coating is missing','All of the above'],ans:3,exp:'D) All of the above'},
+    {topic:'',q:'Propeller stored up to 3 months.',opts:['Inspect regularly for corrosion','Do not inspect at all','Paint regularly','Inspect only at delivery'],ans:0,exp:'A) Inspect regularly for corrosion'},
+    {topic:'',q:'Propeller used for blade tracking.',opts:['Tracking shows actual position of blade','Relative position of blade','Tolerance may exceed from given by propeller manufacturer','Both B & C'],ans:3,exp:'D) Both B & C'},
+    {topic:'',q:'If the propeller not retained in the original packing, the propeller required re-inhibiting.',opts:['3 months','6 months','12 months','9 months'],ans:1,exp:'B) 6 months'},
+    {topic:'',q:'In piston engine, propeller used for.',opts:['Convert heat energy to mechanical energy','Is essentially rotating wing','Helps to increase thrust','Both B & C'],ans:3,exp:'D) Both B & C'},
+    {topic:'',q:'Cyclic timer used to energize the heating element for.',opts:['Regularly heating to reduce runback','Intermittently heating','Intermittently heating for 5 min cycle','None'],ans:2,exp:'C) Intermittently heating for 5 min cycle'},
+    {topic:'',q:'Propellers retained in storage (labeled attached on propeller) shows.',opts:['Year of manufacturing','Original date of storage','Engine specification','Inspection authority'],ans:1,exp:'B) Original date of storage'},
+    {topic:'',q:'Proper operation of electrical de-icing boots checked by.',opts:['Feeling sequence of boot heating & observe on the load meter or ammeter indication','Feeling the boots only','Observe load meter or ammeter only','Manual temperature gauge'],ans:0,exp:'A) Feeling sequence of boot heating & observe on the load meter or ammeter indication'},
+    {topic:'',q:'Fixed pitch propeller.',opts:['Pitch can be changed in flight','Pitch cannot be changed after built','Pitch can change on ground only','Automatic pitch control'],ans:1,exp:'B) Pitch cannot be changed after built'},
+    {topic:'',q:'Synchronizator.',opts:['Reduce engine vibration','Reduce engine RPM','Reduce propeller RPM','Increase fuel efficiency'],ans:0,exp:'A) Reduce engine vibration'},
+    {topic:'',q:'If the engine is likely to be out of use for more than three months, the propeller mechanism should be.',opts:['Flushed with inhibiting oil','Removed & blanked','Cleaned & dried'],ans:1,exp:'B) Removed & blanked'},
+    {topic:'',q:'MTCs.',opts:['Torque bending force tends to pull the blade out of the hub','Centrifugal twisting force tends to bend the blade in opposite direction of rotation','Aerodynamic twisting force tends to increase the blade angle','Thrust bending force tends to bend the blade backward due to pull the A/c through air'],ans:2,exp:'C) Aerodynamic twisting force tends to increase the blade angle'},
+    {topic:'',q:'Typical synchronizing systems use.',opts:['Pulse generator','Electronic Synchrophaser','Servo bias correction mechanism','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'To reduce the tip speed of propellers.',opts:['Governor is used','Reduction gear is used','3-blade propeller is used'],ans:1,exp:'B) Reduction gear is used'},
+    {topic:'',q:'Cyclic timer.',opts:['Electric motor driven contractor','Controls power contractor in separate section of the circuit','Both A & B'],ans:2,exp:'C) Both A & B'},
+    {topic:'',q:'When one blade of propeller produces more thrust.',opts:['Adjust blade contour (blade angle)','Static balancing','Dynamic balancing'],ans:0,exp:'A) Adjust blade contour (blade angle)'},
+    {topic:'',q:'Nicks & cracks in Al. alloy propeller.',opts:['Can repair it as soon as possible','Repair cut should be parallel to rotation of axis','Not permissible','Both A & B'],ans:2,exp:'C) Not permissible'},
+    {topic:'',q:'MTCs.',opts:['Alpha range is controlled by flyball motor governor','Beta range','Alpha range does not set normal 100% RPM setting','None'],ans:0,exp:'A) Alpha range is controlled by flyball motor governor'},
+    {topic:'',q:'In constant speed propeller engine, increase power causes.',opts:['Increase RPM only','Increase RPM & blade angle','Increase blade angle only'],ans:1,exp:'B) Increase RPM & blade angle'}
+  ]
+};

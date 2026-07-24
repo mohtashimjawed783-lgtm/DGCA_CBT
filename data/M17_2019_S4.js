@@ -1,0 +1,43 @@
+window.CBT_QUIZ = {
+  config: {
+    pageTitle: 'DGCA Module 17 | 2019 – 4 Session CBT',
+    headerLeft: 'DGCA',
+    headerRight: 'Module 17 – 2019 Session 4',
+    resultsTitle: '✈ QUIZ COMPLETE',
+    resultsSubtitle: 'DGCA Module 17 — 4 Session of 2019'
+  },
+  questions: [
+    {topic:'',q:'During Climb, propeller operates at.',opts:['High pitch angle, Low RPM','Low pitch angle, High RPM','Constant pitch angle'],ans:1,exp:'B) Low pitch angle, High RPM'},
+    {topic:'',q:'Under which conditions do we store propeller blades.',opts:['Dry','Cool','Both (A) & (B)'],ans:2,exp:'C) Both (A) & (B'},
+    {topic:'',q:'We measure the blade station.',opts:['In Inches','In Degrees','In Centimeters'],ans:0,exp:'A) In Inches'},
+    {topic:'',q:'Do cyclic timers energize the heating element for a complete cycle.',opts:['Regularly heating','With a complete cycle for 5 minutes','None'],ans:2,exp:'C) None'},
+    {topic:'',q:'In turboprop propeller.',opts:['Thrust is produced directly','Beta range comes under to produce negative thrust','None of above'],ans:1,exp:'B) Beta range comes under to produce negative thrust'},
+    {topic:'',q:'Hydromatic propellers are.',opts:['Electrical hydraulic','Mechanical hydraulic','Mechanical'],ans:1,exp:'B) Mechanical hydraulic'},
+    {topic:'',q:'In Synchro Master Unit.',opts:['Alternating current generator driven by accessory drive of engine','Alternating voltage directly proportional to drive','Alternating current inversely proportional'],ans:0,exp:'A) Alternating current generator driven by accessory drive of engine'},
+    {topic:'',q:'In low pitch mechanism.',opts:['Small angle of attack','Small diameter of propeller produces less thrust of air','High RPM','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Electrical de-icing of propeller.',opts:['Does not let ice form','Remove ice after its formation','Cools the propeller'],ans:1,exp:'B) Remove ice after its formation'},
+    {topic:'',q:'Blade shank is.',opts:['Thick and rounded section at the root of blade','Thin portion near tip','Hollow part near hub'],ans:0,exp:'A) Thick and rounded section at the root of blade'},
+    {topic:'',q:'We use a generator in various systems.',opts:['Master Motor Synchronizer','One Engine Aircraft','Multi-Engine Aircraft'],ans:0,exp:'A) Master Motor Synchronizer'},
+    {topic:'',q:'The supply tank might supply fluid to the slinger ring.',opts:['Independent Mechanical Pump','Independent Electrical Pump','Engine Pump'],ans:1,exp:'B) Independent Electrical Pump'},
+    {topic:'',q:'Before storage of Anti-Icing Boot/Overshoe, it must be.',opts:['Cleaned with inhibiting fluid','Removed & stored separately','Covered before inhibiting oil to prevent contact with air'],ans:2,exp:'C) Covered before inhibiting oil to prevent contact with air'},
+    {topic:'',q:'M.T.C.S on Governor.',opts:['Controlled from cockpit','Any desired blade angle & speed can be obtained','Pitch is changed by P.C.U.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Purpose of reverse pitch in propeller.',opts:['Blade angle is changed to reverse pitch to provide negative thrust','Blade angle is changed to positive pitch for high thrust','Blade angle remains constant'],ans:0,exp:'A) Blade angle is changed to reverse pitch to provide negative thrust'},
+    {topic:'',q:'Hydromatic propeller with engine shaft extension is.',opts:['Feathering propeller','Non-feathering propeller','Fixed pitch propeller'],ans:1,exp:'B) Non-feathering propeller'},
+    {topic:'',q:'Purpose of metal tipping in leading edge of wooden propeller.',opts:['Prevent blade from FOD (Flying Object Damage).','Increase blade weight.','Improve cooling.'],ans:0,exp:'A) Prevent blade from FOD (Flying Object Damage).'},
+    {topic:'',q:'Constant Speed Propeller.',opts:['Engine RPM is held constant.','Blade angle is held constant.','Airspeed is held constant.'],ans:0,exp:'A) Engine RPM is held constant.'},
+    {topic:'',q:'Safety features in feathering mechanism.',opts:['Propeller will feather automatically when oil pressure is zero.','Feathering spring incorporated in pitch change mechanism.','Counterweights attached to propeller change mechanism.'],ans:0,exp:'A) Propeller will feather automatically when oil pressure is zero.'},
+    {topic:'',q:'Controllable Pitch Propeller.',opts:['It can be adjusted in only two positions.','It can adjust any angle between minimum to maximum.','Angle can be changed during propeller rotation.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'Electrical de-icing system to be checked for.',opts:['Anti-erosion tape for wrinkling, shrinkage, or damage.','For discoloration due to heat.','All.'],ans:2,exp:'C) All.'},
+    {topic:'',q:'B.H.P (Brake Horse Power) is produced by.',opts:['Propeller.','Engine.','Reduction gear.'],ans:1,exp:'B) Engine.'},
+    {topic:'',q:'MTCS – In turboprop operation.',opts:['Beta range between 0° to 34°.','Alpha range between 51° to 100°.','Both.'],ans:2,exp:'C) Both.'},
+    {topic:'',q:'De-ice boots can be checked by.',opts:['Feeling with hand & one person monitor load meter.','By water spray method.','By thermometer.'],ans:0,exp:'A) Feeling with hand & one person monitor load meter.'},
+    {topic:'',q:'Propeller Synchronisation.',opts:['Reduces engine RPM.','Reduces propeller RPM.','Reduces vibration.'],ans:2,exp:'C) Reduces vibration'},
+    {topic:'',q:'3-bladed propeller position in stand.',opts:['Can be stored vertically in a stand.','Can be stored horizontally in rack.','Any position.'],ans:0,exp:'A) Can be stored vertically in a stand.'},
+    {topic:'',q:'If the engine is not capable of being started & run.',opts:['Propeller should be feathered & unfeathered weekly using feathering pump.','Propeller should remain static.','Run the engine every week.'],ans:0,exp:'A) Propeller should be feathered & unfeathered weekly using feathering pump'},
+    {topic:'',q:'Fixed pitch propeller are used on.',opts:['Small aircraft.','Low horsepower engine.','When max efficiency of air condition is not important.','All'],ans:3,exp:'D) All'},
+    {topic:'',q:'M.T.C.S Ground Adjustable Propellers.',opts:['Adjust blade angle only in air','Adjust blade angle only in ground','Adjust automatically'],ans:1,exp:'B) Adjust blade angle only in ground'},
+    {topic:'',q:'Temporary storage is generally defined as “non-use for aircraft” for.',opts:['90 days','180 days','1 year'],ans:0,exp:'A) 90 days'},
+    {topic:'',q:'In fixed pitch propeller, blade angle to be set is decided by.',opts:['Level flight condition','Climb condition','Take-off condition'],ans:0,exp:'A) Level flight condition'},
+    {topic:'',q:'A metal propeller is suspected to have internal corrosion. The most critical test is.',opts:['Tap test for dull sound','Eddy current for subsurface defects','Visual inspection under bright light'],ans:1,exp:'B) Eddy current for subsurface defects'}
+  ]
+};
