@@ -4,6 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CBT Library — Technical Training Index</title>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" type="image/png" href="icons/favicon-32.png"/>
+<link rel="apple-touch-icon" href="icons/icon-192.png"/>
+<meta name="theme-color" content="#03050a"/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -119,12 +123,12 @@ header{
 .radar-sweep{transform-origin:200px 200px;animation:radar-spin 5s linear infinite;}
 @keyframes radar-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .hero-jet-img{
-  position:absolute;top:-20px;left:-60px;width:340px;height:auto;
-  mix-blend-mode:screen;opacity:0.5;pointer-events:none;
-  mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
-  -webkit-mask-image:radial-gradient(ellipse 200px 160px at 55% 55%, black 35%, transparent 78%);
+  position:absolute;top:-20px;left:24px;width:340px;height:auto;
+  mix-blend-mode:screen;opacity:0.75;pointer-events:none;
+  mask-image:radial-gradient(ellipse 240px 190px at 55% 55%, black 55%, transparent 85%);
+  -webkit-mask-image:radial-gradient(ellipse 240px 190px at 55% 55%, black 55%, transparent 85%);
 }
-[data-theme="light"] .hero-jet-img{opacity:0.25;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
+[data-theme="light"] .hero-jet-img{opacity:0.35;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
 .hero-inner{position:relative;max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .hero-eyebrow{
   font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:2.4px;
@@ -307,6 +311,43 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 .module-tile-add-icon{font-size:1.9rem;font-weight:300;margin-bottom:2px;}
 .module-tile-add-label{font-size:0.84rem;font-weight:600;}
 
+/* ===== Home view insight panels: study streak + weak topics ===== */
+.insights-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  max-width:1400px;margin:0 auto;padding:0 20px 6px;
+}
+@media(max-width:820px){ .insights-row{grid-template-columns:1fr;} }
+.insight-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;
+}
+.insight-card-title{
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.95rem;
+  color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;justify-content:space-between;
+}
+.streak-summary{font-size:0.78rem;color:var(--muted);margin-bottom:10px;}
+.streak-grid{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;}
+.streak-day{aspect-ratio:1;border-radius:3px;background:var(--border);}
+.streak-day[data-level="1"]{background:rgba(34,211,238,.28);}
+.streak-day[data-level="2"]{background:rgba(34,211,238,.55);}
+.streak-day[data-level="3"]{background:var(--accent);}
+.weak-topic-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.8rem;}
+.weak-topic-name{flex:1;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.weak-topic-bar-track{flex:2;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+.weak-topic-bar-fill{height:100%;background:var(--wrong);border-radius:4px;}
+.weak-topic-count{color:var(--muted);flex-shrink:0;width:26px;text-align:right;}
+
+.mixed-history-row{display:flex;align-items:center;gap:12px;padding:8px 4px;border-bottom:1px solid var(--border);}
+.mixed-history-row:last-child{border-bottom:none;}
+.mixed-history-pct{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;width:48px;flex-shrink:0;}
+.mixed-history-info{flex:1;min-width:0;}
+.mixed-history-title{font-size:0.8rem;color:var(--text);}
+.mixed-history-date{font-size:0.7rem;color:var(--muted);margin-top:2px;}
+
+.mapping-option-row{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.mapping-option-row input[type="radio"]{width:17px;height:17px;flex-shrink:0;accent-color:var(--accent);cursor:pointer;}
+.mapping-option-row input[type="text"]{flex:1;}
+.mapping-option-letter{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--accent);width:16px;flex-shrink:0;}
+
 .subtopic-group{margin-bottom:28px;}
 .subtopic-heading{display:flex;align-items:center;gap:10px;margin-bottom:13px;}
 .subtopic-tab{width:7px;height:20px;border-radius:4px;flex-shrink:0;box-shadow:0 0 8px currentColor;}
@@ -392,8 +433,14 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 .share-textarea{width:100%;background:var(--panel);border:1.5px solid var(--border);border-radius:9px;padding:10px;color:var(--text);font-size:0.78rem;font-family:monospace;min-height:80px;}
 
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--navy2);border:1px solid var(--accent);color:var(--text);padding:13px 24px;border-radius:11px;font-size:0.88rem;font-weight:600;z-index:600;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.45), 0 0 20px var(--glow);}
-.toast.show{display:block;animation:toastIn .25s ease;}
+.toast.show{display:flex;align-items:center;gap:14px;animation:toastIn .25s ease;}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,10px);}to{opacity:1;transform:translate(-50%,0);}}
+.toast-action-btn{
+  background:var(--accent);color:#04141c;border:none;border-radius:7px;
+  padding:6px 14px;font-weight:700;font-size:0.82rem;cursor:pointer;flex-shrink:0;
+  font-family:'Inter',sans-serif;
+}
+.toast-action-btn:hover{filter:brightness(1.1);}
 
 .bulk-bar{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--navy2);border:1px solid var(--accent);border-radius:13px;padding:13px 20px;display:none;gap:10px;align-items:center;z-index:400;box-shadow:0 10px 30px rgba(0,0,0,0.45);flex-wrap:wrap;justify-content:center;max-width:92vw;}
 .bulk-bar.show{display:flex;}
@@ -404,7 +451,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   .hero-title{font-size:1.8rem;}
   .hero-sub{font-size:0.88rem;}
   .hero-radar{width:280px;height:280px;right:-90px;opacity:0.32;}
-  .hero-jet-img{width:180px;top:-20px;left:-40px;}
+  .hero-jet-img{width:180px;top:-20px;left:14px;}
 
   .layout{grid-template-columns:1fr;gap:16px;padding:16px 14px 50px;}
 
@@ -547,6 +594,10 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   <div class="home-view-header">
     <div class="home-view-title">Choose a Module</div>
     <div class="home-view-sub">Pick a module to see its CBTs, organized by category.</div>
+  </div>
+  <div class="insights-row">
+    <div class="insight-card" id="streak-card"></div>
+    <div class="insight-card" id="weak-topics-card"></div>
   </div>
   <div class="module-grid" id="module-grid"></div>
 </div>
@@ -730,9 +781,9 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 </div>
 
 <div class="modal-overlay" id="answer-mapping-modal-overlay">
-  <div class="modal" style="max-width:540px;">
-    <div class="modal-title">Correct Quiz Answer Mapping</div>
-    <div class="field-hint" style="margin:-8px 0 18px;">Choose a quiz from this module, then export a corrected copy of its HTML template. The original file remains untouched.</div>
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-title">Edit Question</div>
+    <div class="field-hint" style="margin:-8px 0 18px;">Choose a quiz and question number, load it, then fix anything — the question text, any option's wording, which option is correct, or the explanation. Saving downloads a corrected data file to upload over the original — from then on the fix is permanent.</div>
     <div class="field">
       <label>Quiz in this module</label>
       <select id="mapping-quiz"></select>
@@ -742,39 +793,57 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
         <label>Question number</label>
         <input id="mapping-question" type="number" min="1" step="1" placeholder="e.g. 42"/>
       </div>
-      <div class="field">
-        <label>Correct option</label>
-        <select id="mapping-answer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+      <div class="field" style="align-self:flex-end;">
+        <button class="btn btn-ghost" style="width:100%;" onclick="loadMappingQuestion()">Load Question</button>
       </div>
     </div>
-    <div class="field">
-      <label>Source quiz HTML file</label>
-      <input id="mapping-file" type="file" accept=".html,text/html"/>
-      <div class="field-hint">Choose the same quiz template selected above. Browsers require this file selection before they can export an updated copy.</div>
+    <div id="mapping-status" class="field-hint" style="min-height:20px;"></div>
+
+    <div id="mapping-edit-fields" style="display:none;">
+      <div class="field">
+        <label>Topic</label>
+        <input id="mapping-topic" type="text"/>
+      </div>
+      <div class="field">
+        <label>Question text</label>
+        <textarea id="mapping-qtext" rows="2" style="resize:vertical;"></textarea>
+      </div>
+      <div class="field">
+        <label>Options — select the correct one</label>
+        <div id="mapping-options-list"></div>
+      </div>
+      <div class="field">
+        <label>Explanation <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+        <textarea id="mapping-exp" rows="2" style="resize:vertical;"></textarea>
+      </div>
     </div>
+
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeAnswerMappingModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="exportCorrectedQuiz()">Export corrected HTML</button>
+      <button class="btn btn-primary" id="mapping-save-btn" style="display:none;" onclick="exportCorrectedQuiz()">Save Corrected File</button>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="quiz-generator-modal-overlay">
-  <div class="modal" style="max-width:760px;">
+  <div class="modal" style="max-width:640px;">
     <div class="modal-title">Mixed Quiz Generator</div>
-    <div class="field-hint" style="margin:-8px 0 18px;">Select any number of CBTs across modules and categories. Add the corresponding HTML template for each selection, then generate one shuffled quiz containing every question.</div>
+    <div class="field-hint" style="margin:-8px 0 18px;">Pick any quizzes from any module — their questions get shuffled together into one throwaway practice session. Nothing here gets saved as a new library entry, and any question you get wrong still counts toward that question's own quiz history.</div>
     <div class="field">
-      <label>Select quizzes to mix</label>
-      <div id="generator-quiz-list" style="max-height:250px;overflow:auto;padding:4px 2px;"></div>
+      <label>Search quizzes</label>
+      <input type="text" id="generator-search" placeholder="Type any part of a title, module, or category..." oninput="renderQuizGenerator()"/>
     </div>
     <div class="field">
-      <label>Selected quiz templates</label>
-      <div id="generator-file-list" style="display:flex;flex-direction:column;gap:8px;"></div>
-      <div class="field-hint">You can add more quizzes at any time. Select the matching source HTML file for every quiz you include.</div>
+      <label>Select quizzes to mix <span id="generator-selected-count" style="color:var(--muted);font-weight:400;"></span></label>
+      <div id="generator-quiz-list" style="max-height:320px;overflow:auto;padding:4px 2px;"></div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeQuizGenerator()">Cancel</button>
       <button class="btn btn-primary" onclick="generateMixedQuiz()">Generate &amp; Start Quiz</button>
+    </div>
+    <div class="field" style="margin-top:6px;border-top:1px solid var(--border);padding-top:16px;">
+      <label>Past mixed-quiz attempts</label>
+      <div id="generator-history-list" style="max-height:200px;overflow:auto;"></div>
     </div>
   </div>
 </div>
@@ -793,6 +862,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 <script>
 const STORAGE_KEY = 'cbt_library_v1';
 const MODULES_KEY = 'cbt_library_modules_v1';
+const MIXED_HISTORY_KEY = 'cbt_mixed_history_v1';
 const THEME_KEY = 'cbt_library_theme';
 const TCOLORS = ['#60b4ff','#f0b429','#a78bfa','#4ade80','#f87171','#fb923c','#2dd4bf'];
 
@@ -844,10 +914,21 @@ function persist(push=true){
 }
 function uid(){ return 'q'+Date.now()+Math.random().toString(36).slice(2,8); }
 
-function showToast(msg){
+function showToast(msg, opts){
   const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2400);
+  const actionLabel = opts && opts.actionLabel;
+  t.innerHTML = escHtml(msg) + (actionLabel ? `<button class="toast-action-btn" id="toast-action-btn">${escHtml(actionLabel)}</button>` : '');
+  t.classList.add('show');
+  clearTimeout(t._h);
+  const duration = (opts && opts.duration) || 2400;
+  t._h=setTimeout(()=>{ t.classList.remove('show'); }, duration);
+  if(actionLabel && opts.onAction){
+    document.getElementById('toast-action-btn').onclick=()=>{
+      clearTimeout(t._h);
+      t.classList.remove('show');
+      opts.onAction();
+    };
+  }
 }
 
 // ===================== THEME =====================
@@ -1058,18 +1139,22 @@ function toggleSidebarMobile(){
 // to the correct library entry using the actual window handle (not by guessing
 // storage keys), which works regardless of how the quiz computes its own ID.
 window.addEventListener('message', (e)=>{
-  if(!e.data || e.data.type!=='cbt-progress-update') return;
-  for(const id in openWindows){
-    if(openWindows[id]===e.source){
-      const item = library.find(x=>x.id===id);
-      if(item){
-        item.progress = {correct:e.data.correct, wrong:e.data.wrong, skip:e.data.skip, total:e.data.total, pct:e.data.pct};
-        item.lastOpened = new Date().toISOString();
-        persist();
-        refresh();
+  if(!e.data || !e.data.type) return;
+  if(e.data.type==='cbt-progress-update'){
+    for(const id in openWindows){
+      if(openWindows[id]===e.source){
+        const item = library.find(x=>x.id===id);
+        if(item){
+          item.progress = {correct:e.data.correct, wrong:e.data.wrong, skip:e.data.skip, total:e.data.total, pct:e.data.pct};
+          item.lastOpened = new Date().toISOString();
+          persist();
+          refresh();
+        }
+        break;
       }
-      break;
     }
+  }else if(e.data.type==='cbt-mixed-complete'){
+    recordMixedQuizHistory(e.data);
   }
 });
 
@@ -1199,11 +1284,16 @@ function saveEntry(){
 }
 
 function deleteEntry(id){
-  if(!confirm('Remove this CBT from your library? (The file itself is not deleted, just this entry.)'))return;
+  const item = library.find(x=>x.id===id);
+  if(!item) return;
+  const snapshot = library.slice();
   library = library.filter(x=>x.id!==id);
   persist();
   refresh();
-  showToast('Removed');
+  showToast(`Removed "${item.title}"`, {
+    actionLabel:'Undo', duration:10000,
+    onAction: ()=>{ library=snapshot; persist(); refresh(); showToast('Restored'); }
+  });
 }
 
 function togglePin(id){
@@ -1235,13 +1325,18 @@ function updateBulkBar(){
 }
 function bulkDelete(){
   if(selectedIds.size===0)return;
-  if(!confirm(`Remove ${selectedIds.size} quiz(zes) from your library?`))return;
-  library = library.filter(x=>!selectedIds.has(x.id));
+  const count = selectedIds.size;
+  const snapshot = library.slice();
+  const idsToRemove = new Set(selectedIds);
+  library = library.filter(x=>!idsToRemove.has(x.id));
   selectedIds.clear();
   persist();
   toggleBulkMode();
   refresh();
-  showToast('Removed selected quizzes');
+  showToast(`Removed ${count} quiz(zes)`, {
+    actionLabel:'Undo', duration:10000,
+    onAction: ()=>{ library=snapshot; persist(); refresh(); showToast('Restored'); }
+  });
 }
 function bulkTag(){
   if(selectedIds.size===0)return;
@@ -1430,6 +1525,43 @@ function renderStatsBar(){
 
 // Shows whichever view matches activeModule: home grid (null) or the
 // selected module's categorized content (a module name).
+function renderStreakCard(){
+  const card=document.getElementById('streak-card');
+  const DAYS=84; // 12 weeks
+  const dayKey=d=>d.toISOString().slice(0,10);
+  const counts={};
+  library.forEach(it=>{
+    if(!it.lastOpened) return;
+    const k=dayKey(new Date(it.lastOpened));
+    counts[k]=(counts[k]||0)+1;
+  });
+
+  const today=new Date(); today.setHours(0,0,0,0);
+  let cells='';
+  for(let i=DAYS-1;i>=0;i--){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    const k=dayKey(d);
+    const n=counts[k]||0;
+    const level = n===0?0 : n===1?1 : n===2?2 : 3;
+    cells+=`<div class="streak-day" data-level="${level}" title="${k}: ${n} quiz${n===1?'':'zes'} opened"></div>`;
+  }
+
+  // current streak: consecutive days ending today with at least 1 quiz opened
+  let streak=0;
+  for(let i=0;i<DAYS;i++){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    if(counts[dayKey(d)]) streak++; else break;
+  }
+  const summary = streak>0
+    ? `🔥 ${streak}-day streak — keep it going`
+    : `Open a quiz today to start a streak`;
+
+  card.innerHTML = `
+    <div class="insight-card-title">📅 Study Streak</div>
+    <div class="streak-summary">${summary}</div>
+    <div class="streak-grid">${cells}</div>`;
+}
+
 function refresh(){
   const home = document.getElementById('home-view');
   const moduleLayout = document.getElementById('module-layout');
@@ -1438,12 +1570,72 @@ function refresh(){
     home.style.display='';
     moduleLayout.style.display='none';
     renderModuleGrid();
+    renderStreakCard();
+    renderWeakTopicsCard();
   }else{
     home.style.display='none';
     moduleLayout.style.display='';
     renderSidebar();
     renderMain();
   }
+}
+
+let weakTopicsComputed=null; // cached result so we don't re-fetch every render
+
+function renderWeakTopicsCard(){
+  const card=document.getElementById('weak-topics-card');
+  if(weakTopicsComputed){
+    renderWeakTopicsList(card, weakTopicsComputed);
+    return;
+  }
+  card.innerHTML = `
+    <div class="insight-card-title">📊 Weak Topics</div>
+    <div class="field-hint" style="margin:0 0 10px;">See which topics you're getting wrong most, across every quiz you've opened.</div>
+    <button class="btn btn-ghost btn-sm" onclick="computeWeakTopics()">Show my weak topics</button>`;
+}
+
+async function computeWeakTopics(){
+  const card=document.getElementById('weak-topics-card');
+  card.innerHTML = `<div class="insight-card-title">📊 Weak Topics</div><div class="field-hint">Scanning your quizzes…</div>`;
+  const opened = library.filter(it=>it.progress); // skip quizzes never opened — nothing to aggregate yet
+  const topicWrong={};
+  for(const item of opened){
+    const dataPath=extractDataPath(item.link);
+    if(!dataPath) continue;
+    try{
+      const res=await fetch(dataPath);
+      if(!res.ok) continue;
+      const src=await res.text();
+      const data=new Function('window', src+'\nreturn window.CBT_QUIZ;')({});
+      if(!data || !Array.isArray(data.questions)) continue;
+      const srcId=computeQuizId((data.config&&data.config.pageTitle)||item.title, data.questions.length);
+      const rawFlag=localStorage.getItem('cbt_wrongflag_'+srcId);
+      if(!rawFlag) continue;
+      const flags=JSON.parse(rawFlag);
+      if(!Array.isArray(flags)||flags.length!==data.questions.length) continue;
+      data.questions.forEach((q,i)=>{
+        if(flags[i]){ const t=q.topic||'Untitled'; topicWrong[t]=(topicWrong[t]||0)+1; }
+      });
+    }catch(e){ /* skip quizzes that fail to load — don't block the rest */ }
+  }
+  weakTopicsComputed = Object.entries(topicWrong).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  renderWeakTopicsList(card, weakTopicsComputed);
+}
+
+function renderWeakTopicsList(card, list){
+  if(!list.length){
+    card.innerHTML = `<div class="insight-card-title">📊 Weak Topics</div><div class="field-hint">No weak spots found — either you're doing great, or you haven't attempted enough questions yet.</div>`;
+    return;
+  }
+  const max=Math.max(...list.map(([,n])=>n));
+  card.innerHTML = `
+    <div class="insight-card-title">📊 Weak Topics<button class="icon-btn" style="font-size:0.7rem;" onclick="weakTopicsComputed=null;computeWeakTopics()" title="Refresh">↻</button></div>
+    ${list.map(([topic,n])=>`
+      <div class="weak-topic-row">
+        <div class="weak-topic-name" title="${escHtml(topic)}">${escHtml(topic)}</div>
+        <div class="weak-topic-bar-track"><div class="weak-topic-bar-fill" style="width:${Math.round(n/max*100)}%"></div></div>
+        <div class="weak-topic-count">${n}</div>
+      </div>`).join('')}`;
 }
 
 function renderModuleGrid(){
@@ -1465,11 +1657,12 @@ function renderModuleGrid(){
     const withP = items.filter(x=>x.progress);
     const avg = withP.length ? Math.round(withP.reduce((s,x)=>s+x.progress.pct,0)/withP.length) : 0;
     const mEsc = escHtml(m).replace(/'/g,"\\'");
-    html += `<div class="module-tile" onclick="selectModule('${mEsc}')">
+    const accent = moduleAccentColor(m);
+    html += `<div class="module-tile" style="border-left:3px solid ${accent}" onclick="selectModule('${mEsc}')">
       ${items.length===0?`<button class="module-tile-delete" onclick="deleteEmptyModule('${mEsc}', event)" title="Remove empty module">×</button>`:''}
       <div class="module-tile-name">${escHtml(m)}</div>
       <div class="module-tile-count">${items.length} ${items.length===1?'quiz':'quizzes'}</div>
-      <div class="module-progress-track"><div class="module-progress-fill" style="width:${avg}%"></div></div>
+      <div class="module-progress-track"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
       <div class="module-tile-pct">${items.length?avg+'% avg progress':'No CBTs yet'}</div>
     </div>`;
   });
@@ -1667,12 +1860,30 @@ function toggleCollapseAll(){
   renderMain();
 }
 
+// Stable color per module name — same module always gets the same accent,
+// picked from the existing tag-color palette so it stays visually consistent
+// with the rest of the app (no new colors invented).
+function moduleAccentColor(name){
+  let hash=0;
+  for(let i=0;i<name.length;i++) hash=(hash*31+name.charCodeAt(i))|0;
+  return TCOLORS[Math.abs(hash)%TCOLORS.length];
+}
+
 function renderCard(it){
   const c = TCOLORS[it.color % TCOLORS.length] || TCOLORS[0];
   const pct = it.progress ? it.progress.pct : 0;
   const needsReview = it.progress && it.progress.pct>=0 && it.progress.total>0 &&
     (it.progress.correct/(it.progress.correct+it.progress.wrong||1))*100 < 70 && (it.progress.correct+it.progress.wrong)>0;
   const progColor = pct>=80?'var(--correct)':(pct>=40?'var(--gold)':'var(--wrong)');
+  const R=16, CIRC=2*Math.PI*R;
+  const ring = it.progress ? `
+    <svg width="40" height="40" viewBox="0 0 40 40" style="flex-shrink:0;">
+      <circle cx="20" cy="20" r="${R}" fill="none" stroke="var(--border)" stroke-width="4"/>
+      <circle cx="20" cy="20" r="${R}" fill="none" stroke="${progColor}" stroke-width="4"
+        stroke-dasharray="${CIRC.toFixed(1)}" stroke-dashoffset="${(CIRC*(1-pct/100)).toFixed(1)}"
+        stroke-linecap="round" transform="rotate(-90 20 20)" style="transition:stroke-dashoffset .3s;"/>
+      <text x="20" y="24" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--text)" font-family="Rajdhani,sans-serif">${pct}%</text>
+    </svg>` : '';
   return `<div class="quiz-card" style="border-left:3px solid ${c}" id="card-${it.id}">
     <div class="quiz-card-top">
       ${bulkMode?`<input type="checkbox" class="card-select-box" ${selectedIds.has(it.id)?'checked':''} onchange="toggleCardSelect('${it.id}')"/>`:''}
@@ -1688,8 +1899,10 @@ function renderCard(it){
       ${(it.tags||[]).map(t=>`<span class="tag-chip">${escHtml(t)}</span>`).join('')}
     </div>
     ${it.progress?`
-    <div class="card-progress-label"><span>✔ ${it.progress.correct} ✘ ${it.progress.wrong} – ${it.progress.skip}</span><span>${pct}%</span></div>
-    <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${progColor}"></div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin:2px 0;">
+      ${ring}
+      <div class="card-progress-label" style="flex-direction:column;align-items:flex-start;gap:2px;"><span>✔ ${it.progress.correct} ✘ ${it.progress.wrong} – ${it.progress.skip}</span></div>
+    </div>
     `:`<div class="field-hint" style="margin:0;">Not yet opened this session</div>`}
     <div class="field-hint" style="margin:0;">Last opened: ${timeAgo(it.lastOpened)}</div>
     ${it.notes?`<div class="notes-preview">📝 ${escHtml(it.notes)}</div>`:''}
@@ -1703,135 +1916,260 @@ function renderCard(it){
 }
 
 // ===================== ANSWER-MAPPING EXPORTER =====================
+let mappingLoaded = null; // {srcText, item, dataPath, questionIndex, options}
+
 function openAnswerMappingModal(){
   const quizzes=library.filter(item=>item.module===activeModule);
   const select=document.getElementById('mapping-quiz');
   select.innerHTML=quizzes.length ? quizzes.map(item=>`<option value="${item.id}">${escHtml(item.title)}</option>`).join('') : '<option value="">No quizzes in this module</option>';
   document.getElementById('mapping-question').value='';
-  document.getElementById('mapping-answer').value='0';
-  document.getElementById('mapping-file').value='';
+  document.getElementById('mapping-status').textContent='';
+  document.getElementById('mapping-edit-fields').style.display='none';
+  document.getElementById('mapping-save-btn').style.display='none';
+  mappingLoaded=null;
   document.getElementById('answer-mapping-modal-overlay').classList.add('show');
 }
 function closeAnswerMappingModal(){ document.getElementById('answer-mapping-modal-overlay').classList.remove('show'); }
-function updateQuestionAnswerInHtml(html, questionIndex, answerIndex){
-  const start=html.search(/(?:const|let|var)\s+questions\s*=\s*\[/);
-  if(start<0) throw new Error('questions data not found');
-  const arrayStart=html.indexOf('[',start);
+
+// Finds the Nth {...} question object inside a questions:[ ... ] array in
+// raw JS source text, matching brace depth (so nested braces/strings in a
+// question's own text don't confuse it). Works on the small data-file
+// format (window.CBT_QUIZ = {config:{...}, questions:[...]}).
+function findQuestionBlocks(src){
+  const start=src.search(/questions\s*:\s*\[/);
+  if(start<0) throw new Error('questions array not found in this data file');
+  const arrayStart=src.indexOf('[',start);
   const objects=[];
   let depth=0, objectStart=-1, quote='', escaped=false;
-  for(let i=arrayStart+1;i<html.length;i++){
-    const ch=html[i];
+  for(let i=arrayStart+1;i<src.length;i++){
+    const ch=src[i];
     if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
     if(ch==='"' || ch==="'" || ch==='`'){ quote=ch; continue; }
-    if(ch==='{'){ if(depth===0)objectStart=i; depth++; }
-    else if(ch==='}' && depth){ depth--; if(depth===0){ objects.push([objectStart,i+1]); if(objects.length>questionIndex) break; } }
+    if(ch==='['){ depth++; continue; } // track nested arrays (e.g. opts:[...]) so we don't miscount
+    if(ch===']'){ depth--; if(depth<0) break; continue; }
+    if(ch==='{'){ if(depth===0) objectStart=i; depth++; }
+    else if(ch==='}' && depth){ depth--; if(depth===0) objects.push([objectStart,i+1]); }
   }
-  const range=objects[questionIndex];
-  if(!range) throw new Error('question number is outside this quiz');
-  const questionBlock=html.slice(range[0],range[1]);
-  if(!/\bans\s*:\s*\d+/.test(questionBlock)) throw new Error('answer mapping not found for this question');
-  const updated=questionBlock.replace(/\bans\s*:\s*\d+/,`ans:${answerIndex}`);
-  return html.slice(0,range[0])+updated+html.slice(range[1]);
+  return objects;
 }
-function exportCorrectedQuiz(){
+
+async function loadMappingQuestion(){
   const quizId=document.getElementById('mapping-quiz').value;
   const questionNumber=Number(document.getElementById('mapping-question').value);
-  const answerIndex=Number(document.getElementById('mapping-answer').value);
-  const file=document.getElementById('mapping-file').files[0];
+  const status=document.getElementById('mapping-status');
+  document.getElementById('mapping-edit-fields').style.display='none';
+  document.getElementById('mapping-save-btn').style.display='none';
+  mappingLoaded=null;
   if(!quizId){ showToast('Select a quiz first'); return; }
   if(!Number.isInteger(questionNumber) || questionNumber<1){ showToast('Enter a valid question number'); return; }
-  if(!file){ showToast('Choose the quiz HTML file to export'); return; }
-  const reader=new FileReader();
-  reader.onload=()=>{
-    try{
-      const corrected=updateQuestionAnswerInHtml(String(reader.result),questionNumber-1,answerIndex);
-      const blob=new Blob([corrected],{type:'text/html'});
-      const link=document.createElement('a');
-      const base=file.name.replace(/\.html?$/i,'');
-      link.href=URL.createObjectURL(blob); link.download=base+'-corrected.html';
-      link.click(); URL.revokeObjectURL(link.href);
-      closeAnswerMappingModal(); showToast(`Question ${questionNumber} updated to option ${'ABCD'[answerIndex]}`);
-    }catch(error){ showToast(error.message || 'Could not update this quiz file'); }
-  };
-  reader.readAsText(file);
+  const item=library.find(x=>x.id===quizId);
+  const dataPath=extractDataPath(item.link);
+  if(!dataPath){ status.textContent='This quiz isn\'t a data-file quiz — Answer Mapping only works with the new format.'; return; }
+  status.textContent='Loading…';
+  try{
+    const res=await fetch(dataPath);
+    if(!res.ok) throw new Error('could not fetch this quiz\'s data file');
+    const srcText=await res.text();
+    const blocks=findQuestionBlocks(srcText);
+    const range=blocks[questionNumber-1];
+    if(!range) throw new Error(`this quiz only has ${blocks.length} questions`);
+    const blockText=srcText.slice(range[0],range[1]);
+    const qObj=new Function('return ('+blockText+')')();
+
+    document.getElementById('mapping-topic').value=qObj.topic||'';
+    document.getElementById('mapping-qtext').value=qObj.q||'';
+    document.getElementById('mapping-exp').value=qObj.exp||'';
+    const optsList=document.getElementById('mapping-options-list');
+    optsList.innerHTML=(qObj.opts||[]).map((opt,i)=>`
+      <div class="mapping-option-row">
+        <input type="radio" name="mapping-correct-opt" value="${i}" ${i===qObj.ans?'checked':''}/>
+        <span class="mapping-option-letter">${'ABCDEFGHIJ'[i]||i}.</span>
+        <input type="text" class="mapping-opt-text" value="${escHtml(opt)}"/>
+      </div>`).join('');
+
+    status.textContent=`Editing Q${questionNumber} of ${blocks.length}.`;
+    document.getElementById('mapping-edit-fields').style.display='';
+    document.getElementById('mapping-save-btn').style.display='';
+    mappingLoaded={srcText, item, dataPath, questionIndex:questionNumber-1};
+  }catch(error){
+    status.textContent=error.message || 'Could not load this question';
+  }
+}
+
+function exportCorrectedQuiz(){
+  if(!mappingLoaded){ showToast('Load a question first'); return; }
+  try{
+    const optRows=[...document.querySelectorAll('.mapping-option-row')];
+    const opts=optRows.map(row=>row.querySelector('.mapping-opt-text').value);
+    const checkedRadio=document.querySelector('input[name="mapping-correct-opt"]:checked');
+    if(!checkedRadio) throw new Error('Pick which option is correct');
+    const ans=Number(checkedRadio.value);
+    const topic=document.getElementById('mapping-topic').value;
+    const q=document.getElementById('mapping-qtext').value;
+    const exp=document.getElementById('mapping-exp').value;
+    if(!q.trim()) throw new Error('Question text can\'t be empty');
+    if(opts.some(o=>!o.trim())) throw new Error('Every option needs text — no blank options');
+
+    const newQuestionLiteral = '{topic:'+JSON.stringify(topic)+',q:'+JSON.stringify(q)+
+      ',opts:'+JSON.stringify(opts)+',ans:'+ans+',exp:'+JSON.stringify(exp)+'}';
+
+    const blocks=findQuestionBlocks(mappingLoaded.srcText);
+    const range=blocks[mappingLoaded.questionIndex];
+    const corrected=mappingLoaded.srcText.slice(0,range[0])+newQuestionLiteral+mappingLoaded.srcText.slice(range[1]);
+
+    const blob=new Blob([corrected],{type:'text/javascript'});
+    const filename=mappingLoaded.dataPath.split('/').pop();
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download=filename;
+    a.click(); URL.revokeObjectURL(a.href);
+    closeAnswerMappingModal();
+    showToast(`Saved — upload this over the original ${filename} in your data/ folder`);
+  }catch(error){ showToast(error.message || 'Could not save the correction'); }
 }
 
 // ===================== MIXED QUIZ GENERATOR =====================
 const generatorSelectedIds=new Set();
-const generatorFiles={};
+
 function openQuizGenerator(){
   generatorSelectedIds.clear();
-  Object.keys(generatorFiles).forEach(key=>delete generatorFiles[key]);
+  document.getElementById('generator-search').value='';
   renderQuizGenerator();
+  renderMixedHistory();
   document.getElementById('quiz-generator-modal-overlay').classList.add('show');
 }
 function closeQuizGenerator(){ document.getElementById('quiz-generator-modal-overlay').classList.remove('show'); }
+
 function renderQuizGenerator(){
+  const search=(document.getElementById('generator-search').value||'').trim().toLowerCase();
   const list=document.getElementById('generator-quiz-list');
+  const matches = library.filter(item=>{
+    if(!search) return true;
+    const haystack=[item.title,item.module,item.subtopic,item.subcategory].filter(Boolean).join(' ').toLowerCase();
+    return haystack.includes(search);
+  });
   const groups={};
-  library.forEach(item=>{ const key=`${item.module} — ${item.subtopic||'General'}`; (groups[key]||(groups[key]=[])).push(item); });
+  matches.forEach(item=>{ const key=`${item.module} — ${item.subtopic||'General'}`; (groups[key]||(groups[key]=[])).push(item); });
   const keys=Object.keys(groups).sort(naturalSort);
-  list.innerHTML=keys.length ? keys.map(key=>`<div style="margin:0 0 10px;"><div class="sidebar-title" style="margin:0 0 5px;">${escHtml(key)}</div>${groups[key].map(item=>`<label style="display:flex;align-items:center;gap:9px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;margin:4px 0;background:rgba(255,255,255,.03);cursor:pointer;"><input type="checkbox" ${generatorSelectedIds.has(item.id)?'checked':''} onchange="toggleGeneratorQuiz('${item.id}',this.checked)"><span style="flex:1;font-size:.82rem;">${escHtml(item.title)}</span><span style="font-size:.7rem;color:var(--muted);">${item.count||'?'} Q</span></label>`).join('')}</div>`).join('') : '<div class="field-hint">Add CBTs to your library first.</div>';
-  const files=document.getElementById('generator-file-list');
-  const selected=library.filter(item=>generatorSelectedIds.has(item.id));
-  files.innerHTML=selected.length ? selected.map(item=>`<div style="padding:10px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);"><div style="font-size:.8rem;font-weight:600;margin-bottom:6px;">${escHtml(item.title)}</div><input type="file" accept=".html,text/html" onchange="setGeneratorFile('${item.id}',this.files[0])" style="width:100%;font-size:.75rem;"/>${generatorFiles[item.id]?`<div class="field-hint" style="margin-top:4px;color:var(--correct);">✓ ${escHtml(generatorFiles[item.id].name)}</div>`:''}</div>`).join('') : '<div class="field-hint">Select one or more quizzes above.</div>';
+  list.innerHTML=keys.length ? keys.map(key=>`<div style="margin:0 0 10px;"><div class="sidebar-title" style="margin:0 0 5px;">${escHtml(key)}</div>${groups[key].map(item=>`<label style="display:flex;align-items:center;gap:9px;padding:7px 9px;border:1px solid var(--border);border-radius:8px;margin:4px 0;background:rgba(255,255,255,.03);cursor:pointer;"><input type="checkbox" ${generatorSelectedIds.has(item.id)?'checked':''} onchange="toggleGeneratorQuiz('${item.id}',this.checked)"><span style="flex:1;font-size:.82rem;">${escHtml(item.title)}</span><span style="font-size:.7rem;color:var(--muted);">${item.count||'?'} Q</span></label>`).join('')}</div>`).join('')
+    : `<div class="field-hint">${search?'No quizzes match that search.':'Add CBTs to your library first.'}</div>`;
+  const countLabel=document.getElementById('generator-selected-count');
+  countLabel.textContent = generatorSelectedIds.size ? `— ${generatorSelectedIds.size} selected` : '';
 }
 function toggleGeneratorQuiz(id, checked){
-  if(checked) generatorSelectedIds.add(id); else { generatorSelectedIds.delete(id); delete generatorFiles[id]; }
+  if(checked) generatorSelectedIds.add(id); else generatorSelectedIds.delete(id);
   renderQuizGenerator();
 }
-function setGeneratorFile(id, file){ if(file) generatorFiles[id]=file; renderQuizGenerator(); }
-function findMatchingBracket(text, start){
-  let depth=0, quote='', escaped=false;
-  for(let i=start;i<text.length;i++){
-    const ch=text[i];
-    if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
-    if(ch==='"'||ch==="'"||ch==='`'){ quote=ch; continue; }
-    if(ch==='[') depth++; else if(ch===']' && --depth===0) return i;
-  }
-  return -1;
+
+// Same sanitization formula CBT_Player.html uses for its own QUIZ_ID, so a
+// tagged question's __srcId always matches what that quiz computes for
+// itself when opened normally — this is what makes the wrong-answer
+// redirect land in the right place.
+function computeQuizId(pageTitle, questionCount){
+  return (pageTitle + '_' + questionCount).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,80);
 }
-function extractQuizQuestions(html){
-  const declaration=html.search(/(?:const|let|var)\s+questions\s*=\s*\[/);
-  if(declaration<0) throw new Error('question data was not found');
-  const start=html.indexOf('[',declaration), end=findMatchingBracket(html,start);
-  if(end<0) throw new Error('question data is incomplete');
-  const contents=html.slice(start+1,end).trim();
-  if(!contents) throw new Error('no questions found');
-  return {start,end,contents};
+
+// ----- Quiz Generator score history -----
+function loadMixedHistory(){
+  try{ const raw=localStorage.getItem(MIXED_HISTORY_KEY); return raw?JSON.parse(raw):[]; }catch(e){ return []; }
 }
-function shuffleQuestionsSource(source){
-  const parts=[]; let depth=0, start=-1, quote='', escaped=false;
-  for(let i=0;i<source.length;i++){
-    const ch=source[i];
-    if(quote){ if(escaped) escaped=false; else if(ch==='\\') escaped=true; else if(ch===quote) quote=''; continue; }
-    if(ch==='"'||ch==="'"||ch==='`'){ quote=ch; continue; }
-    if(ch==='{'){ if(depth===0) start=i; depth++; }
-    else if(ch==='}'&&depth){ depth--; if(depth===0) parts.push(source.slice(start,i+1)); }
-  }
-  for(let i=parts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [parts[i],parts[j]]=[parts[j],parts[i]]; }
-  return parts;
+function saveMixedHistory(list){
+  try{ localStorage.setItem(MIXED_HISTORY_KEY, JSON.stringify(list)); }catch(e){}
 }
+function recordMixedQuizHistory(data){
+  const list=loadMixedHistory();
+  list.unshift({
+    id: uid(),
+    date: new Date().toISOString(),
+    total: data.total, correct: data.correct, wrong: data.wrong, skip: data.skip, pct: data.pct,
+    sourceSummary: data.sourceSummary || ''
+  });
+  saveMixedHistory(list.slice(0,50)); // keep the most recent 50 attempts
+  if(document.getElementById('quiz-generator-modal-overlay').classList.contains('show')) renderMixedHistory();
+}
+function deleteMixedHistoryEntry(id){
+  saveMixedHistory(loadMixedHistory().filter(x=>x.id!==id));
+  renderMixedHistory();
+}
+function renderMixedHistory(){
+  const wrap=document.getElementById('generator-history-list');
+  if(!wrap) return;
+  const list=loadMixedHistory();
+  wrap.innerHTML = list.length ? list.map(h=>`
+    <div class="mixed-history-row">
+      <div class="mixed-history-pct" style="color:${h.pct>=75?'var(--correct)':h.pct>=50?'var(--gold)':'var(--wrong)'}">${h.pct}%</div>
+      <div class="mixed-history-info">
+        <div class="mixed-history-title">${h.total}Q — ✔${h.correct} ✘${h.wrong} –${h.skip}</div>
+        <div class="mixed-history-date">${new Date(h.date).toLocaleString()}${h.sourceSummary?' · '+escHtml(h.sourceSummary):''}</div>
+      </div>
+      <button class="icon-btn" onclick="deleteMixedHistoryEntry('${h.id}')" title="Delete this attempt">🗑</button>
+    </div>`).join('') : '<div class="field-hint">No mixed quiz attempts yet.</div>';
+}
+
+// Pulls the data-file path out of a dashboard Link value, e.g.
+// "CBT_Player.html?quiz=data/module8-2017-s1.js" -> "data/module8-2017-s1.js"
+function extractDataPath(link){
+  try{
+    const url = new URL(link, location.href);
+    return url.searchParams.get('quiz');
+  }catch(e){ return null; }
+}
+
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+
 async function generateMixedQuiz(){
   const selected=library.filter(item=>generatorSelectedIds.has(item.id));
   if(!selected.length){ showToast('Select at least one quiz'); return; }
-  if(selected.some(item=>!generatorFiles[item.id])){ showToast('Choose an HTML template for every selected quiz'); return; }
-  const launch=window.open('about:blank','_blank');
+
+  const skipped=[];
+  const allQuestions=[];
+
+  for(const item of selected){
+    const dataPath = extractDataPath(item.link);
+    if(!dataPath){ skipped.push(item.title+' (not a data-file quiz)'); continue; }
+    try{
+      const res = await fetch(dataPath);
+      if(!res.ok) throw new Error('fetch failed');
+      const src = await res.text();
+      const sandbox = {};
+      const fn = new Function('window', src + '\nreturn window.CBT_QUIZ;');
+      const data = fn(sandbox);
+      if(!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('no questions');
+      const srcTotal = data.questions.length;
+      const srcId = computeQuizId((data.config && data.config.pageTitle) || item.title, srcTotal);
+      data.questions.forEach((q, idx)=>{
+        allQuestions.push(Object.assign({}, q, { __srcId: srcId, __srcIdx: idx, __srcTotal: srcTotal }));
+      });
+    }catch(e){ skipped.push(item.title); }
+  }
+
+  if(!allQuestions.length){ showToast('Could not load any of the selected quizzes'); return; }
+
+  shuffleArray(allQuestions);
+
+  const merged = {
+    isMixed: true,
+    config: {
+      pageTitle: `Mixed Quiz — ${allQuestions.length} Questions`,
+      headerLeft: 'MIXED QUIZ',
+      headerRight: `${allQuestions.length} Questions from ${selected.length - skipped.length} source${selected.length - skipped.length===1?'':'s'}`,
+      resultsTitle: '✈ QUIZ COMPLETE',
+      resultsSubtitle: 'Mixed Practice Session'
+    },
+    questions: allQuestions
+  };
+
   try{
-    const templates=await Promise.all(selected.map(item=>generatorFiles[item.id].text()));
-    const extracted=templates.map(extractQuizQuestions);
-    const shuffled=shuffleQuestionsSource(extracted.map(item=>item.contents).join(','));
-    if(!shuffled.length) throw new Error('no quiz questions could be read');
-    let combined=templates[0];
-    combined=combined.slice(0,extracted[0].start+1)+'\n'+shuffled.join(',\n')+'\n'+combined.slice(extracted[0].end);
-    combined=combined.replace(/<title[^>]*>.*?<\/title>/i,`<title>Mixed CBT Quiz — ${shuffled.length} Questions</title>`);
-    combined=combined.replace(/const QUIZ_ID\s*=\s*[^;]+;/,`const QUIZ_ID = 'mixed_'+Date.now();`);
-    const url=URL.createObjectURL(new Blob([combined],{type:'text/html'}));
-    if(launch) launch.location.href=url;
-    const download=document.createElement('a'); download.href=url; download.download=`mixed-cbt-quiz-${shuffled.length}q.html`; download.click();
-    setTimeout(()=>URL.revokeObjectURL(url),60000);
-    closeQuizGenerator(); showToast(`Generated ${shuffled.length}-question mixed quiz`);
-  }catch(error){ if(launch) launch.close(); showToast(error.message || 'Could not generate the quiz'); }
+    localStorage.setItem('cbt_mixed_pending', JSON.stringify(merged));
+  }catch(e){ showToast('Could not start the mixed quiz — storage error'); return; }
+
+  window.open('CBT_Player.html?quiz=__mixed__', '_blank');
+  closeQuizGenerator();
+  showToast(skipped.length
+    ? `Started ${allQuestions.length}Q mixed quiz — skipped ${skipped.length}: ${skipped.join(', ')}`
+    : `Started a ${allQuestions.length}-question mixed quiz`);
 }
 
 document.getElementById('modal-overlay').addEventListener('click', e=>{ if(e.target.id==='modal-overlay') closeModal(); });
@@ -1850,6 +2188,12 @@ load();
 checkForSharedLibraryInUrl();
 refresh();
 initSyncOnLoad();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{ /* offline support unavailable — app still works online */ });
+  });
+}
 </script>
 </body>
 </html>
