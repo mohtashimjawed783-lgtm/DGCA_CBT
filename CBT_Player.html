@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title id="page-title">Shared CBT Player — EASA Part-66 | Module 17 – Propeller Complete CBT (309Q)</title>
+<link rel="icon" type="image/png" href="icons/favicon-32.png"/>
+<meta name="theme-color" content="#03050a"/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{--navy:#03050a;--navy2:#080b14;--panel:#0d121f;--card:#111726;--border:#1e2536;--accent:#22d3ee;--accent2:#0891b2;--gold:#fb923c;--correct:#34d399;--wrong:#fb7185;--skip:#fbbf24;--unattempted:#293244;--text:#eef2f9;--muted:#7b879e;--white:#ffffff;--violet:#818cf8;--glow:rgba(34,211,238,.28);}
@@ -153,6 +155,44 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
 .nav-dot.unattempted{background:rgba(255,255,255,.07);}
 .nav-dot.current{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 0 2px rgba(34,211,238,.28),0 0 16px var(--glow);}
 .review-exp{border-color:rgba(255,255,255,.12);}
+/* ===== Mobile-only: compact the top area (header/score/mode-bar) =====
+   Desktop is untouched — this block only applies under 560px wide.
+   Placed at the end of the stylesheet so it reliably wins the cascade. */
+@media(max-width:560px){
+  header{padding:0 12px;}
+  .header-inner{
+    height:auto;min-height:0;padding:8px 0;gap:6px 10px;
+    align-items:center;
+  }
+  /* Back button + score chips share one compact row; the title (usually
+     the longest piece) drops to its own full-width row underneath —
+     turns 3 wrapped rows into 2 shorter ones. */
+  .btn-back-dash{order:1;padding:5px 10px;font-size:0.72rem;flex-shrink:0;}
+  .live-score{order:2;gap:5px;margin-left:auto;}
+  .header-title{
+    order:3;flex-basis:100%;font-size:0.78rem;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .score-chip{padding:3px 8px;font-size:0.68rem;gap:3px;}
+
+  .mode-bar{margin:8px auto 0;gap:6px;}
+  .mode-btn{padding:6px 10px;font-size:0.74rem;gap:4px;}
+  .mode-count{font-size:0.65rem;padding:0px 5px;}
+
+  .main{padding:12px 14px 90px;}
+  .q-card{padding:16px 16px;margin-bottom:14px;}
+  .topic-badge{margin-bottom:8px;padding:2px 10px;font-size:0.68rem;}
+  .q-meta{margin-bottom:7px;}
+}
+
+.review-flag-btn{
+  background:none;border:1.5px solid var(--border);border-radius:8px;
+  font-size:1.05rem;line-height:1;padding:6px 10px;cursor:pointer;
+  filter:grayscale(1);opacity:.55;transition:all .15s;flex-shrink:0;
+}
+.review-flag-btn:hover{opacity:.85;border-color:var(--gold);}
+.review-flag-btn.active{filter:none;opacity:1;border-color:var(--gold);background:rgba(251,146,60,.12);}
+.nav-dot.reviewed{box-shadow:0 0 0 2px var(--gold) inset;}
 </style>
 </head>
 <body>
@@ -185,7 +225,10 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
       <div class="q-num" id="q-num-label">Q 1</div>
       <div class="q-total" id="q-of-total">of 309 Questions</div>
     </div>
-    <div id="topic-badge-wrap"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div id="topic-badge-wrap"></div>
+      <button class="review-flag-btn" id="review-flag-btn" onclick="toggleReviewFlag(current)" title="Mark for review">🔖</button>
+    </div>
     <div class="q-card"><div class="q-text" id="q-text"></div></div>
     <div class="options" id="options-wrap"></div>
     <div class="feedback" id="feedback"></div>
@@ -236,6 +279,7 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
     </div>
     <div id="review-list"></div>
     <button class="btn-restart" onclick="restartQuiz()">↺ Restart Quiz</button>
+    <button class="btn-restart" id="btn-close-mixed" style="display:none;background:var(--accent);color:#04141c;margin-top:10px;" onclick="window.close()">✕ Close Quiz</button>
   </div>
 </div>
 
@@ -250,7 +294,16 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
    back into one script tag with the code below.
 ====================================================================== */
 const quizDataPath = new URLSearchParams(location.search).get('quiz');
-if (quizDataPath) {
+if (quizDataPath === '__mixed__') {
+  // Mixed/generated quiz from the dashboard's Quiz Generator: the questions
+  // were already assembled and handed off via localStorage (same-origin,
+  // so this tab can read what the dashboard tab just wrote), rather than
+  // living in a real file in /data. Nothing to fetch here.
+  try {
+    const raw = localStorage.getItem('cbt_mixed_pending');
+    if (raw) window.CBT_QUIZ = JSON.parse(raw);
+  } catch(e) {}
+} else if (quizDataPath) {
   const safeQuizPath = quizDataPath.replace(/["'<>]/g, '');
   document.write('<script src="' + safeQuizPath + '"><\/script>');
 }
@@ -436,9 +489,41 @@ function saveMistakes(){
     localStorage.setItem(STREAK_KEY, JSON.stringify(streak));
   }catch(e){}
 }
+
+// ----- "Mark for Review" — separate from right/wrong, purely a personal
+// bookmark on a question you want to revisit (e.g. got it right but the
+// concept felt shaky). Persisted per-quiz, same pattern as mistake tracking.
+const REVIEWFLAG_KEY='cbt_reviewflag_'+QUIZ_ID;
+let reviewFlag=new Array(questions.length).fill(false);
+function loadReviewFlags(){
+  try{
+    const raw=localStorage.getItem(REVIEWFLAG_KEY);
+    if(raw){ const d=JSON.parse(raw); if(Array.isArray(d)&&d.length===questions.length) reviewFlag=d; }
+  }catch(e){}
+}
+function saveReviewFlags(){
+  try{ localStorage.setItem(REVIEWFLAG_KEY, JSON.stringify(reviewFlag)); }catch(e){}
+}
+function toggleReviewFlag(i){
+  reviewFlag[i]=!reviewFlag[i];
+  saveReviewFlags();
+  renderQ(i);
+}
 // Call this whenever a question is answered, in ANY mode, to keep mistake
 // tracking consistent everywhere (Full Quiz, Wrong-Only, Smart Review, Timed).
+//
+// Mixed quizzes (from the dashboard's Quiz Generator) are throwaway — they
+// don't get their own persistent mistake history. Instead, each question in
+// a mixed quiz carries __srcId/__srcIdx/__srcTotal metadata pointing back to
+// its real, original quiz, and this function writes the result there
+// instead — so a wrong answer here genuinely shows up next time you open
+// THAT quiz normally and switch to Wrong Answers Only mode.
 function recordAnswerForMistakeTracking(i, isCorrect){
+  const q = questions[i];
+  if (q && q.__srcId) {
+    recordAnswerForSourceQuiz(q.__srcId, q.__srcIdx, q.__srcTotal, isCorrect);
+    return;
+  }
   if(isCorrect){
     if(wrongFlag[i]){
       streak[i]++;
@@ -451,6 +536,38 @@ function recordAnswerForMistakeTracking(i, isCorrect){
   }
   saveMistakes();
   updateWrongCountBadge();
+}
+
+// Applies the exact same mistake/streak logic as above, but against
+// ANOTHER quiz's localStorage keys (identified by srcId, the same
+// pageTitle+questionCount formula every quiz uses for its own QUIZ_ID).
+function recordAnswerForSourceQuiz(srcId, srcIdx, srcTotal, isCorrect){
+  if(srcId==null || srcIdx==null || !srcTotal) return;
+  const mKey='cbt_mistakes_'+srcId, fKey='cbt_wrongflag_'+srcId, sKey='cbt_streak_'+srcId;
+  let m, f, s;
+  try{
+    const rawM=localStorage.getItem(mKey), rawF=localStorage.getItem(fKey), rawS=localStorage.getItem(sKey);
+    m = (rawM && JSON.parse(rawM).length===srcTotal) ? JSON.parse(rawM) : new Array(srcTotal).fill(0);
+    f = (rawF && JSON.parse(rawF).length===srcTotal) ? JSON.parse(rawF) : new Array(srcTotal).fill(false);
+    s = (rawS && JSON.parse(rawS).length===srcTotal) ? JSON.parse(rawS) : new Array(srcTotal).fill(0);
+  }catch(e){
+    m = new Array(srcTotal).fill(0); f = new Array(srcTotal).fill(false); s = new Array(srcTotal).fill(0);
+  }
+  if(isCorrect){
+    if(f[srcIdx]){
+      s[srcIdx]++;
+      if(s[srcIdx]>=CLEAR_STREAK_TARGET){ f[srcIdx]=false; s[srcIdx]=0; }
+    }
+  }else{
+    m[srcIdx]=(m[srcIdx]||0)+1;
+    f[srcIdx]=true;
+    s[srcIdx]=0;
+  }
+  try{
+    localStorage.setItem(mKey, JSON.stringify(m));
+    localStorage.setItem(fKey, JSON.stringify(f));
+    localStorage.setItem(sKey, JSON.stringify(s));
+  }catch(e){}
 }
 function clearMistakeHistory(){
   if(!confirm('Clear your mistake history? This resets what "Wrong Answers Only" mode shows you, and any in-progress 3-correct streaks.'))return;
@@ -673,6 +790,9 @@ function applyConfig(){
   document.querySelector('.results-title').textContent=CONFIG.resultsTitle;
   document.getElementById('res-subtitle').textContent=
     CONFIG.resultsSubtitle+' · '+questions.length+' Questions';
+  if(window.CBT_QUIZ && window.CBT_QUIZ.isMixed){
+    document.getElementById('btn-close-mixed').style.display='block';
+  }
 }
 
 // Shown instead of crashing when no questions loaded — either the ?quiz=
@@ -707,6 +827,7 @@ function init(){
   applyConfig();
   loadProgress();
   loadMistakes();
+  loadReviewFlags();
   loadLastSeen();
   loadOrCreateOrder();
   activeIndices=questionOrder;
@@ -732,7 +853,7 @@ function buildNav(){
   const g=document.getElementById('nav-grid');g.innerHTML='';
   activeIndices.forEach((i,pos)=>{
     const b=document.createElement('button');
-    b.className='nav-dot unattempted';b.textContent=pos+1;b.id='nav-'+i;
+    b.className='nav-dot unattempted'+(reviewFlag[i]?' reviewed':'');b.textContent=pos+1;b.id='nav-'+i;
     b.setAttribute('data-mistakes', remainingToClear(i));
     if(wrongFlag[i]) b.title='Needs '+remainingToClear(i)+' more correct in a row to clear from Wrong Answers Only';
     b.onclick=()=>renderQ(i);g.appendChild(b);
@@ -745,12 +866,13 @@ function updateNav(){
     const el=document.getElementById('nav-'+i);
     if(!el)return;
     el.setAttribute('data-mistakes', remainingToClear(i));
+    const reviewedCls = reviewFlag[i] ? ' reviewed' : '';
     if(mode==='full'){
-      el.className='nav-dot '+(i===current?'current':statuses[i]);
+      el.className='nav-dot '+(i===current?'current':statuses[i])+reviewedCls;
     }else{
       const st = modeAnswers[i]===undefined ? 'unattempted' :
         (!examRevealed ? 'answered' : (modeAnswers[i]===effectiveAns(i) ? 'correct':'wrong'));
-      el.className='nav-dot '+(i===current?'current':st);
+      el.className='nav-dot '+(i===current?'current':st)+reviewedCls;
     }
   });
 }
@@ -774,6 +896,9 @@ function renderQ(idx){
   document.getElementById('q-text').textContent=q.q;
   document.getElementById('topic-badge-wrap').innerHTML=
     `<div class="topic-badge ${topicClass(q.topic)}">${q.topic}</div>`;
+  const reviewBtn=document.getElementById('review-flag-btn');
+  reviewBtn.classList.toggle('active', !!reviewFlag[current]);
+  reviewBtn.title = reviewFlag[current] ? 'Marked for review — click to unmark' : 'Mark for review';
 
   const answeredVal = mode==='full' ? answers[idx] :
     mode==='smart' ? (smartHistory[smartPos] ? smartHistory[smartPos].answered : null) :
@@ -989,6 +1114,22 @@ function showResults(){
   document.getElementById('res-bar').style.width=pct+'%';
   document.getElementById('res-bar').style.background=gc;
   filterReview('all',document.querySelector('.filter-btn'));
+  if(window.CBT_QUIZ && window.CBT_QUIZ.isMixed) reportMixedQuizCompletion(pct,total,correctCount,wrongCount,skipCount);
+}
+
+// Reports a finished mixed-quiz session back to the dashboard tab that
+// opened it, so it can be logged in Quiz Generator's score history.
+// Normal (non-mixed) quizzes don't use this — they already report live
+// progress via reportProgressToOpener().
+function reportMixedQuizCompletion(pct,total,correct,wrong,skip){
+  try{
+    if(!window.opener || window.opener.closed) return;
+    window.opener.postMessage({
+      type:'cbt-mixed-complete',
+      pct, total, correct, wrong, skip,
+      sourceSummary: (CONFIG.headerRight||'')
+    }, '*');
+  }catch(e){}
 }
 
 function filterReview(type,btn){
@@ -1035,7 +1176,45 @@ function restartQuiz(){
   setMode('full');
 }
 
+// ===================== KEYBOARD SHORTCUTS =====================
+// Number keys 1-9 pick the corresponding option (only while the quiz
+// screen is showing and that question hasn't been answered yet).
+// Enter/Space presses whichever "advance" button is currently visible
+// (Next, Finish & Review, Submit Exam, or End Session). "S" skips.
+// Ignored while focus is on a form control, and while results are showing.
+document.addEventListener('keydown', function(e){
+  const onQuizScreen = document.getElementById('quiz-screen').style.display !== 'none';
+  if(!onQuizScreen) return;
+  const tag = (e.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='textarea'||tag==='select') return;
+
+  if(e.key>='1' && e.key<='9'){
+    const optIdx = Number(e.key)-1;
+    const buttons = document.querySelectorAll('#options-wrap .opt-btn');
+    if(buttons[optIdx] && !buttons[optIdx].disabled){ e.preventDefault(); buttons[optIdx].click(); }
+    return;
+  }
+  if(e.key==='Enter' || e.key===' '){
+    const order=['btn-next','btn-finish','btn-submit-exam','btn-end-smart'];
+    for(const id of order){
+      const btn=document.getElementById(id);
+      if(btn && btn.style.display!=='none' && !btn.disabled){ e.preventDefault(); btn.click(); return; }
+    }
+    return;
+  }
+  if(e.key==='s' || e.key==='S'){
+    const skipBtn=document.getElementById('btn-skip');
+    if(skipBtn && skipBtn.style.display!=='none' && !skipBtn.disabled){ e.preventDefault(); skipBtn.click(); }
+  }
+});
+
 init();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
 </script>
 </body>
 </html>
