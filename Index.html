@@ -124,10 +124,10 @@ header{
 @keyframes radar-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .hero-jet-img{
   position:absolute;top:-10px;left:24px;width:340px;height:auto;
-  mix-blend-mode:screen;opacity:0.8;pointer-events:none;
+  mix-blend-mode:screen;opacity:0.85;pointer-events:none;
   filter:drop-shadow(0 0 24px rgba(34,211,238,.25));
-  mask-image:radial-gradient(ellipse 145px 95px at 48% 46%, black 15%, transparent 72%);
-  -webkit-mask-image:radial-gradient(ellipse 145px 95px at 48% 46%, black 15%, transparent 72%);
+  mask-image:radial-gradient(ellipse 175px 105px at 46% 52%, black 60%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 175px 105px at 46% 52%, black 60%, transparent 100%);
 }
 [data-theme="light"] .hero-jet-img{opacity:0.4;mix-blend-mode:multiply;filter:invert(1) hue-rotate(180deg);}
 .hero-inner{position:relative;max-width:1400px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;}
@@ -282,20 +282,33 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   background:radial-gradient(ellipse at center, var(--tile-accent,var(--accent)) 0%, transparent 68%);
   opacity:.20;pointer-events:none;transition:opacity .2s;
 }
+/* Corner HUD tick marks — small aviation-instrument-panel detail */
+.module-tile::after{
+  content:'';position:absolute;top:10px;right:10px;width:16px;height:16px;z-index:1;
+  border-top:2px solid color-mix(in srgb, var(--tile-accent,var(--accent)) 55%, transparent);
+  border-right:2px solid color-mix(in srgb, var(--tile-accent,var(--accent)) 55%, transparent);
+  border-radius:0 4px 0 0;opacity:.7;pointer-events:none;
+}
 .module-tile:hover{transform:translateY(-3px);border-color:var(--tile-accent,var(--accent));box-shadow:0 16px 38px rgba(0,0,0,0.4),0 0 0 1px var(--tile-accent,var(--accent)) inset;}
 .module-tile:hover::before{opacity:.32;}
 [data-theme="light"] .module-tile{background:linear-gradient(160deg,#ffffff,#f3f7fb);box-shadow:0 10px 26px rgba(15,23,42,0.10);}
+.module-tile-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1;}
+.module-tile-eyebrow{
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.78rem;text-transform:uppercase;
+  letter-spacing:1.4px;color:var(--muted);
+}
 .module-tile-icon{
-  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   background:color-mix(in srgb, var(--tile-accent,var(--accent)) 18%, transparent);
   border:1px solid color-mix(in srgb, var(--tile-accent,var(--accent)) 40%, transparent);
   color:var(--tile-accent,var(--accent));font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;
-  margin-bottom:14px;position:relative;z-index:1;
 }
-.module-tile-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:5px;padding-right:20px;position:relative;z-index:1;letter-spacing:.2px;}
+.module-tile-name{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.92rem;color:var(--muted);margin-bottom:8px;padding-right:20px;position:relative;z-index:1;letter-spacing:.2px;}
 .module-tile-count{color:var(--muted);font-size:0.78rem;margin-bottom:16px;position:relative;z-index:1;text-transform:uppercase;letter-spacing:.6px;}
-.module-tile-pct{color:var(--muted);font-size:0.76rem;margin-top:9px;position:relative;z-index:1;display:flex;justify-content:space-between;align-items:baseline;}
+.module-tile-pct{color:var(--muted);font-size:0.76rem;margin-top:9px;position:relative;z-index:1;display:flex;align-items:center;gap:6px;}
+.module-tile-pct span:nth-of-type(1){flex:1;}
 .module-tile-pct b{color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.95rem;}
+.module-health-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .module-tile-delete{
   position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);
   font-size:1.15rem;cursor:pointer;line-height:1;padding:3px 7px;border-radius:6px;z-index:2;
@@ -1678,19 +1691,28 @@ function renderModuleGrid(){
     const avg = withP.length ? Math.round(withP.reduce((s,x)=>s+x.progress.pct,0)/withP.length) : 0;
     const mEsc = escHtml(m).replace(/'/g,"\\'");
     const accent = moduleAccentColor(m);
-    const numMatch = m.match(/\d+/);
-    const shortLabel = numMatch ? numMatch[0] : m.trim().slice(0,2).toUpperCase();
-    // If a number was pulled out for the badge, don't repeat it in the title
-    // text below — e.g. badge shows "8", title just says "Module" instead
-    // of "Module 8" again.
-    const displayName = numMatch ? (m.replace(numMatch[0],'').replace(/\s+/g,' ').trim() || 'Module') : m;
+    // Match a number plus any letters stuck directly to it (e.g. "11A" stays
+    // "11A", not split into "11" + a stranded "A") so codes like that show
+    // whole in the badge instead of getting torn apart.
+    const codeMatch = m.match(/\d+[A-Za-z]*/);
+    const shortLabel = codeMatch ? codeMatch[0] : m.trim().slice(0,2).toUpperCase();
+    // Whatever's left after pulling the code out — only shown as a subtitle
+    // if it's actually meaningful (e.g. "Systems" in "Systems 15"); the
+    // generic word "Module" alone isn't worth repeating since the eyebrow
+    // label above the badge already says that.
+    const leftover = codeMatch ? m.replace(codeMatch[0],'').replace(/\s+/g,' ').trim() : '';
+    const subtitle = (leftover && leftover.toLowerCase()!=='module') ? leftover : '';
+    const healthColor = !withP.length ? 'var(--border)' : avg>=70 ? 'var(--correct)' : avg>=40 ? 'var(--gold)' : 'var(--wrong)';
     html += `<div class="module-tile" style="--tile-accent:${accent}" onclick="selectModule('${mEsc}')">
       ${items.length===0?`<button class="module-tile-delete" onclick="deleteEmptyModule('${mEsc}', event)" title="Remove empty module">×</button>`:''}
-      <div class="module-tile-icon">${escHtml(shortLabel)}</div>
-      <div class="module-tile-name">${escHtml(displayName)}</div>
+      <div class="module-tile-head">
+        <span class="module-tile-eyebrow">Module</span>
+        <span class="module-tile-icon">${escHtml(shortLabel)}</span>
+      </div>
+      ${subtitle?`<div class="module-tile-name">${escHtml(subtitle)}</div>`:''}
       <div class="module-tile-count">${items.length} ${items.length===1?'quiz':'quizzes'}</div>
       <div class="module-progress-track"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
-      <div class="module-tile-pct">${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'No CBTs yet'}</div>
+      <div class="module-tile-pct"><span class="module-health-dot" style="background:${healthColor}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No CBTs yet</span>'}</div>
     </div>`;
   });
   wrap.innerHTML = html;
