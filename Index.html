@@ -1711,7 +1711,7 @@ function renderModuleGrid(){
       </div>
       ${subtitle?`<div class="module-tile-name">${escHtml(subtitle)}</div>`:''}
       <div class="module-tile-count">${items.length} ${items.length===1?'quiz':'quizzes'}</div>
-      <div class="module-progress-track"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
+      <div class="module-progress-track" style="background:color-mix(in srgb, ${accent} 22%, var(--border))"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
       <div class="module-tile-pct"><span class="module-health-dot" style="background:${healthColor}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No CBTs yet</span>'}</div>
     </div>`;
   });
