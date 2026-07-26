@@ -172,6 +172,38 @@ header{
 }
 .icon-btn:hover{color:var(--text);border-color:var(--accent);background:rgba(34,211,238,0.08);transform:translateY(-1px);}
 .icon-btn.active{color:var(--gold);border-color:var(--gold);}
+
+/* ===== ⓘ info tooltip trigger + panel ===== */
+.info-btn{
+  width:20px;height:20px;flex-shrink:0;border-radius:50%;padding:0;
+  background:linear-gradient(160deg, var(--card), var(--panel));
+  border:1px solid var(--border);color:var(--muted);
+  font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all .15s;
+}
+.info-btn:hover,.info-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(34,211,238,0.08);transform:translateY(-1px);}
+.info-tooltip{
+  position:fixed;z-index:1200;max-width:290px;min-width:200px;
+  background:linear-gradient(135deg,rgba(13,18,31,.97),rgba(8,11,20,.97));
+  border:1.5px solid var(--accent);border-radius:12px;padding:12px 14px;
+  box-shadow:0 0 24px rgba(34,211,238,.35),0 12px 30px rgba(0,0,0,.45);
+  backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  opacity:0;transform:translateY(6px) scale(.97);pointer-events:none;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.info-tooltip.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+.info-tooltip-arrow{position:absolute;width:10px;height:10px;background:rgba(13,18,31,.97);transform:rotate(45deg);}
+.info-tooltip.arrow-top .info-tooltip-arrow{top:-6px;border-left:1.5px solid var(--accent);border-top:1.5px solid var(--accent);}
+.info-tooltip.arrow-bottom .info-tooltip-arrow{bottom:-6px;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);}
+.info-tooltip-title{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:0.86rem;letter-spacing:.3px;margin-bottom:5px;}
+.info-tooltip-text{font-size:0.78rem;line-height:1.55;color:var(--text);}
+.modal-title-row{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.modal-title-row .modal-title{margin-bottom:0;}
+@media(max-width:560px){
+  .info-btn{width:19px;height:19px;font-size:0.66rem;}
+  .info-tooltip{max-width:calc(100vw - 28px);}
+}
 .icon-btn.sync-connected{color:#34d399;border-color:rgba(52,211,153,0.55);}
 .icon-btn.sync-error{color:#f87171;border-color:rgba(248,113,113,0.55);}
 .icon-btn.sync-connecting{opacity:0.6;}
@@ -695,7 +727,10 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 <!-- Sync Modal -->
 <div class="modal-overlay" id="sync-modal-overlay">
   <div class="modal" style="max-width:420px;">
-    <div class="modal-title">Sync Across Devices</div>
+    <div class="modal-title-row">
+      <div class="modal-title">Sync Across Devices</div>
+      <button class="info-btn" data-tip-title="☁ Sync Across Devices" data-tip-text="Keep your library and progress up to date across all your devices. To connect a device, enter a Sync PIN generated on another device. Or, generate a new PIN here and enter it on the device you want to connect. Once linked, your library and progress will stay synced automatically.">ⓘ</button>
+    </div>
     <div id="sync-modal-body"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeSyncModal()">Close</button>
@@ -857,7 +892,10 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 
 <div class="modal-overlay" id="quiz-generator-modal-overlay">
   <div class="modal" style="max-width:640px;">
-    <div class="modal-title">Mixed Quiz Generator</div>
+    <div class="modal-title-row">
+      <div class="modal-title">Mixed Quiz Generator</div>
+      <button class="info-btn" data-tip-title="⚗ Quiz Generator" data-tip-text="Pick any quizzes from any module and their questions get shuffled together into one throwaway practice session. Nothing here is saved as a new library entry, but any question you get wrong still counts toward that question's own quiz history.">ⓘ</button>
+    </div>
     <div class="field-hint" style="margin:-8px 0 18px;">Pick any quizzes from any module — their questions get shuffled together into one throwaway practice session. Nothing here gets saved as a new library entry, and any question you get wrong still counts toward that question's own quiz history.</div>
     <div class="field">
       <label>Search quizzes</label>
@@ -2227,12 +2265,87 @@ document.getElementById('sync-modal-overlay').addEventListener('click', e=>{ if(
 document.getElementById('f-new-module').addEventListener('keydown', e=>{ if(e.key==='Enter') createModule(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeQrModal(); closeShareModal(); closeModuleModal(); closeAnswerMappingModal(); closeQuizGenerator(); closeSyncModal(); } });
 
+// ===== ⓘ info tooltip system =====
+// Hover opens/closes it on desktop; on touch devices tapping the ⓘ toggles
+// it instead (hover doesn't really exist on touch, so we don't rely on it).
+let activeTip=null, activeTipBtn=null;
+
+function isTouchDevice(){ return matchMedia('(hover:none)').matches; }
+
+function getTipEl(){
+  let el=document.getElementById('info-tooltip');
+  if(!el){
+    el=document.createElement('div');
+    el.id='info-tooltip';
+    el.className='info-tooltip';
+    el.innerHTML='<div class="info-tooltip-arrow"></div><div class="info-tooltip-title" id="info-tooltip-title"></div><div class="info-tooltip-text" id="info-tooltip-text"></div>';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+
+function positionTip(btn,el){
+  const r=btn.getBoundingClientRect();
+  const vw=window.innerWidth, vh=window.innerHeight;
+  el.classList.remove('arrow-top','arrow-bottom');
+  el.style.visibility='hidden';
+  el.classList.add('show');
+  const tw=el.offsetWidth, th=el.offsetHeight;
+  let left = r.left + r.width/2 - tw/2;
+  left = Math.max(10, Math.min(left, vw-tw-10));
+  const placeBelow = (r.bottom + th + 14) < vh;
+  let top;
+  if(placeBelow){ top = r.bottom + 10; el.classList.add('arrow-top'); }
+  else{ top = r.top - th - 10; el.classList.add('arrow-bottom'); }
+  el.style.left=left+'px';
+  el.style.top=top+'px';
+  const arrow=el.querySelector('.info-tooltip-arrow');
+  let arrowLeft = r.left + r.width/2 - left - 5;
+  arrowLeft = Math.max(10, Math.min(arrowLeft, tw-20));
+  arrow.style.left=arrowLeft+'px';
+  el.style.visibility='visible';
+}
+
+function showTip(btn){
+  if(activeTipBtn===btn) return;
+  const el=getTipEl();
+  document.getElementById('info-tooltip-title').textContent = btn.dataset.tipTitle||'';
+  document.getElementById('info-tooltip-text').textContent = btn.dataset.tipText||'';
+  positionTip(btn,el);
+  btn.classList.add('active');
+  activeTip=el; activeTipBtn=btn;
+}
+function hideTip(){
+  if(activeTip) activeTip.classList.remove('show');
+  if(activeTipBtn) activeTipBtn.classList.remove('active');
+  activeTip=null; activeTipBtn=null;
+}
+
+function initInfoTooltips(){
+  document.querySelectorAll('.info-btn').forEach(btn=>{
+    if(btn.dataset.tipBound) return;
+    btn.dataset.tipBound='1';
+    btn.addEventListener('mouseenter',()=>{ if(!isTouchDevice()) showTip(btn); });
+    btn.addEventListener('mouseleave',()=>{ if(!isTouchDevice()) hideTip(); });
+    btn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      if(!isTouchDevice()) return;
+      if(activeTipBtn===btn) hideTip(); else showTip(btn);
+    });
+  });
+}
+document.addEventListener('click',(e)=>{ if(activeTip && !e.target.closest('.info-btn')) hideTip(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') hideTip(); });
+window.addEventListener('scroll',()=>{ if(activeTip) hideTip(); }, true);
+window.addEventListener('resize',()=>{ if(activeTip) hideTip(); });
+
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 load();
 checkForSharedLibraryInUrl();
 refresh();
 initSyncOnLoad();
+initInfoTooltips();
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
