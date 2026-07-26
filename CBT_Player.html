@@ -224,6 +224,147 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
 .review-flag-btn:hover{opacity:.85;border-color:var(--gold);}
 .review-flag-btn.active{filter:none;opacity:1;border-color:var(--gold);background:rgba(251,146,60,.12);}
 .nav-dot.reviewed{box-shadow:0 0 0 2px var(--gold) inset;}
+
+/* ===== 2026-07 UI alignment fixes ===== */
+.mode-bar{
+  max-width:920px;
+  margin:16px auto 0;
+  padding:0 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px 12px;
+  flex-wrap:wrap;
+}
+.mode-btn-group{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  flex:0 0 auto;
+}
+.mode-btn{
+  min-height:42px;
+  padding:8px 15px;
+  white-space:nowrap;
+}
+.info-btn{
+  width:22px;
+  height:22px;
+  margin:0;
+}
+.mode-btn-ghost{
+  margin-left:0;
+  min-height:42px;
+  padding:8px 15px;
+}
+
+/* Question heading/actions */
+.question-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:34px;
+  margin:2px 0 10px;
+}
+#topic-badge-wrap:empty{display:none;}
+#topic-badge-wrap .topic-badge{margin-bottom:0;}
+
+.review-flag-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:34px;
+  padding:7px 12px;
+  border:1.5px solid rgba(251,191,36,.52);
+  border-radius:9px;
+  background:rgba(251,191,36,.08);
+  color:var(--skip);
+  font-family:'Rajdhani',sans-serif;
+  font-size:.82rem;
+  font-weight:700;
+  line-height:1;
+  filter:none;
+  opacity:1;
+  white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.review-flag-btn:hover{
+  opacity:1;
+  color:#fde68a;
+  border-color:var(--skip);
+  background:rgba(251,191,36,.14);
+}
+.review-flag-btn.active{
+  filter:none;
+  opacity:1;
+  color:#111827;
+  border-color:var(--skip);
+  background:var(--skip);
+  box-shadow:0 0 16px rgba(251,191,36,.22);
+}
+
+/* Prevent an empty topic badge from appearing as a hollow oval. */
+.topic-badge:empty{display:none!important;}
+
+@media(max-width:760px){
+  .mode-bar{
+    justify-content:flex-start;
+    gap:8px;
+  }
+  .mode-btn-group{gap:4px;}
+  .mode-btn,.mode-btn-ghost{
+    min-height:38px;
+    padding:7px 11px;
+    font-size:.76rem;
+  }
+  .info-btn{width:20px;height:20px;}
+}
+@media(max-width:560px){
+  .mode-bar{padding:0 12px;}
+  .question-topline{align-items:flex-start;}
+  .review-flag-btn{font-size:.76rem;padding:7px 9px;}
+}
+
+
+/* ===== Dynamic module identity theme ===== */
+:root{
+  --module-accent:#22d3ee;
+  --module-accent-rgb:34,211,238;
+  --module-accent-soft:rgba(var(--module-accent-rgb),.12);
+  --module-accent-border:rgba(var(--module-accent-rgb),.32);
+}
+body{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(var(--module-accent-rgb),.105), transparent 29rem),
+    radial-gradient(circle at 88% 10%, rgba(var(--module-accent-rgb),.045), transparent 34rem),
+    #070d18;
+}
+.logo,.quiz-title,.page-title,.question-number,.q-number,
+.module-accent-text{color:var(--module-accent)!important;}
+.progress-fill,.quiz-progress-fill,.timer-progress-fill{
+  background:var(--module-accent)!important;
+  box-shadow:0 0 14px rgba(var(--module-accent-rgb),.28);
+}
+.mode-btn.active,.mode-btn.selected,.module-accent-btn{
+  border-color:var(--module-accent)!important;
+  background:rgba(var(--module-accent-rgb),.13)!important;
+  box-shadow:0 0 16px rgba(var(--module-accent-rgb),.12);
+}
+.question-card,.quiz-card{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 16px 45px rgba(0,0,0,.20);
+}
+.question-card::before,.quiz-card::before{
+  background:linear-gradient(90deg,transparent,var(--module-accent),transparent);
+}
+.info-btn:hover,.mode-btn:hover{
+  border-color:var(--module-accent-border);
+}
+
+/* Semantic answer colours stay independent:
+   correct=green, wrong=red, skipped/review=yellow. */
+
 </style>
 </head>
 <body>
@@ -268,9 +409,9 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
       <div class="q-num" id="q-num-label">Q 1</div>
       <div class="q-total" id="q-of-total">of 309 Questions</div>
     </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+    <div class="question-topline">
       <div id="topic-badge-wrap"></div>
-      <button class="review-flag-btn" id="review-flag-btn" onclick="toggleReviewFlag(current)" title="Mark for review">🔖</button>
+      <button class="review-flag-btn" id="review-flag-btn" onclick="toggleReviewFlag(current)" title="Mark for review"><span aria-hidden="true">⚑</span><span>Mark for Review</span></button>
     </div>
     <div class="q-card"><div class="q-text" id="q-text"></div></div>
     <div class="options" id="options-wrap"></div>
@@ -941,11 +1082,17 @@ function renderQ(idx){
     mode==='smart' ? 'Smart Review session · '+(smartPos+1)+' viewed so far (original Q'+(idx+1)+')' :
     'of '+activeIndices.length+' in this session (original Q'+(idx+1)+')';
   document.getElementById('q-text').textContent=q.q;
-  document.getElementById('topic-badge-wrap').innerHTML=
-    `<div class="topic-badge ${topicClass(q.topic)}">${q.topic}</div>`;
+  const topicWrap=document.getElementById('topic-badge-wrap');
+  const topicText=(q.topic==null?'':String(q.topic)).trim();
+  topicWrap.innerHTML=topicText
+    ? `<div class="topic-badge ${topicClass(q.topic)}">${topicText}</div>`
+    : '';
   const reviewBtn=document.getElementById('review-flag-btn');
   reviewBtn.classList.toggle('active', !!reviewFlag[current]);
   reviewBtn.title = reviewFlag[current] ? 'Marked for review — click to unmark' : 'Mark for review';
+  reviewBtn.innerHTML = reviewFlag[current]
+    ? '<span aria-hidden="true">⚑</span><span>Marked for Review</span>'
+    : '<span aria-hidden="true">⚑</span><span>Mark for Review</span>';
 
   const answeredVal = mode==='full' ? answers[idx] :
     mode==='smart' ? (smartHistory[smartPos] ? smartHistory[smartPos].answered : null) :
@@ -1337,6 +1484,78 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(()=>{});
   });
 }
+
+
+// ===== Module-specific visual identity =====
+// This changes decorative accents only. Answer-state colours remain semantic.
+const MODULE_THEME_COLORS = {
+  '3':'#22d3ee',
+  '4':'#f97316',
+  '5':'#ef4444',
+  '6':'#10b981',
+  '7':'#a855f7',
+  '8':'#eab308',
+  '9':'#3b82f6',
+  '10':'#f43f5e',
+  '11':'#84cc16',
+  '11A':'#84cc16',
+  '12':'#06b6d4',
+  '13':'#8b5cf6',
+  '14':'#d946ef',
+  '15':'#14b8a6',
+  '16':'#fb7185',
+  '17':'#f59e0b'
+};
+
+function hexToRgbTriplet(hex){
+  const clean=String(hex||'').replace('#','');
+  const full=clean.length===3 ? clean.split('').map(x=>x+x).join('') : clean;
+  const n=parseInt(full,16);
+  if(!Number.isFinite(n)) return '34,211,238';
+  return `${(n>>16)&255},${(n>>8)&255},${n&255}`;
+}
+
+function detectCurrentModuleNumber(){
+  const candidates=[];
+  try{
+    const params=new URLSearchParams(location.search);
+    ['module','mod','quiz'].forEach(k=>{
+      const v=params.get(k);
+      if(v) candidates.push(v);
+    });
+  }catch(e){}
+
+  if(window.CBT_QUIZ){
+    const cfg=window.CBT_QUIZ.config||{};
+    [cfg.module,cfg.moduleNo,cfg.moduleNumber,cfg.pageTitle,cfg.title].forEach(v=>{
+      if(v!=null) candidates.push(String(v));
+    });
+  }
+
+  candidates.push(document.title||'');
+  const heading=document.querySelector('.quiz-title,.page-title,h1');
+  if(heading) candidates.push(heading.textContent||'');
+
+  for(const value of candidates){
+    const str=String(value);
+    let m=str.match(/module[\s_-]*(11a|1[0-7]|[3-9])/i);
+    if(!m) m=str.match(/module(11a|1[0-7]|[3-9])/i);
+    if(!m) m=str.match(/(?:^|[\/_-])(?:module)?(11a|1[0-7]|[3-9])(?:[\/_.-]|$)/i);
+    if(m) return String(m[1]).toUpperCase();
+  }
+  return '3';
+}
+
+function applyCurrentModuleTheme(){
+  const moduleNo=detectCurrentModuleNumber();
+  const color=MODULE_THEME_COLORS[moduleNo]||MODULE_THEME_COLORS['3'];
+  document.documentElement.style.setProperty('--module-accent',color);
+  document.documentElement.style.setProperty('--module-accent-rgb',hexToRgbTriplet(color));
+  document.documentElement.dataset.moduleTheme=moduleNo;
+}
+
+applyCurrentModuleTheme();
+setTimeout(applyCurrentModuleTheme,0);
 </script>
 </body>
 </html>
