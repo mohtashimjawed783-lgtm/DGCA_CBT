@@ -1746,11 +1746,11 @@ function renderStatsBar(){
   const badges=[];
   if(completed100>0) badges.push(`🏆 ${completed100} at 100%`);
   badges.push(`🎯 ${totalPyqs.toLocaleString()} PYQs`);
-  if(qbankQuestions>0) badges.push(`📚 ${qbankSets50.toLocaleString()} Q-Bank sets · 50Q avg`);
+  if(qbankQuestions>0) badges.push(`📚 ${qbankSets50.toLocaleString()} Q-Bank sets`);
 
   document.getElementById('stats-bar').innerHTML = `
     <div class="stat-pill"><div class="stat-num">${totalPyqs.toLocaleString()}</div><div class="stat-label">PYQs</div></div>
-    <div class="stat-pill"><div class="stat-num">${qbankSets50.toLocaleString()}</div><div class="stat-label">Q-Bank Sets · 50Q</div></div>
+    <div class="stat-pill"><div class="stat-num">${qbankSets50.toLocaleString()}</div><div class="stat-label">Q-Bank Sets</div></div>
     <div class="stat-pill"><div class="stat-num">${totalQuestions.toLocaleString()}</div><div class="stat-label">Total Questions</div></div>
     <div class="stat-pill"><div class="stat-num">${avgPct}%</div><div class="stat-label">Overall Progress</div></div>
     <div class="badges-row">${badges.map(b=>`<div class="badge-chip">${b}</div>`).join('')}</div>
@@ -1916,6 +1916,9 @@ function renderModuleGrid(){
     const leftover = codeMatch ? m.replace(codeMatch[0],'').replace(/\s+/g,' ').trim() : '';
     const subtitle = (leftover && leftover.toLowerCase()!=='module') ? leftover : '';
     const healthColor = !withP.length ? 'var(--border)' : avg>=70 ? 'var(--correct)' : avg>=40 ? 'var(--gold)' : 'var(--wrong)';
+    const moduleNo = qbankModuleNumber(m);
+    const moduleQBankQuestions = Number(qbankStatsCache.modules[moduleNo] || 0);
+    const moduleQBankSets = moduleQBankQuestions > 0 ? Math.ceil(moduleQBankQuestions / QBANK_DEFAULT_SET_SIZE) : 0;
     html += `<div class="module-tile" style="--tile-accent:${accent}">
       ${items.length===0?`<button class="module-tile-delete" onclick="deleteEmptyModule('${mEsc}', event)" title="Remove empty module">×</button>`:''}
       <div class="module-tile-head">
@@ -1923,7 +1926,7 @@ function renderModuleGrid(){
         <span class="module-tile-icon">${escHtml(shortLabel)}</span>
       </div>
       ${subtitle?`<div class="module-tile-name">${escHtml(subtitle)}</div>`:''}
-      <div class="module-tile-count">${items.length} ${items.length===1?'PYQ':'PYQs'} <span style="opacity:.55">•</span> Q-Bank</div>
+      <div class="module-tile-count">${items.length} PYQs <span style="opacity:.55">•</span> ${moduleQBankSets.toLocaleString()} sets</div>
       <div class="module-progress-track" style="background:color-mix(in srgb, ${accent} 22%, var(--border))"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
       <div class="module-tile-pct"><span class="module-health-dot" style="background:${accent}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No PYQs yet</span>'}</div>
       <div class="module-tile-actions">
@@ -1988,12 +1991,13 @@ function selectModule(m){
 function openQBankModule(m){
   moduleViewMode='qbank';
   activeModule=m;
+  qbankSetSize=QBANK_DEFAULT_SET_SIZE;
   refresh();
 }
 
 const QBANK_MANIFEST_PATH='qbank-manifest.json';
 const QBANK_DEFAULT_SET_SIZE=50;
-let qbankSetSize=Number(localStorage.getItem('cbt_qbank_set_size'))||QBANK_DEFAULT_SET_SIZE;
+let qbankSetSize=QBANK_DEFAULT_SET_SIZE;
 let qbankCache={}; // module -> {questions, files}
 
 function qbankModuleNumber(name){
@@ -2805,10 +2809,12 @@ async function refreshQBankDashboardStats(){
     };
 
     renderStatsBar();
+    if(!activeModule) renderModuleGrid();
   }catch(err){
     console.warn('Q-Bank dashboard stats unavailable:', err);
     qbankStatsCache = { totalQuestions:0, totalSets50:0, modules:{} };
     renderStatsBar();
+    if(!activeModule) renderModuleGrid();
   }
 }
 
