@@ -718,104 +718,6 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   .quiz-card-actions .btn{flex:1 1 100%;}
   .quiz-card-actions .icon-btn{flex:1 !important;}
 }
-
-/* ============================================================
-   SAFE THEME HARMONIZATION
-   CSS ONLY — dashboard logic and module rendering untouched.
-   ============================================================ */
-
-html, body {
-  background:
-    radial-gradient(circle at 16% 0%, rgba(34,211,238,.055), transparent 31rem),
-    radial-gradient(circle at 88% 4%, rgba(99,102,241,.04), transparent 34rem),
-    #070d18;
-}
-
-/* Keep the dashboard shell closer to CBT Player's clean dark/glass look. */
-.stat-pill {
-  background: linear-gradient(180deg, rgba(15,23,42,.88), rgba(9,16,30,.82));
-  border-color: rgba(148,163,184,.16);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.035),
-    0 10px 28px rgba(0,0,0,.18);
-}
-
-.badge-chip {
-  background: rgba(9,16,30,.74);
-  border-color: rgba(148,163,184,.16);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
-}
-
-/* Toolbar / navigation glass treatment. */
-.topbar,
-.header,
-.app-header,
-.library-header,
-nav {
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-/* Cleaner neutral controls. Module-card controls retain their own inline
-   module accent colours and are deliberately not overridden here. */
-input[type="search"],
-.search-input,
-.search-box,
-select {
-  background-color: rgba(15,23,42,.72);
-  border-color: rgba(148,163,184,.16);
-}
-
-input[type="search"]:focus,
-.search-input:focus,
-.search-box:focus,
-select:focus {
-  border-color: rgba(34,211,238,.38);
-  box-shadow: 0 0 0 3px rgba(34,211,238,.07);
-}
-
-/* General dashboard buttons only: restrained CBT-style hover.
-   Inline module colours still win where the tile renderer supplies them. */
-button {
-  transition:
-    transform .16s ease,
-    border-color .16s ease,
-    background-color .16s ease,
-    box-shadow .16s ease;
-}
-
-button:hover {
-  transform: translateY(-1px);
-}
-
-/* Slightly cleaner typography/spacing without touching layout dimensions. */
-.stat-num {
-  letter-spacing: -.02em;
-}
-
-.section-title,
-.module-section-title {
-  letter-spacing: .01em;
-}
-
-/* Keep cards crisp while preserving every module's existing colour variables. */
-.module-card {
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.025),
-    0 14px 34px rgba(0,0,0,.19);
-}
-
-/* Do NOT recolour module progress bars/ovals here.
-   Their existing module-specific accent logic remains authoritative. */
-
-@media (max-width: 700px) {
-  .stat-pill {
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.03),
-      0 7px 20px rgba(0,0,0,.15);
-  }
-}
-
 </style>
 
 </head>
@@ -1844,11 +1746,11 @@ function renderStatsBar(){
   const badges=[];
   if(completed100>0) badges.push(`🏆 ${completed100} at 100%`);
   badges.push(`🎯 ${totalPyqs.toLocaleString()} PYQs`);
-  if(qbankQuestions>0) badges.push(`📚 ${qbankSets50.toLocaleString()} Q-Bank sets`);
+  if(qbankQuestions>0) badges.push(`📚 ${qbankSets50.toLocaleString()} Q-Bank sets · 50Q avg`);
 
   document.getElementById('stats-bar').innerHTML = `
     <div class="stat-pill"><div class="stat-num">${totalPyqs.toLocaleString()}</div><div class="stat-label">PYQs</div></div>
-    <div class="stat-pill"><div class="stat-num">${qbankSets50.toLocaleString()}</div><div class="stat-label">Q-Bank Sets</div></div>
+    <div class="stat-pill"><div class="stat-num">${qbankSets50.toLocaleString()}</div><div class="stat-label">Q-Bank Sets · 50Q</div></div>
     <div class="stat-pill"><div class="stat-num">${totalQuestions.toLocaleString()}</div><div class="stat-label">Total Questions</div></div>
     <div class="stat-pill"><div class="stat-num">${avgPct}%</div><div class="stat-label">Overall Progress</div></div>
     <div class="badges-row">${badges.map(b=>`<div class="badge-chip">${b}</div>`).join('')}</div>
@@ -2091,7 +1993,7 @@ function openQBankModule(m){
 
 const QBANK_MANIFEST_PATH='qbank-manifest.json';
 const QBANK_DEFAULT_SET_SIZE=50;
-let qbankSetSize=50;
+let qbankSetSize=Number(localStorage.getItem('cbt_qbank_set_size'))||QBANK_DEFAULT_SET_SIZE;
 let qbankCache={}; // module -> {questions, files}
 
 function qbankModuleNumber(name){
@@ -2164,7 +2066,7 @@ function qbankSetSizeChanged(){
   if(!sel) return;
   customWrap.style.display=sel.value==='custom'?'flex':'none';
   if(sel.value!=='custom'){
-    qbankSetSize=50;
+    qbankSetSize=Number(sel.value);
     localStorage.setItem('cbt_qbank_set_size',String(qbankSetSize));
     renderQBankSets();
   }
@@ -2177,7 +2079,7 @@ function applyQBankCustomSize(){
     showToast('Enter a set size from 1 to 1000');
     return;
   }
-  qbankSetSize=50;
+  qbankSetSize=n;
   localStorage.setItem('cbt_qbank_set_size',String(n));
   renderQBankSets();
 }
@@ -2281,7 +2183,7 @@ function renderQBankView(){
         <div class="qbank-control-field">
           <label for="qbank-set-size">Select Set Size</label>
           <select id="qbank-set-size" class="qbank-size-select" onchange="qbankSetSizeChanged()">
-            ${standard.map(n=>`<option value="${n}" ${qbankSetSize=50
+            ${standard.map(n=>`<option value="${n}" ${qbankSetSize===n?'selected':''}>${n} Questions</option>`).join('')}
             <option value="custom" ${!isStandard?'selected':''}>Custom Number</option>
           </select>
         </div>
@@ -2855,32 +2757,6 @@ window.addEventListener('scroll',()=>{ if(activeTip) hideTip(); }, true);
 window.addEventListener('resize',()=>{ if(activeTip) hideTip(); });
 
 
-
-function resetQBankSetSizeTo50(){
-  try{
-    sessionStorage.removeItem('qbankSetSize');
-    localStorage.removeItem('qbankSetSize');
-    localStorage.removeItem('qbank-set-size');
-    sessionStorage.removeItem('qbank-set-size');
-  }catch(e){}
-
-  const selectors = [
-    '#qbank-set-size',
-    '#qbankSetSize',
-    'select[name="qbank-set-size"]',
-    'select[name="qbankSetSize"]',
-    '.qbank-set-size select'
-  ];
-
-  selectors.forEach(sel=>{
-    const el = document.querySelector(sel);
-    if(el){
-      el.value = '50';
-      el.dispatchEvent(new Event('change', {bubbles:true}));
-    }
-  });
-}
-
 // ===================== Q-BANK DASHBOARD STATS =====================
 // Reads the current manifest and every listed Q-Bank file.
 // Totals therefore update automatically whenever the manifest/files change.
@@ -2929,7 +2805,6 @@ async function refreshQBankDashboardStats(){
     };
 
     renderStatsBar();
-    if(typeof renderModuleGrid === 'function') renderModuleGrid();
   }catch(err){
     console.warn('Q-Bank dashboard stats unavailable:', err);
     qbankStatsCache = { totalQuestions:0, totalSets50:0, modules:{} };
