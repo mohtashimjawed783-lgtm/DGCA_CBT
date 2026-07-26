@@ -719,47 +719,101 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   .quiz-card-actions .icon-btn{flex:1 !important;}
 }
 
-/* ===== Unified CBT-style shell — module tile colours intentionally preserved ===== */
-:root{
-  --unified-cyan:#22d3ee;
-  --unified-cyan-dark:#0891b2;
-  --unified-panel:rgba(15,23,42,.72);
-  --unified-panel-strong:rgba(8,15,30,.86);
-  --unified-border:rgba(148,163,184,.17);
-  --unified-text:#e5eef8;
-  --unified-muted:#94a3b8;
-}
-body{
+/* ============================================================
+   SAFE THEME HARMONIZATION
+   CSS ONLY — dashboard logic and module rendering untouched.
+   ============================================================ */
+
+html, body {
   background:
-    radial-gradient(circle at 18% 0%, rgba(34,211,238,.075), transparent 28rem),
-    radial-gradient(circle at 88% 8%, rgba(139,92,246,.055), transparent 30rem),
+    radial-gradient(circle at 16% 0%, rgba(34,211,238,.055), transparent 31rem),
+    radial-gradient(circle at 88% 4%, rgba(99,102,241,.04), transparent 34rem),
     #070d18;
 }
-.topbar,.header,.app-header{
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+
+/* Keep the dashboard shell closer to CBT Player's clean dark/glass look. */
+.stat-pill {
+  background: linear-gradient(180deg, rgba(15,23,42,.88), rgba(9,16,30,.82));
+  border-color: rgba(148,163,184,.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 10px 28px rgba(0,0,0,.18);
 }
-.stats-bar,.toolbar,.controls-row{
-  border-color:var(--unified-border);
+
+.badge-chip {
+  background: rgba(9,16,30,.74);
+  border-color: rgba(148,163,184,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
 }
-.stat-pill{
-  background:linear-gradient(180deg,rgba(15,23,42,.82),rgba(8,15,30,.72));
-  border-color:var(--unified-border);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 28px rgba(0,0,0,.16);
+
+/* Toolbar / navigation glass treatment. */
+.topbar,
+.header,
+.app-header,
+.library-header,
+nav {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
-.stat-num{letter-spacing:-.02em;}
-.badge-chip{
-  border-color:rgba(34,211,238,.16);
-  background:rgba(15,23,42,.68);
+
+/* Cleaner neutral controls. Module-card controls retain their own inline
+   module accent colours and are deliberately not overridden here. */
+input[type="search"],
+.search-input,
+.search-box,
+select {
+  background-color: rgba(15,23,42,.72);
+  border-color: rgba(148,163,184,.16);
 }
-button,.btn,.toolbar button,.search-btn{
-  transition:border-color .18s ease,background .18s ease,transform .18s ease,box-shadow .18s ease;
+
+input[type="search"]:focus,
+.search-input:focus,
+.search-box:focus,
+select:focus {
+  border-color: rgba(34,211,238,.38);
+  box-shadow: 0 0 0 3px rgba(34,211,238,.07);
 }
-button:hover,.btn:hover,.toolbar button:hover,.search-btn:hover{
-  border-color:rgba(34,211,238,.34);
+
+/* General dashboard buttons only: restrained CBT-style hover.
+   Inline module colours still win where the tile renderer supplies them. */
+button {
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    background-color .16s ease,
+    box-shadow .16s ease;
 }
-.section-title,.module-section-title{
-  letter-spacing:.02em;
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Slightly cleaner typography/spacing without touching layout dimensions. */
+.stat-num {
+  letter-spacing: -.02em;
+}
+
+.section-title,
+.module-section-title {
+  letter-spacing: .01em;
+}
+
+/* Keep cards crisp while preserving every module's existing colour variables. */
+.module-card {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 14px 34px rgba(0,0,0,.19);
+}
+
+/* Do NOT recolour module progress bars/ovals here.
+   Their existing module-specific accent logic remains authoritative. */
+
+@media (max-width: 700px) {
+  .stat-pill {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.03),
+      0 7px 20px rgba(0,0,0,.15);
+  }
 }
 
 </style>
@@ -1928,27 +1982,6 @@ function renderWeakTopicsList(card, list){
       </div>`).join('')}`;
 }
 
-
-// Distinct module identity palette. Used only for module identity accents.
-const DISTINCT_MODULE_COLORS = {
-  '3':'#22d3ee',   // cyan
-  '4':'#f97316',   // orange
-  '5':'#ef4444',   // red
-  '6':'#10b981',   // emerald
-  '7':'#a855f7',   // violet
-  '8':'#eab308',   // gold
-  '9':'#3b82f6',   // blue
-  '10':'#f43f5e',  // rose
-  '11':'#84cc16',  // lime
-  '11A':'#84cc16',
-  '12':'#06b6d4',  // teal
-  '13':'#8b5cf6',  // indigo-violet
-  '14':'#d946ef',  // fuchsia
-  '15':'#14b8a6',  // turquoise
-  '16':'#fb7185',  // pink-coral
-  '17':'#f59e0b'   // amber
-};
-
 function renderModuleGrid(){
   const modules = getAllModuleNames();
   const wrap = document.getElementById('module-grid');
@@ -1968,7 +2001,7 @@ function renderModuleGrid(){
     const withP = items.filter(x=>x.progress);
     const avg = withP.length ? Math.round(withP.reduce((s,x)=>s+x.progress.pct,0)/withP.length) : 0;
     const mEsc = escHtml(m).replace(/'/g,"\\'");
-    const accent = DISTINCT_MODULE_COLORS[String(mod)] || (moduleAccentColor(m));
+    const accent = moduleAccentColor(m);
     // Match a number plus any letters stuck directly to it (e.g. "11A" stays
     // "11A", not split into "11" + a stranded "A") so codes like that show
     // whole in the badge instead of getting torn apart.
