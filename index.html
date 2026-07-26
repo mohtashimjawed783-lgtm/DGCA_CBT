@@ -1926,7 +1926,7 @@ function renderModuleGrid(){
         <span class="module-tile-icon">${escHtml(shortLabel)}</span>
       </div>
       ${subtitle?`<div class="module-tile-name">${escHtml(subtitle)}</div>`:''}
-      <div class="module-tile-count">${items.length} PYQs <span style="opacity:.55">•</span> ${moduleQBankSets.toLocaleString()} sets</div>
+      <div class="module-tile-count">${items.length} PYQs <span style="opacity:.55">•</span> ${moduleQBankSets.toLocaleString()} Q Bank Sets</div>
       <div class="module-progress-track" style="background:color-mix(in srgb, ${accent} 22%, var(--border))"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
       <div class="module-tile-pct"><span class="module-health-dot" style="background:${accent}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No PYQs yet</span>'}</div>
       <div class="module-tile-actions">
@@ -2364,13 +2364,14 @@ function toggleCollapseAll(){
   renderMain();
 }
 
-// Stable color per module name — same module always gets the same accent,
-// picked from the existing tag-color palette so it stays visually consistent
-// with the rest of the app (no new colors invented).
+// Give every module tile its own distinct accent color.
+// The golden-angle hue spacing avoids duplicate tile colors even when there
+// are more modules than the fixed TCOLORS palette contains.
 function moduleAccentColor(name){
-  let hash=0;
-  for(let i=0;i<name.length;i++) hash=(hash*31+name.charCodeAt(i))|0;
-  return TCOLORS[Math.abs(hash)%TCOLORS.length];
+  const modules = getAllModuleNames();
+  const index = Math.max(0, modules.indexOf(name));
+  const hue = Math.round((index * 137.508) % 360);
+  return `hsl(${hue} 78% 62%)`;
 }
 
 function renderCard(it){
