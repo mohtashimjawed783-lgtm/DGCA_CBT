@@ -338,12 +338,16 @@ header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12)
 ====================================================================== */
 const quizDataPath = new URLSearchParams(location.search).get('quiz');
 if (quizDataPath === '__mixed__') {
-  // Mixed/generated quiz from the dashboard's Quiz Generator: the questions
-  // were already assembled and handed off via localStorage (same-origin,
-  // so this tab can read what the dashboard tab just wrote), rather than
-  // living in a real file in /data. Nothing to fetch here.
+  // Mixed/generated quiz from the dashboard's Quiz Generator.
   try {
     const raw = localStorage.getItem('cbt_mixed_pending');
+    if (raw) window.CBT_QUIZ = JSON.parse(raw);
+  } catch(e) {}
+} else if (quizDataPath === '__qbank__') {
+  // Dynamic Q-Bank set assembled by the dashboard. The set membership is
+  // serial (e.g. Q51-Q100), while the engine below randomizes display order.
+  try {
+    const raw = localStorage.getItem('cbt_qbank_pending');
     if (raw) window.CBT_QUIZ = JSON.parse(raw);
   } catch(e) {}
 } else if (quizDataPath) {

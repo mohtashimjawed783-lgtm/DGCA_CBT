@@ -526,12 +526,11 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 
 /* ===== Q-Bank module view ===== */
 #module-layout.qbank-view{
-  grid-template-columns:1fr;
   max-width:1400px;
 }
-#module-layout.qbank-view .sidebar{display:none;}
+#module-layout.qbank-view .sidebar{display:block;}
 #module-layout.qbank-view .main{min-width:0;width:100%;}
-#module-layout.qbank-view .main-tools{display:none;}
+#module-layout.qbank-view .main-tools{display:flex;}
 
 .qbank-head{
   display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
@@ -564,8 +563,50 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 }
 .qbank-placeholder-sub{font-size:.84rem;line-height:1.6;max-width:520px;}
 
+
+.qbank-controls{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  margin:0 0 18px;padding:14px 16px;border:1px solid var(--border);border-radius:13px;
+  background:linear-gradient(160deg,var(--card),var(--panel));
+}
+.qbank-control-group{display:flex;align-items:flex-end;gap:9px;flex-wrap:wrap;}
+.qbank-control-field{display:flex;flex-direction:column;gap:5px;}
+.qbank-control-field label{font-size:.7rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.7px;}
+.qbank-size-select,.qbank-custom-input{
+  background:var(--panel);border:1.5px solid var(--border);border-radius:9px;
+  padding:9px 11px;color:var(--text);font-family:'Inter',sans-serif;font-size:.84rem;
+}
+.qbank-size-select:focus,.qbank-custom-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--glow);}
+.qbank-custom-input{width:110px;}
+.qbank-summary{font-size:.8rem;color:var(--muted);line-height:1.5;}
+.qbank-summary b{color:var(--text);}
+.qbank-set-card{
+  background:linear-gradient(160deg,var(--card),var(--panel));border:1px solid var(--border);
+  border-radius:13px;padding:15px;display:flex;flex-direction:column;gap:9px;
+  transition:transform .18s,border-color .18s,box-shadow .18s;min-width:0;
+}
+.qbank-set-card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 10px 26px rgba(0,0,0,.28),0 0 0 1px var(--glow);}
+.qbank-set-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.qbank-set-name{font-family:'Rajdhani',sans-serif;font-size:1.02rem;font-weight:700;color:var(--text);}
+.qbank-set-count{font-size:.68rem;padding:3px 8px;border-radius:999px;background:rgba(34,211,238,.09);border:1px solid rgba(34,211,238,.25);color:var(--accent);white-space:nowrap;}
+.qbank-set-range{font-size:.76rem;color:var(--muted);}
+.qbank-set-progress{height:4px;border-radius:3px;background:var(--border);overflow:hidden;}
+.qbank-set-progress > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--violet));}
+.qbank-set-status{font-size:.72rem;color:var(--muted);min-height:18px;}
+.qbank-set-card .btn{justify-content:center;width:100%;}
+.qbank-loading{grid-column:1/-1;text-align:center;color:var(--muted);padding:34px 12px;font-size:.86rem;}
+.qbank-error{grid-column:1/-1;border:1px solid rgba(251,113,133,.35);background:rgba(251,113,133,.07);border-radius:12px;padding:18px;color:var(--text);line-height:1.6;}
+.qbank-error b{color:var(--wrong);}
+@media(max-width:560px){
+  .qbank-controls{padding:12px;gap:10px;}
+  .qbank-control-group{width:100%;}
+  .qbank-control-field{flex:1;min-width:130px;}
+  .qbank-size-select{width:100%;}
+  .qbank-custom-input{width:100%;}
+  .qbank-summary{width:100%;}
+}
+
 @media(max-width:820px){
-  #module-layout.qbank-view{padding:14px 14px 44px;}
   #module-layout.qbank-view .main{width:100%;overflow:hidden;}
   .qbank-head{flex-direction:column;gap:10px;margin-bottom:14px;}
   .qbank-set-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
@@ -588,7 +629,6 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   .module-tile-pct{font-size:.65rem;}
   .module-tile-actions{gap:6px;margin-top:10px;}
   .module-mode-btn{padding:8px 5px;font-size:.7rem;border-radius:8px;}
-  #module-layout.qbank-view{padding:12px 12px 38px;}
   .qbank-set-grid{grid-template-columns:1fr;}
   .qbank-placeholder{min-height:175px;padding:24px 16px;}
 }
@@ -1914,6 +1954,174 @@ function openQBankModule(m){
   refresh();
 }
 
+const QBANK_MANIFEST_PATH='qbank-manifest.json';
+const QBANK_DEFAULT_SET_SIZE=50;
+let qbankSetSize=Number(localStorage.getItem('cbt_qbank_set_size'))||QBANK_DEFAULT_SET_SIZE;
+let qbankCache={}; // module -> {questions, files}
+
+function qbankModuleNumber(name){
+  const m=String(name||'').match(/\d+/);
+  return m ? String(Number(m[0])) : '';
+}
+
+async function loadQBankManifest(){
+  const res=await fetch(QBANK_MANIFEST_PATH,{cache:'no-store'});
+  if(!res.ok) throw new Error(`Could not load ${QBANK_MANIFEST_PATH} (${res.status})`);
+  return await res.json();
+}
+
+async function loadQBankJsFile(path){
+  const res=await fetch(path,{cache:'no-store'});
+  if(!res.ok) throw new Error(`${path} (${res.status})`);
+  const src=await res.text();
+  const sandbox={};
+  const data=(new Function('window', src + '\n;return window.CBT_QUIZ;'))(sandbox);
+  if(!data || !Array.isArray(data.questions)) throw new Error(`${path} does not contain window.CBT_QUIZ.questions`);
+  return data;
+}
+
+async function loadQBankModuleData(moduleName, force=false){
+  const mod=qbankModuleNumber(moduleName);
+  if(!mod) throw new Error('Could not determine the module number.');
+  if(!force && qbankCache[mod]) return qbankCache[mod];
+
+  const manifest=await loadQBankManifest();
+  const entry=(manifest.modules||{})[mod] || (manifest.modules||{})['Module '+mod];
+  let files=[];
+  if(Array.isArray(entry)) files=entry;
+  else if(entry && Array.isArray(entry.files)) files=entry.files;
+  else if(entry && typeof entry.file==='string') files=[entry.file];
+
+  if(!files.length) throw new Error(`No Q-Bank files are listed for Module ${mod} in ${QBANK_MANIFEST_PATH}.`);
+
+  const all=[];
+  for(const path of files){
+    const data=await loadQBankJsFile(path);
+    data.questions.forEach((q,idx)=>{
+      all.push(Object.assign({},q,{
+        __qbankModule:mod,
+        __qbankFile:path,
+        __qbankSourceIndex:idx
+      }));
+    });
+  }
+  qbankCache[mod]={questions:all,files};
+  return qbankCache[mod];
+}
+
+function qbankProgressInfo(moduleNum,setSize,setNo,count){
+  const pageTitle=`Module ${moduleNum} Q-Bank · ${setSize}Q · Set ${setNo}`;
+  const quizId=(pageTitle+'_'+count).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,80);
+  try{
+    const raw=localStorage.getItem('cbt_progress_'+quizId);
+    if(!raw) return {pct:0,text:'Not started'};
+    const d=JSON.parse(raw);
+    if(!d || d.total!==count || !Array.isArray(d.statuses)) return {pct:0,text:'Not started'};
+    const done=d.statuses.filter(s=>s!=='unattempted').length;
+    const pct=count?Math.round(done/count*100):0;
+    return {pct,text:done>=count?'Completed':`${done}/${count} attempted`};
+  }catch(e){ return {pct:0,text:'Not started'}; }
+}
+
+function qbankSetSizeChanged(){
+  const sel=document.getElementById('qbank-set-size');
+  const customWrap=document.getElementById('qbank-custom-wrap');
+  if(!sel) return;
+  customWrap.style.display=sel.value==='custom'?'flex':'none';
+  if(sel.value!=='custom'){
+    qbankSetSize=Number(sel.value);
+    localStorage.setItem('cbt_qbank_set_size',String(qbankSetSize));
+    renderQBankSets();
+  }
+}
+
+function applyQBankCustomSize(){
+  const input=document.getElementById('qbank-custom-size');
+  const n=Number(input && input.value);
+  if(!Number.isInteger(n) || n<1 || n>1000){
+    showToast('Enter a set size from 1 to 1000');
+    return;
+  }
+  qbankSetSize=n;
+  localStorage.setItem('cbt_qbank_set_size',String(n));
+  renderQBankSets();
+}
+
+async function renderQBankSets(force=false){
+  const grid=document.getElementById('qbank-set-grid');
+  const summary=document.getElementById('qbank-summary');
+  if(!grid) return;
+  grid.innerHTML='<div class="qbank-loading">Loading Question Bank…</div>';
+  if(summary) summary.textContent='Loading…';
+
+  try{
+    const mod=qbankModuleNumber(activeModule);
+    const data=await loadQBankModuleData(activeModule,force);
+    const total=data.questions.length;
+    const size=Math.max(1,Number(qbankSetSize)||QBANK_DEFAULT_SET_SIZE);
+    const sets=Math.ceil(total/size);
+
+    if(summary) summary.innerHTML=`<b>${total.toLocaleString()}</b> questions · <b>${sets}</b> set${sets===1?'':'s'} · ${data.files.length} source file${data.files.length===1?'':'s'}`;
+
+    if(!total){
+      grid.innerHTML='<div class="qbank-placeholder"><div class="qbank-placeholder-title">No questions found</div><div class="qbank-placeholder-sub">The files are listed in the manifest, but they contain no usable questions.</div></div>';
+      return;
+    }
+
+    let html='';
+    for(let i=0;i<sets;i++){
+      const start=i*size;
+      const end=Math.min(start+size,total);
+      const count=end-start;
+      const setNo=i+1;
+      const p=qbankProgressInfo(mod,size,setNo,count);
+      html+=`<div class="qbank-set-card">
+        <div class="qbank-set-top">
+          <div class="qbank-set-name">Set ${String(setNo).padStart(2,'0')}</div>
+          <div class="qbank-set-count">${count} Q</div>
+        </div>
+        <div class="qbank-set-range">Questions ${start+1}–${end}</div>
+        <div class="qbank-set-progress"><div style="width:${p.pct}%"></div></div>
+        <div class="qbank-set-status">${p.text}${p.pct?` · ${p.pct}%`:''}</div>
+        <button class="btn btn-primary btn-sm" onclick="startQBankSet(${setNo})">${p.pct?'Continue':'Start'} ▶</button>
+      </div>`;
+    }
+    grid.innerHTML=html;
+  }catch(err){
+    if(summary) summary.textContent='Q-Bank unavailable';
+    grid.innerHTML=`<div class="qbank-error"><b>Could not load this Q-Bank.</b><br>${escHtml(err.message||String(err))}<br><br>Check that <code>${QBANK_MANIFEST_PATH}</code> and the listed Q-Bank files are uploaded to the same Cloudflare/GitHub site with the exact same letter case.</div>`;
+  }
+}
+
+async function startQBankSet(setNo){
+  try{
+    const mod=qbankModuleNumber(activeModule);
+    const data=await loadQBankModuleData(activeModule);
+    const size=Math.max(1,Number(qbankSetSize)||QBANK_DEFAULT_SET_SIZE);
+    const start=(setNo-1)*size;
+    const end=Math.min(start+size,data.questions.length);
+    const selected=data.questions.slice(start,end);
+    if(!selected.length){ showToast('This set has no questions'); return; }
+
+    const payload={
+      isQBank:true,
+      qbankMeta:{module:mod,setSize:size,setNumber:setNo,startIndex:start,totalBank:data.questions.length},
+      config:{
+        pageTitle:`Module ${mod} Q-Bank · ${size}Q · Set ${setNo}`,
+        headerLeft:`MODULE ${mod}`,
+        headerRight:`Q-BANK · SET ${setNo}`,
+        resultsTitle:'✈ Q-BANK SET COMPLETE',
+        resultsSubtitle:`Module ${mod} Question Bank · Set ${setNo}`
+      },
+      questions:selected
+    };
+    localStorage.setItem('cbt_qbank_pending',JSON.stringify(payload));
+    window.open('CBT_Player.html?quiz=__qbank__','_blank');
+  }catch(err){
+    showToast('Could not start Q-Bank set: '+(err.message||err));
+  }
+}
+
 function renderQBankView(){
   const layout=document.getElementById('module-layout');
   const sidebar=document.querySelector('#module-layout .sidebar');
@@ -1923,26 +2131,41 @@ function renderQBankView(){
   const tools=document.querySelector('#module-layout .main-tools');
 
   layout.classList.add('qbank-view');
-  if(sidebar) sidebar.style.display='none';
-  if(tools) tools.style.display='none';
+  if(sidebar) sidebar.style.display='';
+  if(tools) tools.style.display='';
+  renderSidebar();
 
-  title.textContent = activeModule + ' · Question Bank';
-  subtitle.textContent = 'Choose a 50-question set to begin practice.';
+  title.textContent=activeModule+' · Question Bank';
+  subtitle.textContent='Choose a set size, then start any set. Questions are shuffled when the set begins.';
 
-  area.innerHTML = `
-    <div class="qbank-set-grid">
-      <div class="qbank-placeholder">
-        <div class="qbank-placeholder-icon">📚</div>
-        <div class="qbank-placeholder-title">Q-Bank Sets</div>
-        <div class="qbank-placeholder-sub">
-          This module is ready for its Question Bank. The next step is to connect
-          the module Q-Bank file so Set 1, Set 2, Set 3 and the remaining
-          50-question sets can be generated here automatically.
+  const standard=[10,20,30,50,100];
+  const isStandard=standard.includes(qbankSetSize);
+  area.innerHTML=`
+    <div class="qbank-controls">
+      <div class="qbank-control-group">
+        <div class="qbank-control-field">
+          <label for="qbank-set-size">Select Set Size</label>
+          <select id="qbank-set-size" class="qbank-size-select" onchange="qbankSetSizeChanged()">
+            ${standard.map(n=>`<option value="${n}" ${qbankSetSize===n?'selected':''}>${n} Questions</option>`).join('')}
+            <option value="custom" ${!isStandard?'selected':''}>Custom Number</option>
+          </select>
+        </div>
+        <div class="qbank-control-group" id="qbank-custom-wrap" style="display:${isStandard?'none':'flex'}">
+          <div class="qbank-control-field">
+            <label for="qbank-custom-size">Custom</label>
+            <input id="qbank-custom-size" class="qbank-custom-input" type="number" min="1" max="1000" value="${!isStandard?qbankSetSize:''}" placeholder="e.g. 75"
+              onkeydown="if(event.key==='Enter')applyQBankCustomSize()"/>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="applyQBankCustomSize()">Apply</button>
         </div>
       </div>
+      <div class="qbank-summary" id="qbank-summary">Loading…</div>
+    </div>
+    <div class="qbank-set-grid" id="qbank-set-grid">
+      <div class="qbank-loading">Loading Question Bank…</div>
     </div>`;
+  renderQBankSets();
 }
-
 function selectTag(t){ activeTag = (activeTag===t)?null:t; renderSidebar(); renderMain(); }
 
 
