@@ -6,7 +6,7 @@
     },
     "4": {
       "files": [
-        "module4-qbank.js"
+        "qbank/module4-qbank.js"
       ]
     },
     "5": {
@@ -17,7 +17,7 @@
     },
     "7": {
       "files": [
-        "module7-qbank.js"
+        "qbank/module7-qbank.js"
       ]
     },
     "8": {
