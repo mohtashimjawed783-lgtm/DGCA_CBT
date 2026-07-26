@@ -298,14 +298,14 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 .home-view-title::before{content:'';position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:3px;background:linear-gradient(180deg,var(--accent),var(--violet));}
 .home-view-sub{font-size:0.86rem;color:var(--muted);margin-top:4px;padding-left:14px;}
 .module-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;
-  max-width:1400px;margin:0 auto;padding:20px 20px 10px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;
+  max-width:1400px;margin:0 auto;padding:16px 20px 10px;
 }
 .module-tile{
   position:relative;isolation:isolate;overflow:hidden;
   background:linear-gradient(160deg, var(--card) 0%, var(--panel) 100%);
-  border:1px solid var(--border);border-radius:16px;
-  padding:22px 20px 20px;cursor:pointer;
+  border:1px solid var(--border);border-radius:14px;
+  padding:17px 16px 15px;cursor:default;
   box-shadow:0 10px 28px rgba(0,0,0,0.28);
   transition:border-color .2s, transform .18s, box-shadow .2s;
 }
@@ -323,20 +323,39 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
 }
 .module-tile:hover{transform:translateY(-3px);border-color:var(--tile-accent,var(--accent));box-shadow:0 16px 38px rgba(0,0,0,0.4),0 0 0 1px var(--tile-accent,var(--accent)) inset;}
 .module-tile:hover::before{opacity:.32;}
+
+.module-tile-actions{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px;position:relative;z-index:2;
+}
+.module-mode-btn{
+  appearance:none;border:1px solid color-mix(in srgb,var(--tile-accent,var(--accent)) 38%,var(--border));
+  border-radius:9px;padding:8px 9px;background:color-mix(in srgb,var(--tile-accent,var(--accent)) 8%,var(--panel));
+  color:var(--text);font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;
+  letter-spacing:.45px;cursor:pointer;transition:transform .16s,border-color .16s,background .16s,box-shadow .16s;
+}
+.module-mode-btn:hover{
+  transform:translateY(-1px);border-color:var(--tile-accent,var(--accent));
+  background:color-mix(in srgb,var(--tile-accent,var(--accent)) 16%,var(--panel));
+  box-shadow:0 5px 14px color-mix(in srgb,var(--tile-accent,var(--accent)) 15%,transparent);
+}
+.module-mode-btn.qbank{
+  background:color-mix(in srgb,var(--tile-accent,var(--accent)) 14%,var(--panel));
+}
+
 [data-theme="light"] .module-tile{background:linear-gradient(160deg,#ffffff,#f3f7fb);box-shadow:0 10px 26px rgba(15,23,42,0.10);}
-.module-tile-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1;}
+.module-tile-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;position:relative;z-index:1;}
 .module-tile-eyebrow{
   font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.78rem;text-transform:uppercase;
   letter-spacing:1.4px;color:var(--muted);
 }
 .module-tile-icon{
-  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   background:color-mix(in srgb, var(--tile-accent,var(--accent)) 18%, transparent);
   border:1px solid color-mix(in srgb, var(--tile-accent,var(--accent)) 40%, transparent);
   color:var(--tile-accent,var(--accent));font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;
 }
 .module-tile-name{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:0.92rem;color:var(--muted);margin-bottom:8px;padding-right:20px;position:relative;z-index:1;letter-spacing:.2px;}
-.module-tile-count{color:var(--muted);font-size:0.78rem;margin-bottom:16px;position:relative;z-index:1;text-transform:uppercase;letter-spacing:.6px;}
+.module-tile-count{color:var(--muted);font-size:0.76rem;margin-bottom:12px;position:relative;z-index:1;text-transform:uppercase;letter-spacing:.5px;}
 .module-tile-pct{color:var(--muted);font-size:0.76rem;margin-top:9px;position:relative;z-index:1;display:flex;align-items:center;gap:6px;}
 .module-tile-pct span:nth-of-type(1){flex:1;}
 .module-tile-pct b{color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.95rem;}
@@ -653,7 +672,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   <div class="home-view-header">
     <div>
       <div class="home-view-title">Choose a Module</div>
-      <div class="home-view-sub">Pick a module to see its CBTs, organized by category.</div>
+      <div class="home-view-sub">Choose a module, then open Previous Year Questions or the Question Bank.</div>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="openModuleModal()">+ Add Module</button>
   </div>
@@ -1741,16 +1760,20 @@ function renderModuleGrid(){
     const leftover = codeMatch ? m.replace(codeMatch[0],'').replace(/\s+/g,' ').trim() : '';
     const subtitle = (leftover && leftover.toLowerCase()!=='module') ? leftover : '';
     const healthColor = !withP.length ? 'var(--border)' : avg>=70 ? 'var(--correct)' : avg>=40 ? 'var(--gold)' : 'var(--wrong)';
-    html += `<div class="module-tile" style="--tile-accent:${accent}" onclick="selectModule('${mEsc}')">
+    html += `<div class="module-tile" style="--tile-accent:${accent}">
       ${items.length===0?`<button class="module-tile-delete" onclick="deleteEmptyModule('${mEsc}', event)" title="Remove empty module">×</button>`:''}
       <div class="module-tile-head">
         <span class="module-tile-eyebrow">Module</span>
         <span class="module-tile-icon">${escHtml(shortLabel)}</span>
       </div>
       ${subtitle?`<div class="module-tile-name">${escHtml(subtitle)}</div>`:''}
-      <div class="module-tile-count">${items.length} ${items.length===1?'quiz':'quizzes'}</div>
+      <div class="module-tile-count">${items.length} ${items.length===1?'PYQ':'PYQs'} <span style="opacity:.55">•</span> Q-Bank</div>
       <div class="module-progress-track" style="background:color-mix(in srgb, ${accent} 22%, var(--border))"><div class="module-progress-fill" style="width:${avg}%;background:${accent}"></div></div>
-      <div class="module-tile-pct"><span class="module-health-dot" style="background:${healthColor}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No CBTs yet</span>'}</div>
+      <div class="module-tile-pct"><span class="module-health-dot" style="background:${healthColor}"></span>${items.length?`<span>Avg. progress</span><b>${avg}%</b>`:'<span>No PYQs yet</span>'}</div>
+      <div class="module-tile-actions">
+        <button class="module-mode-btn" onclick="selectModule('${mEsc}')">PYQs</button>
+        <button class="module-mode-btn qbank" onclick="openQBankModule('${mEsc}')">Q-Bank</button>
+      </div>
     </div>`;
   });
   wrap.innerHTML = html;
@@ -1792,6 +1815,32 @@ function renderSidebar(){
 }
 
 function selectModule(m){ activeModule=m; refresh(); }
+
+function openQBankModule(m){
+  activeModule=m;
+  document.getElementById('home-view').style.display='none';
+  document.getElementById('module-layout').style.display='block';
+
+  const main = document.querySelector('#module-layout .main');
+  if(!main){
+    showToast('Q-Bank section could not be opened');
+    return;
+  }
+
+  const safeModule = escHtml(m);
+  main.innerHTML = `
+    <button class="btn btn-ghost btn-sm back-btn" onclick="goHome()">← All Modules</button>
+    <div style="margin-bottom:18px;">
+      <div class="home-view-title" style="padding-left:14px;">${safeModule} · Question Bank</div>
+      <div class="home-view-sub">Choose a 50-question set to begin practice.</div>
+    </div>
+    <div class="empty-state">
+      <div class="empty-state-icon">📚</div>
+      <div class="empty-state-title">Q-Bank Sets</div>
+      <div class="empty-state-sub">The Q-Bank section is ready. Next, connect this module to its module-wise Q-Bank file and the 50-question sets will be generated here automatically.</div>
+    </div>`;
+}
+
 function selectTag(t){ activeTag = (activeTag===t)?null:t; renderSidebar(); renderMain(); }
 
 
