@@ -2,7 +2,9 @@
   "version": 1,
   "modules": {
     "3": {
-      "files": []
+      "files": [
+        "qbank/module3-qbank.js"
+      ]
     },
     "4": {
       "files": [
@@ -10,10 +12,14 @@
       ]
     },
     "5": {
-      "files": []
+      "files": [
+        "qbank/module5-qbank.js"
+      ]
     },
     "6": {
-      "files": []
+      "files": [
+        "qbank/module6-qbank.js"
+      ]
     },
     "7": {
       "files": [
@@ -21,34 +27,48 @@
       ]
     },
     "8": {
-      "files": []
+      "files": [
+        "qbank/module8-qbank.js"
+      ]
     },
     "9": {
-      "files": []
+      "files": [
+        "qbank/module9-qbank.js"
+      ]
     },
     "10": {
       "files": []
     },
     "11": {
-      "files": []
+      "files": [
+        "qbank/module11-qbank.js"
+      ]
     },
     "12": {
-      "files": []
+      "files": [
+        "qbank/module12-qbank.js"
+      ]
     },
     "13": {
-      "files": []
+      "files": [
+        "qbank/module13-qbank.js"
+      ]
     },
     "14": {
       "files": []
     },
     "15": {
-      "files": []
+      "files": [
+        "qbank/module15-qbank.js"
+      ]
     },
     "16": {
       "files": []
     },
     "17": {
-      "files": []
+      "files": [
+        "qbank/module17-qbank.js"
+      ]
     }
   }
 }
