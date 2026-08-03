@@ -12,11 +12,12 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse 1000px 540px at 8% -12%,rgba(34,211,238,.13),transparent 60%),radial-gradient(ellipse 760px 500px at 100% 4%,rgba(129,140,248,.10),transparent 55%),radial-gradient(ellipse 660px 460px at 50% 105%,rgba(251,146,60,.06),transparent 55%),var(--navy);background-attachment:fixed;}
 header{background:rgba(4,6,12,.68);border-bottom:1px solid rgba(255,255,255,.12);padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);}
-.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px;flex-wrap:wrap;}
-.header-title{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:1px;white-space:nowrap;}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:60px;gap:12px;flex-wrap:wrap;}
+.header-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.header-title{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .header-title span{color:var(--gold);}
-.live-score{display:flex;gap:8px;align-items:center;}
-.btn-back-dash{background:rgba(255,255,255,.055);border:1.5px solid rgba(255,255,255,.16);color:var(--muted);padding:8px 14px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .15s;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.live-score{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+.btn-back-dash{background:rgba(255,255,255,.055);border:1.5px solid rgba(255,255,255,.16);color:var(--muted);padding:8px 14px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .15s;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);flex-shrink:0;}
 .btn-back-dash:hover{border-color:rgba(34,211,238,.6);color:var(--white);background:rgba(34,211,238,.11);box-shadow:0 5px 18px rgba(34,211,238,.13),inset 0 1px 0 rgba(255,255,255,.18);}
 .score-chip{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:0.78rem;font-weight:600;}
 .sc-correct{background:rgba(34,197,94,0.15);color:var(--correct);border:1px solid rgba(34,197,94,0.3);}
@@ -370,8 +371,10 @@ body{
 <body>
 <header>
   <div class="header-inner">
-    <button class="btn-back-dash" id="btn-back-dashboard" onclick="goBack()" title="Return to your CBT Library Dashboard">◀ Back</button>
-    <div class="header-title" id="header-title-text">EASA B1 &nbsp;|&nbsp; <span>Module 17 – Propeller</span></div>
+    <div class="header-left">
+      <button class="btn-back-dash" id="btn-back-dashboard" onclick="goBack()" title="Return to your CBT Library Dashboard">◀ Back</button>
+      <div class="header-title" id="header-title-text">EASA B1 &nbsp;|&nbsp; <span>Module 17 – Propeller</span></div>
+    </div>
     <div class="live-score">
       <div class="score-chip" id="timer-chip" style="display:none;background:rgba(240,180,41,0.15);color:var(--gold);border:1px solid rgba(240,180,41,0.3);">⏱ <span id="hdr-timer">--:--</span></div>
       <div class="score-chip sc-correct">✔ <span id="hdr-c">0</span></div>
@@ -1352,17 +1355,7 @@ function filterReview(type,btn){
 // Smart back button: returns to dashboard if opened from there,
 // otherwise goes to browser history or shows a friendly message.
 function goBack(){
-  // Try to return to dashboard (index.html)
-  const referrer = document.referrer;
-  const currentUrl = window.location.href;
-  
-  // If opened from same domain and referrer contains index.html or is dashboard
-  if(referrer && (referrer.includes('index.html') || referrer.match(/\/$/))){
-    window.history.back();
-    return;
-  }
-  
-  // Check if we have opener (popup mode)
+  // Check if we have opener (popup mode) - try this first
   try{
     if(window.opener && !window.opener.closed){
       window.close();
@@ -1370,7 +1363,14 @@ function goBack(){
     }
   }catch(e){}
   
-  // Fallback: try to navigate to index.html in same directory
+  // Try to use browser history if available (works when navigated from dashboard)
+  if(window.history.length > 1){
+    window.history.back();
+    return;
+  }
+  
+  // Fallback: navigate to index.html in same directory
+  const currentUrl = window.location.href;
   const basePath = currentUrl.substring(0, currentUrl.lastIndexOf('/')+1);
   window.location.href = basePath + 'index.html';
 }
