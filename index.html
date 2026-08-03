@@ -2929,28 +2929,27 @@ async function refreshQBankDashboardStats(){
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-// Load Q-Bank manifest immediately for new users
+// CRITICAL: Load dashboard immediately for ALL users
 (async function initialLoad() {
-  renderModuleGrid(); // Show grid immediately
+  // Step 1: Load local data immediately
+  load();
+  checkForSharedLibraryInUrl();
   
+  // Step 2: Render dashboard NOW (don't wait for sync)
+  await refresh();
+  refreshQBankDashboardStats();
+  initInfoTooltips();
+  
+  // Step 3: Connect to sync in background (non-blocking)
   const savedSyncCode = localStorage.getItem(SYNC_KEY);
-  
   if (savedSyncCode) {
-    // User has sync code - load from cloud
-    initSyncOnLoad();
-    setTimeout(async () => {
-      load();
-      checkForSharedLibraryInUrl();
-      await refresh();
-      refreshQBankDashboardStats();
-    }, 500);
-  } else {
-    // New user - load local data and Q-Bank manifest immediately
-    load();
-    checkForSharedLibraryInUrl();
-    await refresh();
-    refreshQBankDashboardStats();
-    initInfoTooltips();
+    try {
+      await initSyncOnLoad();
+      console.log("Sync connected - updating progress");
+      refresh(); // Re-render with cloud data
+    } catch(err) {
+      console.warn("Sync failed, using local data", err);
+    }
   }
 })();
 
