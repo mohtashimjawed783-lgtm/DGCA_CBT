@@ -1355,6 +1355,34 @@ function filterReview(type,btn){
 // Smart back button: returns to dashboard if opened from there,
 // otherwise goes to browser history or shows a friendly message.
 function goBack(){
+  // Parse URL parameters to get module context
+  const params = new URLSearchParams(window.location.search);
+  const moduleParam = params.get('module');
+  const modeParam = params.get('mode');
+  
+  // If opened from dashboard with module context, return to that specific section
+  if(modeParam === 'dashboard' && moduleParam){
+    const basePath = window.location.href.substring(0, window.location.href.lastIndexOf('/')+1);
+    const dashboardUrl = basePath + 'index.html';
+    
+    // Try to use opener first (popup mode)
+    try{
+      if(window.opener && !window.opener.closed){
+        // Send message to opener to navigate to the module
+        window.opener.postMessage({
+          type: 'navigateToModule',
+          module: decodeURIComponent(moduleParam)
+        }, '*');
+        window.close();
+        return;
+      }
+    }catch(e){}
+    
+    // Fallback: redirect to dashboard with hash for module
+    window.location.href = dashboardUrl + '#module-' + encodeURIComponent(moduleParam).replace(/%/g, '-');
+    return;
+  }
+  
   // Check if we have opener (popup mode) - try this first
   try{
     if(window.opener && !window.opener.closed){

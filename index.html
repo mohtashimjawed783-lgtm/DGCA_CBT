@@ -1352,13 +1352,34 @@ window.addEventListener('message', (e)=>{
     }
   }else if(e.data.type==='cbt-mixed-complete'){
     recordMixedQuizHistory(e.data);
+  }else if(e.data.type==='navigateToModule'){
+    // Handle navigation request from quiz player back button
+    const moduleName = e.data.module;
+    if(moduleName){
+      // Find and scroll to the module section
+      const moduleElement = document.querySelector(`[data-module-name="${moduleName}"]`) || 
+                           document.getElementById('module-' + moduleName.replace(/\s+/g, '-'));
+      if(moduleElement){
+        moduleElement.scrollIntoView({behavior:'smooth', block:'center'});
+        // Highlight temporarily
+        moduleElement.style.transition = 'background 0.3s';
+        moduleElement.style.background = 'rgba(34,211,238,0.15)';
+        setTimeout(()=>{ moduleElement.style.background = ''; }, 2000);
+      }
+    }
   }
 });
 
 function openLink(id, link){
   const item = library.find(x=>x.id===id);
   if(item){ item.lastOpened = new Date().toISOString(); persist(); }
-  const w = window.open(link, '_blank');
+  
+  // Add module and mode context to the URL for smart back navigation
+  const url = new URL(link, window.location.href);
+  if(item.module) url.searchParams.set('module', encodeURIComponent(item.module));
+  url.searchParams.set('mode', 'dashboard');
+  
+  const w = window.open(url.toString(), '_blank');
   if(w) openWindows[id]=w;
   renderMain();
 }
