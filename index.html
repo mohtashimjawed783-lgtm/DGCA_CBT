@@ -1076,25 +1076,9 @@ function naturalSort(a,b){ return a.localeCompare(b, undefined, {numeric:true, s
 
 // All module names — union of modules already used by CBTs and empty ones
 // created via "+ Add Module" — deduped and naturally sorted.
-// Cache for module names to avoid repeated async calls
-let _cachedModuleNames = null;
-
-async function getAllModuleNames(){
-  if (_cachedModuleNames) return _cachedModuleNames;
-  
+function getAllModuleNames(){
   const fromItems = library.map(x=>x.module).filter(Boolean);
-  const base = [...new Set([...fromItems, ...customModules])];
-  
-  // Also include Q-Bank manifest modules so new users see available content
-  try{
-    const manifest = await loadQBankManifest();
-    const qbankModules = Object.keys(manifest.modules || {});
-    _cachedModuleNames = [...new Set([...base, ...qbankModules])].sort(naturalSort);
-    return _cachedModuleNames;
-  }catch(e){
-    _cachedModuleNames = base.sort(naturalSort);
-    return _cachedModuleNames;
-  }
+  return [...new Set([...fromItems, ...customModules])].sort(naturalSort);
 }
 
 // ===================== PERSISTENCE =====================
@@ -1865,7 +1849,7 @@ function renderStreakCard(){
 
 let moduleViewMode = 'pyq';
 
-async function refresh(){
+function refresh(){
   const home = document.getElementById('home-view');
   const moduleLayout = document.getElementById('module-layout');
   renderStatsBar();
@@ -1874,7 +1858,7 @@ async function refresh(){
     moduleLayout.classList.remove('qbank-view');
     home.style.display='';
     moduleLayout.style.display='none';
-    await renderModuleGrid();
+    renderModuleGrid();
     renderStreakCard();
     renderWeakTopicsCard();
   }else if(moduleViewMode==='qbank'){
@@ -1948,11 +1932,8 @@ function renderWeakTopicsList(card, list){
       </div>`).join('')}`;
 }
 
-async function renderModuleGrid(){
-  // Ensure module names are cached before rendering
-  await getAllModuleNames();
-  
-  const modules = _cachedModuleNames || [];
+function renderModuleGrid(){
+  const modules = getAllModuleNames();
   const wrap = document.getElementById('module-grid');
   if(modules.length===0){
     wrap.innerHTML = `
@@ -2455,11 +2436,8 @@ function toggleCollapseAll(){
 // The golden-angle hue spacing avoids duplicate tile colors even when there
 // are more modules than the fixed TCOLORS palette contains.
 function moduleAccentColor(name){
-  // Safety check: ensure _cachedModuleNames is an array before using it
-  if (!Array.isArray(_cachedModuleNames) || _cachedModuleNames.length === 0) {
-    return 'hsl(210 78% 62%)'; // Default blue if modules not loaded yet
-  }
-  const index = Math.max(0, _cachedModuleNames.indexOf(name));
+  const modules = getAllModuleNames();
+  const index = Math.max(0, modules.indexOf(name));
   const hue = Math.round((index * 137.508) % 360);
   return `hsl(${hue} 78% 62%)`;
 }
@@ -2941,34 +2919,16 @@ async function refreshQBankDashboardStats(){
 
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+load();
+checkForSharedLibraryInUrl();
+refresh();
+refreshQBankDashboardStats();
+initSyncOnLoad();
+initInfoTooltips();
 
-// CRITICAL: Load dashboard immediately for ALL users
-(async function initialLoad() {
-  // Step 1: Load local data immediately
-  load();
-  checkForSharedLibraryInUrl();
-  
-  // Step 2: Render dashboard NOW (don't wait for sync)
-  await refresh();
-  refreshQBankDashboardStats();
-  initInfoTooltips();
-  
-  // Step 3: Connect to sync in background (non-blocking)
-  const savedSyncCode = localStorage.getItem(SYNC_KEY);
-  if (savedSyncCode) {
-    try {
-      await initSyncOnLoad();
-      console.log("Sync connected - updating progress");
-      refresh(); // Re-render with cloud data
-    } catch(err) {
-      console.warn("Sync failed, using local data", err);
-    }
-  }
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* offline support unavailable */ });
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{ /* offline support unavailable — app still works online */ });
   });
 }
 </script>
