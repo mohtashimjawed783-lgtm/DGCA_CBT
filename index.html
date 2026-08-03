@@ -2452,8 +2452,11 @@ function toggleCollapseAll(){
 // The golden-angle hue spacing avoids duplicate tile colors even when there
 // are more modules than the fixed TCOLORS palette contains.
 function moduleAccentColor(name){
-  const modules = getAllModuleNames();
-  const index = Math.max(0, modules.indexOf(name));
+  // Safety check: ensure _cachedModuleNames is an array before using it
+  if (!Array.isArray(_cachedModuleNames) || _cachedModuleNames.length === 0) {
+    return 'hsl(210 78% 62%)'; // Default blue if modules not loaded yet
+  }
+  const index = Math.max(0, _cachedModuleNames.indexOf(name));
   const hue = Math.round((index * 137.508) % 360);
   return `hsl(${hue} 78% 62%)`;
 }
