@@ -2929,37 +2929,34 @@ async function refreshQBankDashboardStats(){
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
-// Render initial empty grid immediately to prevent blank screen
-renderModuleGrid();
-
-// Check for sync code FIRST, then load data
-const savedSyncCode = localStorage.getItem(SYNC_KEY);
-if(savedSyncCode){
-  // User has a sync code - load from cloud first
-  initSyncOnLoad();
-  // Wait briefly for cloud data, then load local as fallback
-  setTimeout(async ()=>{
+// Load Q-Bank manifest immediately for new users
+(async function initialLoad() {
+  renderModuleGrid(); // Show grid immediately
+  
+  const savedSyncCode = localStorage.getItem(SYNC_KEY);
+  
+  if (savedSyncCode) {
+    // User has sync code - load from cloud
+    initSyncOnLoad();
+    setTimeout(async () => {
+      load();
+      checkForSharedLibraryInUrl();
+      await refresh();
+      refreshQBankDashboardStats();
+    }, 500);
+  } else {
+    // New user - load local data and Q-Bank manifest immediately
     load();
     checkForSharedLibraryInUrl();
     await refresh();
     refreshQBankDashboardStats();
-  }, 800);
-}else{
-  // No sync code - load local data and Q-Bank manifest immediately
-  load();
-  checkForSharedLibraryInUrl();
-  (async ()=>{ 
-    await refresh(); 
-    refreshQBankDashboardStats();
-  })();
-  initInfoTooltips();
-}
+    initInfoTooltips();
+  }
+})();
 
-initInfoTooltips();
-
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{ /* offline support unavailable — app still works online */ });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => { /* offline support unavailable */ });
   });
 }
 </script>
