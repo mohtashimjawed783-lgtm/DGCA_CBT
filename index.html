@@ -1999,6 +1999,7 @@ const QBANK_MANIFEST_PATH='qbank-manifest.json';
 const QBANK_DEFAULT_SET_SIZE=50;
 let qbankSetSize=QBANK_DEFAULT_SET_SIZE;
 let qbankCache={}; // module -> {questions, files}
+let qbankFileCache={}; // path -> quiz data
 
 function qbankModuleNumber(name){
   const m=String(name||'').match(/\d+/);
@@ -2006,18 +2007,37 @@ function qbankModuleNumber(name){
 }
 
 async function loadQBankManifest(){
-  const res=await fetch(QBANK_MANIFEST_PATH,{cache:'no-store'});
+  // Check cache first (valid for 10 minutes)
+  const cached = sessionStorage.getItem('qbankManifest');
+  const cacheTime = sessionStorage.getItem('qbankManifestTime');
+  if(cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 600000){
+    return JSON.parse(cached);
+  }
+  
+  const res=await fetch(QBANK_MANIFEST_PATH,{cache:'force-cache'});
   if(!res.ok) throw new Error(`Could not load ${QBANK_MANIFEST_PATH} (${res.status})`);
-  return await res.json();
+  const manifest = await res.json();
+  
+  // Cache the manifest
+  sessionStorage.setItem('qbankManifest', JSON.stringify(manifest));
+  sessionStorage.setItem('qbankManifestTime', Date.now().toString());
+  
+  return manifest;
 }
 
 async function loadQBankJsFile(path){
-  const res=await fetch(path,{cache:'no-store'});
+  // Check cache first
+  if(qbankFileCache[path]) return qbankFileCache[path];
+  
+  const res=await fetch(path,{cache:'force-cache'});
   if(!res.ok) throw new Error(`${path} (${res.status})`);
   const src=await res.text();
   const sandbox={};
   const data=(new Function('window', src + '\n;return window.CBT_QUIZ;'))(sandbox);
   if(!data || !Array.isArray(data.questions)) throw new Error(`${path} does not contain window.CBT_QUIZ.questions`);
+  
+  // Cache the result
+  qbankFileCache[path] = data;
   return data;
 }
 
@@ -2768,46 +2788,75 @@ window.addEventListener('resize',()=>{ if(activeTip) hideTip(); });
 async function refreshQBankDashboardStats(){
   if(location.protocol === 'file:') return;
 
+  // Check cache first (valid for 5 minutes)
+  const cached = sessionStorage.getItem('qbankStatsCache');
+  const cacheTime = sessionStorage.getItem('qbankStatsCacheTime');
+  if(cached && cacheTime && (Date.now() - parseInt(cacheTime)) < 300000){
+    qbankStatsCache = JSON.parse(cached);
+    renderStatsBar();
+    if(!activeModule) renderModuleGrid();
+    return;
+  }
+
   try{
-    const manifestRes = await fetch('qbank-manifest.json?v=' + Date.now(), {cache:'no-store'});
+    const manifestRes = await fetch(QBANK_MANIFEST_PATH, {cache:'force-cache'});
     if(!manifestRes.ok) throw new Error(`Manifest HTTP ${manifestRes.status}`);
     const manifest = await manifestRes.json();
 
     let totalQuestions = 0;
     const moduleTotals = {};
+    const fetchPromises = [];
 
+    // Collect all fetch requests first
     for(const [moduleNo, info] of Object.entries(manifest.modules || {})){
       const files = Array.isArray(info && info.files) ? info.files : [];
-      let moduleQuestions = 0;
-
-      for(const filePath of files){
+      if(files.length === 0){
+        moduleTotals[moduleNo] = 0;
+        continue;
+      }
+      
+      const modulePromise = Promise.all(files.map(async (filePath) => {
         try{
-          const res = await fetch(filePath + '?v=' + Date.now(), {cache:'no-store'});
+          const res = await fetch(filePath, {cache:'force-cache'});
           if(!res.ok) throw new Error(`HTTP ${res.status}`);
           const source = await res.text();
-
-          const isolatedWindow = {};
-          const quiz = new Function(
-            'window',
-            source + '\n;return window.CBT_QUIZ || window.quizData || window.QUIZ_DATA || null;'
-          )(isolatedWindow);
-
-          const count = quiz && Array.isArray(quiz.questions) ? quiz.questions.length : 0;
-          moduleQuestions += count;
+          
+          // Fast regex-based counting instead of full JS evaluation
+          const questionsMatch = source.match(/questions\s*:\s*\[(?:[^\[\]]|\[[^\[\]]*\])*/i);
+          if(questionsMatch){
+            const questionsArray = questionsMatch[0];
+            const count = (questionsArray.match(/\{[^{}]*q\s*:/g) || []).length;
+            return count;
+          }
+          return 0;
         }catch(fileErr){
           console.warn('Q-Bank stats: could not read', filePath, fileErr);
+          return 0;
         }
-      }
+      }));
+      
+      fetchPromises.push(modulePromise.then(counts => {
+        const moduleQuestions = counts.reduce((a, b) => a + b, 0);
+        return {moduleNo, moduleQuestions};
+      }));
+    }
 
+    // Execute all fetches in parallel
+    const results = await Promise.all(fetchPromises);
+    results.forEach(({moduleNo, moduleQuestions}) => {
       moduleTotals[moduleNo] = moduleQuestions;
       totalQuestions += moduleQuestions;
-    }
+    });
 
     qbankStatsCache = {
       totalQuestions,
       totalSets50: Math.ceil(totalQuestions / 50),
       modules: moduleTotals
     };
+
+    // Cache in sessionStorage for 5 minutes
+    sessionStorage.setItem('qbankStatsCache', JSON.stringify(qbankStatsCache));
+    sessionStorage.setItem('qbankStatsCacheTime', Date.now().toString());
 
     renderStatsBar();
     if(!activeModule) renderModuleGrid();
