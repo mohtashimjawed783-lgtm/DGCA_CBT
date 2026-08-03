@@ -1363,13 +1363,7 @@ function goBack(){
     }
   }catch(e){}
   
-  // Try to use browser history if available (works when navigated from dashboard)
-  if(window.history.length > 1){
-    window.history.back();
-    return;
-  }
-  
-  // Fallback: navigate to index.html in same directory
+  // Always navigate to dashboard (index.html) for consistent behavior
   const currentUrl = window.location.href;
   const basePath = currentUrl.substring(0, currentUrl.lastIndexOf('/')+1);
   window.location.href = basePath + 'index.html';
