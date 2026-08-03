@@ -1283,9 +1283,26 @@ function subscribeToCloud(code){
     const remote = snap.data();
     syncLastAt = 'just now';
     if(remote.updatedFrom === deviceId) return; // our own write echoing back
+    
+    // Sync all data types
     library = remote.library || [];
     customModules = remote.customModules || [];
-    persist(false); persistModules(false);
+    
+    if(remote.badges) {
+      try{ localStorage.setItem(BADGES_KEY, JSON.stringify(remote.badges)); }catch(e){}
+    }
+    if(remote.streaks) {
+      try{ localStorage.setItem(STREAKS_KEY, JSON.stringify(remote.streaks)); }catch(e){}
+    }
+    if(remote.weakTopics) {
+      try{ localStorage.setItem(WEAK_TOPICS_KEY, JSON.stringify(remote.weakTopics)); }catch(e){}
+    }
+    if(remote.sessionHistory) {
+      try{ localStorage.setItem(SESSION_HISTORY_KEY, JSON.stringify(remote.sessionHistory)); }catch(e){}
+    }
+    
+    persist(false); 
+    persistModules(false);
     refresh();
     showToast('Library updated from another device');
   }, err=>{
@@ -1307,8 +1324,18 @@ function pushToCloud(){
   if(syncStatus!=='connected' || !syncCode || !db) return;
   clearTimeout(syncPushTimer);
   syncPushTimer = setTimeout(()=>{
+    // Gather all data types for complete sync
+    const badgesData = JSON.parse(localStorage.getItem(BADGES_KEY) || '[]');
+    const streaksData = JSON.parse(localStorage.getItem(STREAKS_KEY) || '{}');
+    const weakTopicsData = JSON.parse(localStorage.getItem(WEAK_TOPICS_KEY) || '{}');
+    const sessionHistoryData = JSON.parse(localStorage.getItem(SESSION_HISTORY_KEY) || '[]');
+    
     db.collection('libraries').doc(syncCode).set({
       library, customModules,
+      badges: badgesData,
+      streaks: streaksData,
+      weakTopics: weakTopicsData,
+      sessionHistory: sessionHistoryData,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedFrom: deviceId
     }).then(()=>{ syncLastAt='just now'; }).catch(e=>console.error(e));
