@@ -1076,7 +1076,12 @@ function naturalSort(a,b){ return a.localeCompare(b, undefined, {numeric:true, s
 
 // All module names — union of modules already used by CBTs and empty ones
 // created via "+ Add Module" — deduped and naturally sorted.
+// Cache for module names to avoid repeated async calls
+let _cachedModuleNames = null;
+
 async function getAllModuleNames(){
+  if (_cachedModuleNames) return _cachedModuleNames;
+  
   const fromItems = library.map(x=>x.module).filter(Boolean);
   const base = [...new Set([...fromItems, ...customModules])];
   
@@ -1084,9 +1089,11 @@ async function getAllModuleNames(){
   try{
     const manifest = await loadQBankManifest();
     const qbankModules = Object.keys(manifest.modules || {});
-    return [...new Set([...base, ...qbankModules])].sort(naturalSort);
+    _cachedModuleNames = [...new Set([...base, ...qbankModules])].sort(naturalSort);
+    return _cachedModuleNames;
   }catch(e){
-    return base.sort(naturalSort);
+    _cachedModuleNames = base.sort(naturalSort);
+    return _cachedModuleNames;
   }
 }
 
