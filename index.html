@@ -2919,11 +2919,28 @@ async function refreshQBankDashboardStats(){
 
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-load();
-checkForSharedLibraryInUrl();
-refresh();
-refreshQBankDashboardStats();
-initSyncOnLoad();
+
+// Check for sync code FIRST, then load data
+const savedSyncCode = localStorage.getItem(SYNC_KEY);
+if(savedSyncCode){
+  // User has a sync code - load from cloud first
+  initSyncOnLoad();
+  // Wait briefly for cloud data, then load local as fallback
+  setTimeout(()=>{
+    load();
+    checkForSharedLibraryInUrl();
+    refresh();
+    refreshQBankDashboardStats();
+  }, 800);
+}else{
+  // No sync code - load local data (will be empty for new users)
+  load();
+  checkForSharedLibraryInUrl();
+  refresh();
+  refreshQBankDashboardStats();
+  initInfoTooltips();
+}
+
 initInfoTooltips();
 
 if('serviceWorker' in navigator){
