@@ -1076,9 +1076,18 @@ function naturalSort(a,b){ return a.localeCompare(b, undefined, {numeric:true, s
 
 // All module names — union of modules already used by CBTs and empty ones
 // created via "+ Add Module" — deduped and naturally sorted.
-function getAllModuleNames(){
+async function getAllModuleNames(){
   const fromItems = library.map(x=>x.module).filter(Boolean);
-  return [...new Set([...fromItems, ...customModules])].sort(naturalSort);
+  const base = [...new Set([...fromItems, ...customModules])];
+  
+  // Also include Q-Bank manifest modules so new users see available content
+  try{
+    const manifest = await loadQBankManifest();
+    const qbankModules = Object.keys(manifest.modules || {});
+    return [...new Set([...base, ...qbankModules])].sort(naturalSort);
+  }catch(e){
+    return base.sort(naturalSort);
+  }
 }
 
 // ===================== PERSISTENCE =====================
@@ -1849,7 +1858,7 @@ function renderStreakCard(){
 
 let moduleViewMode = 'pyq';
 
-function refresh(){
+async function refresh(){
   const home = document.getElementById('home-view');
   const moduleLayout = document.getElementById('module-layout');
   renderStatsBar();
@@ -1858,7 +1867,7 @@ function refresh(){
     moduleLayout.classList.remove('qbank-view');
     home.style.display='';
     moduleLayout.style.display='none';
-    renderModuleGrid();
+    await renderModuleGrid();
     renderStreakCard();
     renderWeakTopicsCard();
   }else if(moduleViewMode==='qbank'){
@@ -1932,8 +1941,8 @@ function renderWeakTopicsList(card, list){
       </div>`).join('')}`;
 }
 
-function renderModuleGrid(){
-  const modules = getAllModuleNames();
+async function renderModuleGrid(){
+  const modules = await getAllModuleNames();
   const wrap = document.getElementById('module-grid');
   if(modules.length===0){
     wrap.innerHTML = `
@@ -2926,17 +2935,17 @@ if(savedSyncCode){
   // User has a sync code - load from cloud first
   initSyncOnLoad();
   // Wait briefly for cloud data, then load local as fallback
-  setTimeout(()=>{
+  setTimeout(async ()=>{
     load();
     checkForSharedLibraryInUrl();
-    refresh();
+    await refresh();
     refreshQBankDashboardStats();
   }, 800);
 }else{
   // No sync code - load local data (will be empty for new users)
   load();
   checkForSharedLibraryInUrl();
-  refresh();
+  (async ()=>{ await refresh(); })();
   refreshQBankDashboardStats();
   initInfoTooltips();
 }
