@@ -2929,6 +2929,9 @@ async function refreshQBankDashboardStats(){
 // ===================== INIT =====================
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
+// Render initial empty grid immediately to prevent blank screen
+renderModuleGrid();
+
 // Check for sync code FIRST, then load data
 const savedSyncCode = localStorage.getItem(SYNC_KEY);
 if(savedSyncCode){
@@ -2942,11 +2945,13 @@ if(savedSyncCode){
     refreshQBankDashboardStats();
   }, 800);
 }else{
-  // No sync code - load local data (will be empty for new users)
+  // No sync code - load local data and Q-Bank manifest immediately
   load();
   checkForSharedLibraryInUrl();
-  (async ()=>{ await refresh(); })();
-  refreshQBankDashboardStats();
+  (async ()=>{ 
+    await refresh(); 
+    refreshQBankDashboardStats();
+  })();
   initInfoTooltips();
 }
 
