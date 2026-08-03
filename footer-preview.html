@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviation Footer Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* BASE RESET & VARIABLES FOR PREVIEW */
+        :root {
+            --navy: #0f172a;
+            --navy2: #020617;
+            --accent: #22d3ee;
+            --violet: #818cf8;
+            --gold: #fbbf24;
+            --white: #f8fafc;
+            --text: #cbd5e1;
+            --muted: #94a3b8;
+            --border: #1e293b;
+            --card: #1e293b;
+            --glow: rgba(34, 211, 238, 0.4);
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Rajdhani', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --navy: #f8fafc;
+            --navy2: #e2e8f0;
+            --text: #334155;
+            --muted: #64748b;
+            --border: #cbd5e1;
+            --card: #ffffff;
+            --white: #0f172a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--navy);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Push footer to bottom for preview */
+        }
+
+        /* DUMMY CONTENT TO SHOW CONTEXT */
+        .preview-context {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            padding: 40px;
+            text-align: center;
+            opacity: 0.6;
+        }
+        
+        .preview-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .preview-controls button {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .preview-controls button:hover {
+            opacity: 0.9;
+        }
+
+        /* =========================================
+           AVIATION FOOTER STYLES START HERE
+           ========================================= */
+        
+        .site-footer {
+            position: relative;
+            border-top: 1px solid var(--border);
+            overflow: hidden;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+            font-family: var(--font-main);
+        }
+
+        .footer-sky-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            background-image:
+                radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(2px 2px at 80% 70%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 90% 20%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(2px 2px at 30% 80%, rgba(255,255,255,0.3), transparent);
+            animation: footer-stars-twinkle 8s ease-in-out infinite;
+        }
+
+        @keyframes footer-stars-twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.7; }
+        }
+
+        .footer-clouds {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.08;
+            background-image:
+                radial-gradient(ellipse 200px 80px at 15% 40%, rgba(255,255,255,0.6), transparent 70%),
+                radial-gradient(ellipse 300px 100px at 85% 60%, rgba(255,255,255,0.5), transparent 70%),
+                radial-gradient(ellipse 250px 90px at 50% 30%, rgba(255,255,255,0.4), transparent 70%);
+            animation: footer-clouds-move 60s linear infinite;
+        }
+
+        @keyframes footer-clouds-move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100px); }
+        }
+
+        [data-theme="light"] .footer-sky-bg { opacity: 0.3; }
+        [data-theme="light"] .footer-clouds { opacity: 0.15; }
+
+        .footer-content-wrap {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px 30px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 40px;
+            align-items: end;
+        }
+
+        .footer-left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .footer-logo-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, var(--accent), var(--violet));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #04121a;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 4px 18px var(--glow);
+            flex-shrink: 0;
+        }
+
+        .footer-brand-text {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            color: var(--white);
+        }
+
+        .footer-brand-text span {
+            background: linear-gradient(90deg, var(--accent), var(--violet));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.65;
+            max-width: 520px;
+        }
+
+        .runway-progress-wrap {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .runway-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .runway-label {
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .runway-percentage {
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .runway-track {
+            position: relative;
+            height: 18px;
+            background: linear-gradient(90deg, #1a1f2e 0%, #0f1420 50%, #1a1f2e 100%);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .runway-center-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            transform: translateY(-50%);
+            background-image: linear-gradient(90deg, 
+                rgba(255,255,255,0.3) 50%, 
+                transparent 50%);
+            background-size: 24px 2px;
+            z-index: 1;
+        }
+
+        .runway-edge-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .runway-light {
+            position: absolute;
+            width: 3px;
+            height: 6px;
+            border-radius: 2px;
+            background: rgba(34,211,238,0.6);
+            box-shadow: 0 0 8px rgba(34,211,238,0.8);
+            animation: runway-light-pulse 2s ease-in-out infinite;
+        }
+
+        .runway-light.left { left: 4px; }
+        .runway-light.right { right: 4px; }
+
+        .runway-light:nth-child(odd) { animation-delay: 0s; background: rgba(34,211,238,0.7); }
+        .runway-light:nth-child(even) { animation-delay: 1s; background: rgba(251,146,60,0.6); box-shadow: 0 0 8px rgba(251,146,60,0.8); }
+
+        @keyframes runway-light-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+
+        .runway-progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, 
+                rgba(34,211,238,0.15) 0%, 
+                rgba(34,211,238,0.25) 50%, 
+                rgba(34,211,238,0.35) 100%);
+            border-radius: 4px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .aircraft-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 2px 8px rgba(34,211,238,0.5));
+        }
+
+        .aircraft-icon {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent);
+            animation: aircraft-hover 3s ease-in-out infinite;
+        }
+
+        @keyframes aircraft-hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .footer-right-col {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .altitude-meter-wrap {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .altitude-meter-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .altitude-meter-bg {
+            fill: none;
+            stroke: var(--border);
+            stroke-width: 8;
+        }
+
+        .altitude-meter-fill {
+            fill: none;
+            stroke: url(#altitudeGradient);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 8px rgba(34,211,238,0.4));
+        }
+
+        .altitude-meter-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .altitude-value {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .altitude-label {
+            font-size: 0.62rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+        }
+
+        .flight-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .flight-stat-card {
+            background: linear-gradient(160deg, rgba(17,23,38,0.6), rgba(13,18,31,0.4));
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+
+        .flight-stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        [data-theme="light"] .flight-stat-card {
+            background: var(--card);
+            box-shadow: 0 2px 8px rgba(15,23,42,0.08);
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.64rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 600;
+        }
+
+        .footer-motivation-bar {
+            position: relative;
+            margin-top: 20px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(129,140,248,0.06));
+            border: 1px solid rgba(34,211,238,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .motivation-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+            flex-shrink: 0;
+            animation: motivation-icon-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes motivation-icon-glow {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(251,146,60,0.4)); }
+            50% { filter: drop-shadow(0 0 10px rgba(251,146,60,0.8)); }
+        }
+
+        .motivation-text {
+            font-size: 0.82rem;
+            color: var(--text);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        @media(max-width: 900px) {
+            .footer-content-wrap {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-right-col {
+                grid-template-columns: 90px 1fr;
+            }
+        }
+
+        @media(max-width: 640px) {
+            .footer-content-wrap {
+                padding: 30px 16px 24px;
+            }
+            
+            .footer-right-col {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+            
+            .altitude-meter-wrap {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .altitude-value {
+                font-size: 1.1rem;
+            }
+            
+            .flight-stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-brand-text {
+                font-size: 1.3rem;
+            }
+            
+            .runway-track {
+                height: 16px;
+            }
+            
+            .aircraft-icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .footer-right-col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .altitude-meter-wrap {
+                grid-column: span 2;
+                justify-self: center;
+            }
+            
+            .flight-stats-grid {
+                grid-column: span 2;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-brand-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .runway-label-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+        }
+
+        [data-theme="light"] .runway-track {
+            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
+            border-color: #c2cbdd;
+        }
+
+        [data-theme="light"] .runway-center-line {
+            background-image: linear-gradient(90deg, 
+                rgba(15,23,42,0.4) 50%, 
+                transparent 50%);
+        }
+
+        [data-theme="light"] .runway-progress-fill {
+            background: linear-gradient(90deg, 
+                rgba(14,116,144,0.12) 0%, 
+                rgba(14,116,144,0.2) 50%, 
+                rgba(14,116,144,0.28) 100%);
+        }
+
+        [data-theme="light"] .flight-stat-card {
+            box-shadow: 0 2px 8px rgba(15,23,42,0.06);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dummy Content -->
+    <div class="preview-context">
+        <h1 style="color: var(--white); font-family: var(--font-display);">Content Area</h1>
+        <p>Scroll down or look below to see the Aviation Footer</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="preview-controls">
+        <div style="margin-bottom: 10px; font-size: 0.8rem; color: var(--muted);">Preview Controls</div>
+        <button onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="simulateProgress()">Simulate Flight</button>
+    </div>
+
+    <!-- FOOTER START -->
+    <footer class="site-footer">
+        <div class="footer-sky-bg"></div>
+        <div class="footer-clouds"></div>
+        
+        <div class="footer-content-wrap">
+            <div class="footer-left-col">
+                <div class="footer-brand-section">
+                    <div class="footer-logo-mark">✈</div>
+                    <div class="footer-brand-text">CBT <span>Technical Library</span></div>
+                </div>
+                
+                <div class="footer-tagline">
+                    Every question you clear here is a step closer to your license. Keep grinding — the engineers who study like they fly, precise and unhurried, are the ones who pass first attempt.
+                </div>
+                
+                <div class="runway-progress-wrap">
+                    <div class="runway-label-row">
+                        <div class="runway-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                            </svg>
+                            Your Flight Progress
+                        </div>
+                        <div class="runway-percentage" id="runway-percentage">0%</div>
+                    </div>
+                    
+                    <div class="runway-track">
+                        <div class="runway-center-line"></div>
+                        <div class="runway-edge-lights">
+                            <div class="runway-light left" style="top:10%"></div>
+                            <div class="runway-light right" style="top:10%"></div>
+                            <div class="runway-light left" style="top:30%"></div>
+                            <div class="runway-light right" style="top:30%"></div>
+                            <div class="runway-light left" style="top:50%"></div>
+                            <div class="runway-light right" style="top:50%"></div>
+                            <div class="runway-light left" style="top:70%"></div>
+                            <div class="runway-light right" style="top:70%"></div>
+                            <div class="runway-light left" style="top:90%"></div>
+                            <div class="runway-light right" style="top:90%"></div>
+                        </div>
+                        <div class="runway-progress-fill" id="runway-progress-fill"></div>
+                        <div class="aircraft-indicator" id="aircraft-indicator">
+                            <svg class="aircraft-icon" viewBox="0 0 24 24">
+                                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-right-col">
+                <div class="altitude-meter-wrap">
+                    <svg class="altitude-meter-svg" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="altitudeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#22d3ee"/>
+                                <stop offset="100%" stop-color="#818cf8"/>
+                            </linearGradient>
+                        </defs>
+                        <circle class="altitude-meter-bg" cx="50" cy="50" r="40"/>
+                        <circle class="altitude-meter-fill" id="altitude-meter-fill" cx="50" cy="50" r="40"/>
+                    </svg>
+                    <div class="altitude-meter-center">
+                        <div class="altitude-value" id="altitude-value">0%</div>
+                        <div class="altitude-label">Altitude</div>
+                    </div>
+                </div>
+                
+                <div class="flight-stats-grid">
+                    <div class="flight-stat-card">
+                        <svg class="stat-icon" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
+                        </svg>
+                        <div class="stat-value" id="stat-modules">0</div>
+                        <div class="stat-label">Modules</div>
+                    </div>
+                    
+                    <div class="flight-stat-card">
+                        <svg class="stat-icon" viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                        <div class="stat-value" id="stat-questions">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                    
+                    <div class="flight-stat-card">
+                        <svg class="stat-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div class="stat-value" id="stat-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    
+                    <div class="flight-stat-card">
+                        <svg class="stat-icon" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                        <div class="stat-value" id="stat-time">0h</div>
+                        <div class="stat-label">Flight Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-motivation-bar">
+            <svg class="motivation-icon" viewBox="0 0 24 24">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+            <div class="motivation-text" id="motivation-text">"Clear skies ahead! Every module completed brings you closer to your wings."</div>
+        </div>
+    </footer>
+
+    <script>
+        // Simulation Logic
+        function updateFooterStats(progress) {
+            const totalModules = 17;
+            const totalQuestions = 500;
+            
+            // Calculate simulated values based on progress percentage
+            const completedModules = Math.floor((progress / 100) * totalModules);
+            const answeredQuestions = Math.floor((progress / 100) * totalQuestions);
+            const accuracy = Math.min(98, 40 + (progress * 0.6)); // Simulates improving accuracy
+            const totalTimeMinutes = (progress / 100) * 120; // Simulates 2 hours total
+            
+            const overallProgress = progress;
+            
+            // Update Runway
+            document.getElementById('runway-progress-fill').style.width = `${overallProgress}%`;
+            document.getElementById('aircraft-indicator').style.left = `${overallProgress}%`;
+            document.getElementById('runway-percentage').textContent = `${Math.round(overallProgress)}%`;
+            
+            // Update Altitude Meter
+            const circumference = 2 * Math.PI * 40;
+            const offset = circumference - (overallProgress / 100) * circumference;
+            document.getElementById('altitude-meter-fill').style.strokeDashoffset = offset;
+            document.getElementById('altitude-value').textContent = `${Math.round(overallProgress)}%`;
+            
+            // Update Stats
+            document.getElementById('stat-modules').textContent = completedModules;
+            document.getElementById('stat-questions').textContent = answeredQuestions;
+            document.getElementById('stat-accuracy').textContent = `${Math.round(accuracy)}%`;
+            document.getElementById('stat-time').textContent = `${Math.floor(totalTimeMinutes / 60)}h ${Math.floor(totalTimeMinutes % 60)}m`;
+            
+            updateMotivationMessage(overallProgress);
+        }
+
+        function updateMotivationMessage(progress) {
+            const messages = [
+                { threshold: 0, text: "Welcome aboard! Your flight to EASA Part-66 certification begins now." },
+                { threshold: 10, text: "Taxiing to the runway! First steps are always the most important." },
+                { threshold: 25, text: "Taking off! You're gaining altitude in your knowledge journey." },
+                { threshold: 50, text: "Cruising altitude reached! Halfway to your destination – excellent progress!" },
+                { threshold: 75, text: "Beginning descent approach! You're almost at your destination." },
+                { threshold: 90, text: "Final approach cleared! Landing gear down – you're nearly there!" },
+                { threshold: 100, text: "Touchdown! Congratulations, Captain! Ready for the next rating?" }
+            ];
+            
+            const currentMessage = messages.slice().reverse().find(m => progress >= m.threshold) || messages[0];
+            document.getElementById('motivation-text').textContent = `"${currentMessage.text}"`;
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                updateFooterStats(progress);
+                if (progress >= 100) clearInterval(interval);
+            }, 50); // Speed of simulation
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Initialize at 0
+        updateFooterStats(0);
+    </script>
+</body>
+</html>
