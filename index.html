@@ -1949,7 +1949,10 @@ function renderWeakTopicsList(card, list){
 }
 
 async function renderModuleGrid(){
-  const modules = await getAllModuleNames();
+  // Ensure module names are cached before rendering
+  await getAllModuleNames();
+  
+  const modules = _cachedModuleNames || [];
   const wrap = document.getElementById('module-grid');
   if(modules.length===0){
     wrap.innerHTML = `
