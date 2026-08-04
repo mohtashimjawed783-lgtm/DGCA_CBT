@@ -1074,6 +1074,21 @@ function getCurrentModuleNumber(){
 const TIME_KEY = 'cbt_module_time_v1';
 let __timeModule = null, __activeSeconds = 0, __lastTickAt = null, __timeFlushTimer = null;
 
+// If this tab was opened from the dashboard (window.opener still points to
+// it), nudge it to push whatever just changed up to the cloud right away —
+// same-origin, so calling its function directly works fine. pushToCloud()
+// itself already no-ops if that tab isn't actually sync-connected, so this
+// is safe to call opportunistically. If the dashboard tab was closed, this
+// just silently does nothing — initSyncOnLoad()'s own push-on-load in
+// index.html is the fallback for that case, next time it's reopened.
+function notifyOpenerToSync(){
+  try{
+    if(window.opener && !window.opener.closed && typeof window.opener.pushToCloud==='function'){
+      window.opener.pushToCloud();
+    }
+  }catch(e){}
+}
+
 function __flushTime(){
   if(!__timeModule) return;
   const whole = Math.floor(__activeSeconds);
@@ -1085,6 +1100,7 @@ function __flushTime(){
     localStorage.setItem(TIME_KEY, JSON.stringify(map));
     __activeSeconds -= whole;
   }catch(e){}
+  notifyOpenerToSync();
 }
 function __tickAndFlush(){
   if(__lastTickAt!=null){
@@ -1165,7 +1181,27 @@ function saveProgress(){
     const payload = {answers, statuses, correctCount, wrongCount, skipCount, current, total:questions.length};
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   }catch(e){ /* storage unavailable (private mode etc.) — fail silently */ }
+  syncQbankSummary();
   reportProgressToOpener();
+}
+
+// Q-Bank set resume state (the full answers/statuses arrays above) is local
+// only — it can genuinely get large (sets can go up to 1000 questions), and
+// nothing outside this device actually needs the exact per-question detail.
+// But the dashboard's "Sets Completed" tile and Exam Target Coverage/Accuracy
+// DO need to know the aggregate correct/wrong/skip/total for this set from
+// any device — so that compact summary (just 4 numbers) gets mirrored into
+// a small syncable map alongside the full local save above.
+const QBANK_SYNC_KEY = 'cbt_qbank_summaries_v1';
+function syncQbankSummary(){
+  if(quizDataPath!=='__qbank__') return;
+  try{
+    const raw = localStorage.getItem(QBANK_SYNC_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    map[QUIZ_ID] = {correctCount, wrongCount, skipCount, total:questions.length};
+    localStorage.setItem(QBANK_SYNC_KEY, JSON.stringify(map));
+  }catch(e){}
+  notifyOpenerToSync();
 }
 
 function loadProgress(){
@@ -1316,6 +1352,29 @@ function saveMistakes(){
     localStorage.setItem(WRONGFLAG_KEY, JSON.stringify(wrongFlag));
     localStorage.setItem(STREAK_KEY, JSON.stringify(streak));
   }catch(e){}
+  // Mixed Quiz / module-wide Wrong Answers sessions get a brand-new identity
+  // every time they're generated, so there's nothing worth syncing under
+  // THEIR OWN id — corrections made during them already sync via the real
+  // source quiz's own entry, through recordAnswerForSourceQuiz() below.
+  if(!(window.CBT_QUIZ && (window.CBT_QUIZ.isMixed || window.CBT_QUIZ.isModuleWrong))){
+    syncWrongTrackingEntry(QUIZ_ID, wrongFlag, mistakes, streak);
+  }
+}
+
+// Compact per-question wrong-tracking (bool/small-int arrays, cheap to sync)
+// mirrored alongside the full local save above — this is what lets the
+// module-wide Wrong Answers pool, the streak "N more to clear" badges, and
+// even the plain per-quiz Wrong Answers Only mode reflect the same mistake
+// history no matter which device you last used.
+const WRONG_SYNC_KEY = 'cbt_wrong_tracking_sync_v1';
+function syncWrongTrackingEntry(quizId, wrongFlagArr, mistakesArr, streakArr){
+  try{
+    const raw = localStorage.getItem(WRONG_SYNC_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    map[quizId] = {wrongFlag:wrongFlagArr, mistakes:mistakesArr, streak:streakArr};
+    localStorage.setItem(WRONG_SYNC_KEY, JSON.stringify(map));
+  }catch(e){}
+  notifyOpenerToSync();
 }
 
 // ----- "Mark for Review" — separate from right/wrong, purely a personal
@@ -1396,6 +1455,7 @@ function recordAnswerForSourceQuiz(srcId, srcIdx, srcTotal, isCorrect){
     localStorage.setItem(fKey, JSON.stringify(f));
     localStorage.setItem(sKey, JSON.stringify(s));
   }catch(e){}
+  syncWrongTrackingEntry(srcId, f, m, s);
 }
 function clearMistakeHistory(){
   if(!confirm('Clear your mistake history? This resets what "Wrong Answers Only" mode shows you, and any in-progress 3-correct streaks.'))return;
