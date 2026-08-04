@@ -1510,6 +1510,87 @@ function copySyncCode(){
   navigator.clipboard.writeText(syncCode).then(()=>showToast('Sync code copied')).catch(()=>showToast('Could not copy'));
 }
 
+// ===================== SYNCING THE PLAYER'S LOCAL DATA =====================
+// CBT_Player.html writes several things straight to localStorage on this
+// same origin (Q-Bank set progress, per-question wrong/streak tracking,
+// active time per module) that never went through the cloud sync payload
+// above — meaning they'd silently differ between devices. These three
+// helpers read/merge those same keys directly, so the existing sync cycle
+// (connectSync/subscribeToCloud/pushToCloud below) can carry them too.
+//
+// Full per-question resume state (exact answers/statuses arrays) stays
+// local-only on purpose — it can get large on big Q-Bank sets, and nothing
+// outside this device needs the exact per-question detail, only the
+// aggregate counts, which is what actually gets synced.
+const QBANK_SYNC_KEY = 'cbt_qbank_summaries_v1';
+const WRONG_SYNC_KEY = 'cbt_wrong_tracking_sync_v1';
+
+function collectQbankSummaries(){
+  try{ return JSON.parse(localStorage.getItem(QBANK_SYNC_KEY)||'{}'); }catch(e){ return {}; }
+}
+// "More attempted wins" — never lets an incoming sync revert a set that's
+// further along back to a less-complete state.
+function mergeQbankSummaries(remote){
+  if(!remote) return;
+  let local={};
+  try{ local = JSON.parse(localStorage.getItem(QBANK_SYNC_KEY)||'{}'); }catch(e){}
+  Object.keys(remote).forEach(qid=>{
+    const r=remote[qid], l=local[qid];
+    if(!r) return;
+    const rAttempted=(r.correctCount||0)+(r.wrongCount||0)+(r.skipCount||0);
+    const lAttempted=l?(l.correctCount||0)+(l.wrongCount||0)+(l.skipCount||0):-1;
+    if(rAttempted>lAttempted) local[qid]=r;
+  });
+  try{ localStorage.setItem(QBANK_SYNC_KEY, JSON.stringify(local)); }catch(e){}
+}
+
+function collectWrongTracking(){
+  try{ return JSON.parse(localStorage.getItem(WRONG_SYNC_KEY)||'{}'); }catch(e){ return {}; }
+}
+// "More mistake history wins" — and mirrors the winning entry into that
+// quiz's own cbt_wrongflag_/cbt_mistakes_/cbt_streak_ keys, since those are
+// what CBT_Player and the rest of this dashboard actually read from.
+function mergeWrongTracking(remote){
+  if(!remote) return;
+  let local={};
+  try{ local = JSON.parse(localStorage.getItem(WRONG_SYNC_KEY)||'{}'); }catch(e){}
+  Object.keys(remote).forEach(qid=>{
+    const r = remote[qid];
+    if(!r) return;
+    const rTotal = Array.isArray(r.mistakes) ? r.mistakes.reduce((s,n)=>s+(n||0),0) : 0;
+    const l = local[qid];
+    const lTotal = (l && Array.isArray(l.mistakes)) ? l.mistakes.reduce((s,n)=>s+(n||0),0) : -1;
+    if(rTotal>lTotal){
+      local[qid]=r;
+      try{
+        if(r.wrongFlag) localStorage.setItem('cbt_wrongflag_'+qid, JSON.stringify(r.wrongFlag));
+        if(r.mistakes) localStorage.setItem('cbt_mistakes_'+qid, JSON.stringify(r.mistakes));
+        if(r.streak) localStorage.setItem('cbt_streak_'+qid, JSON.stringify(r.streak));
+      }catch(e){}
+    }
+  });
+  try{ localStorage.setItem(WRONG_SYNC_KEY, JSON.stringify(local)); }catch(e){}
+}
+
+function collectModuleTime(){
+  try{ return JSON.parse(localStorage.getItem('cbt_module_time_v1')||'{}'); }catch(e){ return {}; }
+}
+// Time only ever accumulates, so "keep the larger value per module" is a
+// safe merge — it can never make a device's logged time go backwards, even
+// though it can't perfectly combine time logged concurrently on two devices
+// between syncs (a real CRDT-style merge isn't worth the complexity here).
+function mergeModuleTime(remote){
+  if(!remote) return;
+  let local={};
+  try{ local = JSON.parse(localStorage.getItem('cbt_module_time_v1')||'{}'); }catch(e){}
+  let changed=false;
+  Object.keys(remote).forEach(mod=>{
+    const r=Number(remote[mod])||0, l=Number(local[mod])||0;
+    if(r>l){ local[mod]=r; changed=true; }
+  });
+  if(changed){ try{ localStorage.setItem('cbt_module_time_v1', JSON.stringify(local)); }catch(e){} }
+}
+
 async function connectSync(code){
   if(!db){ showToast('Cloud sync unavailable right now'); return; }
   syncStatus='connecting'; updateSyncIcon(); renderSyncModal();
@@ -1518,6 +1599,13 @@ async function connectSync(code){
     const snap = await ref.get();
     if(snap.exists){
       const remote = snap.data() || {};
+      // Practice progress (Q-Bank summaries, wrong-answer tracking, time
+      // invested) always merges in regardless of which library copy you
+      // pick below — it should never be silently wiped either way.
+      mergeQbankSummaries(remote.qbankSummaries);
+      mergeWrongTracking(remote.wrongTracking);
+      mergeModuleTime(remote.moduleTime);
+
       const remoteHasData = (remote.library && remote.library.length) || (remote.customModules && remote.customModules.length) || (remote.examTargets && remote.examTargets.length);
       const localHasData = library.length>0 || customModules.length>0 || examTargets.length>0;
       if(remoteHasData && localHasData){
@@ -1525,18 +1613,19 @@ async function connectSync(code){
         if(useCloud){
           library = remote.library || []; customModules = remote.customModules || []; examTargets = remote.examTargets || [];
           persist(false); persistModules(false); persistTargets(false);
-        }else{
-          await ref.set({ library, customModules, examTargets, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
         }
       }else if(remoteHasData){
         library = remote.library || []; customModules = remote.customModules || []; examTargets = remote.examTargets || [];
         persist(false); persistModules(false); persistTargets(false);
-      }else{
-        await ref.set({ library, customModules, examTargets, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
       }
-    }else{
-      await ref.set({ library, customModules, examTargets, updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId });
     }
+    // Always push the current (possibly just-merged) state back up, so the
+    // cloud copy reflects the merged practice progress too, not just library.
+    await ref.set({
+      library, customModules, examTargets,
+      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId
+    });
     syncCode = code;
     try{ localStorage.setItem(SYNC_KEY, code); }catch(e){}
     subscribeToCloud(code);
@@ -1562,6 +1651,9 @@ function subscribeToCloud(code){
     customModules = remote.customModules || [];
     examTargets = remote.examTargets || [];
     persist(false); persistModules(false); persistTargets(false);
+    mergeQbankSummaries(remote.qbankSummaries);
+    mergeWrongTracking(remote.wrongTracking);
+    mergeModuleTime(remote.moduleTime);
     refresh();
     showToast('Library updated from another device');
   }, err=>{
@@ -1585,9 +1677,13 @@ function pushToCloud(){
   syncPushTimer = setTimeout(()=>{
     db.collection('libraries').doc(syncCode).set({
       library, customModules, examTargets,
+      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedFrom: deviceId
-    }).then(()=>{ syncLastAt='just now'; }).catch(e=>console.error(e));
+    }).then(()=>{ syncLastAt='just now'; }).catch(e=>{
+      console.error(e);
+      showToast('Sync save failed — will retry on your next change');
+    });
   }, 700);
 }
 
@@ -1596,6 +1692,11 @@ function initSyncOnLoad(){
   syncStatus='connected';
   subscribeToCloud(syncCode);
   updateSyncIcon();
+  // Safety net: if quizzes were practiced in a tab that's since been closed
+  // (so it never had a live opener to push through), whatever ended up in
+  // this device's local storage still gets carried up the next time the
+  // dashboard itself loads — not just on the next explicit library change.
+  pushToCloud();
 }
 
 // ===================== SIDEBAR TOGGLE (desktop + mobile) =====================
@@ -2255,10 +2356,19 @@ function computeModuleReadiness(moduleName){
       if(count<=0) continue;
       const quizId = computeQuizId(`Module ${modNo} Q-Bank · ${size}Q · Set ${setNo}`, count);
       try{
+        let d = null;
         const raw = localStorage.getItem('cbt_progress_'+quizId);
-        if(!raw) continue;
-        const d = JSON.parse(raw);
-        if(!d || d.total!==count) continue;
+        if(raw){
+          const parsed = JSON.parse(raw);
+          if(parsed && parsed.total===count) d = parsed;
+        }
+        if(!d){
+          // No local resume state — fall back to the synced compact
+          // summary, in case this set was solved on a different device.
+          const s = collectQbankSummaries()[quizId];
+          if(s && s.total===count) d = s;
+        }
+        if(!d) continue;
         qbAttemptedQ += (d.correctCount||0)+(d.wrongCount||0)+(d.skipCount||0);
         qbCorrect += d.correctCount||0;
         qbWrong += d.wrongCount||0;
@@ -2649,13 +2759,27 @@ function qbankProgressInfo(moduleNum,setSize,setNo,count){
   const quizId=(pageTitle+'_'+count).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,80);
   try{
     const raw=localStorage.getItem('cbt_progress_'+quizId);
-    if(!raw) return {pct:0,text:'Not started'};
-    const d=JSON.parse(raw);
-    if(!d || d.total!==count || !Array.isArray(d.statuses)) return {pct:0,text:'Not started'};
-    const done=d.statuses.filter(s=>s!=='unattempted').length;
-    const pct=count?Math.round(done/count*100):0;
-    return {pct,text:done>=count?'Completed':`${done}/${count} attempted`};
-  }catch(e){ return {pct:0,text:'Not started'}; }
+    if(raw){
+      const d=JSON.parse(raw);
+      if(d && d.total===count && Array.isArray(d.statuses)){
+        const done=d.statuses.filter(s=>s!=='unattempted').length;
+        const pct=count?Math.round(done/count*100):0;
+        return {pct,text:done>=count?'Completed':`${done}/${count} attempted`};
+      }
+    }
+  }catch(e){}
+  // No local resume state for this set — fall back to the synced compact
+  // summary, in case it was solved on a different device.
+  try{
+    const map = collectQbankSummaries();
+    const s = map[quizId];
+    if(s && s.total===count){
+      const done=(s.correctCount||0)+(s.wrongCount||0)+(s.skipCount||0);
+      const pct=count?Math.round(done/count*100):0;
+      return {pct,text:done>=count?'Completed':`${done}/${count} attempted`};
+    }
+  }catch(e){}
+  return {pct:0,text:'Not started'};
 }
 
 function qbankSetSizeChanged(){
