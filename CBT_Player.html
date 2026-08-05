@@ -6,6 +6,8 @@
 <title id="page-title">Shared CBT Player — EASA Part-66 | Module 17 – Propeller Complete CBT (309Q)</title>
 <link rel="icon" type="image/png" href="icons/favicon-32.png"/>
 <meta name="theme-color" content="#03050a"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{--navy:#03050a;--navy2:#080b14;--panel:#0d121f;--card:#111726;--border:#1e2536;--accent:#22d3ee;--accent2:#0891b2;--gold:#fb923c;--correct:#34d399;--wrong:#fb7185;--skip:#fbbf24;--unattempted:#293244;--text:#eef2f9;--muted:#7b879e;--white:#ffffff;--violet:#818cf8;--glow:rgba(34,211,238,.28);}
@@ -952,11 +954,11 @@ async function loadQBankModulePoolPlayer(mod){
   else if(entry && Array.isArray(entry.files)) files=entry.files;
   else if(entry && typeof entry.file==='string') files=[entry.file];
   if(!files.length) throw new Error('no files listed for module '+mod);
+  // Same fix as the dashboard's own loader — fetch all files at once,
+  // reassemble in original order (question numbering depends on it).
+  const results = await Promise.all(files.map(path=>loadQBankJsFilePlayer(path)));
   const all=[];
-  for(const path of files){
-    const data = await loadQBankJsFilePlayer(path);
-    data.questions.forEach(q=>all.push(q));
-  }
+  results.forEach(data=>data.questions.forEach(q=>all.push(q)));
   return all;
 }
 async function findNextQBankSet(){
@@ -1405,7 +1407,28 @@ function toggleReviewFlag(i){
 // its real, original quiz, and this function writes the result there
 // instead — so a wrong answer here genuinely shows up next time you open
 // THAT quiz normally and switch to Wrong Answers Only mode.
+// A study day should count no matter which mode you practiced in — Q-Bank,
+// Mixed Quiz, and module-wide Wrong Answers sessions don't correspond to
+// any PYQ library item, so the dashboard's Study Streak (which used to only
+// look at PYQ items' lastOpened) never saw those days as active at all.
+// This marks "today" in a small shared log the dashboard also reads.
+const ACTIVITY_KEY = 'cbt_activity_days_v1';
+function markActivityToday(){
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    const raw = localStorage.getItem(ACTIVITY_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    if(!map[today]){
+      map[today] = true;
+      localStorage.setItem(ACTIVITY_KEY, JSON.stringify(map));
+      notifyOpenerToSync();
+    }
+  }catch(e){}
+}
+
 function recordAnswerForMistakeTracking(i, isCorrect){
+  markActivityToday();
+  __tickAndFlush(); // capture time immediately on every answer, not just every 10s or on tab-hide
   const q = questions[i];
   if (q && q.__srcId) {
     recordAnswerForSourceQuiz(q.__srcId, q.__srcIdx, q.__srcTotal, isCorrect);
