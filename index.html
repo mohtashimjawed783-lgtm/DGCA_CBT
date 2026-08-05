@@ -8,6 +8,8 @@
 <link rel="icon" type="image/png" href="icons/favicon-32.png"/>
 <link rel="apple-touch-icon" href="icons/icon-192.png"/>
 <meta name="theme-color" content="#03050a"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -1310,8 +1312,7 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
   <button class="btn btn-ghost btn-sm" onclick="toggleBulkMode()">Cancel</button>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 <script>
 const STORAGE_KEY = 'cbt_library_v1';
 const MODULES_KEY = 'cbt_library_modules_v1';
@@ -1438,10 +1439,33 @@ const firebaseConfig = {
   messagingSenderId: "194179386081",
   appId: "1:194179386081:web:c3e88ddab6f93f21aa05a0"
 };
-try{
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.firestore();
-}catch(e){ console.error('Firebase init failed', e); }
+
+// Firebase's compat SDKs are large enough that loading them as ordinary
+// blocking <script> tags held up the ENTIRE dashboard from rendering —
+// nothing painted until both files finished downloading from the CDN,
+// even for people who never touch Sync on a given visit. They're now
+// fetched dynamically instead, so the library itself shows up immediately;
+// cloud sync connects a moment later once they've actually arrived.
+function loadFirebaseScripts(onReady){
+  const s1=document.createElement('script');
+  s1.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js';
+  s1.onload=()=>{
+    const s2=document.createElement('script');
+    s2.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
+    s2.onload=onReady;
+    s2.onerror=()=>console.error('Failed to load firebase-firestore-compat.js');
+    document.head.appendChild(s2);
+  };
+  s1.onerror=()=>console.error('Failed to load firebase-app-compat.js');
+  document.head.appendChild(s1);
+}
+function initFirebase(){
+  try{
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+  }catch(e){ console.error('Firebase init failed', e); }
+  initSyncOnLoad();
+}
 
 function genSyncCode(){
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -1591,6 +1615,23 @@ function mergeModuleTime(remote){
   if(changed){ try{ localStorage.setItem('cbt_module_time_v1', JSON.stringify(local)); }catch(e){} }
 }
 
+const ACTIVITY_KEY = 'cbt_activity_days_v1';
+function collectActivityDays(){
+  try{ return JSON.parse(localStorage.getItem(ACTIVITY_KEY)||'{}'); }catch(e){ return {}; }
+}
+// Just presence flags per day, so merging is a plain union — no conflict
+// possible, nothing to compare or pick a "winner" for.
+function mergeActivityDays(remote){
+  if(!remote) return;
+  let local={};
+  try{ local = JSON.parse(localStorage.getItem(ACTIVITY_KEY)||'{}'); }catch(e){}
+  let changed=false;
+  Object.keys(remote).forEach(day=>{
+    if(remote[day] && !local[day]){ local[day]=true; changed=true; }
+  });
+  if(changed){ try{ localStorage.setItem(ACTIVITY_KEY, JSON.stringify(local)); }catch(e){} }
+}
+
 async function connectSync(code){
   if(!db){ showToast('Cloud sync unavailable right now'); return; }
   syncStatus='connecting'; updateSyncIcon(); renderSyncModal();
@@ -1605,6 +1646,7 @@ async function connectSync(code){
       mergeQbankSummaries(remote.qbankSummaries);
       mergeWrongTracking(remote.wrongTracking);
       mergeModuleTime(remote.moduleTime);
+      mergeActivityDays(remote.activityDays);
 
       const remoteHasData = (remote.library && remote.library.length) || (remote.customModules && remote.customModules.length) || (remote.examTargets && remote.examTargets.length);
       const localHasData = library.length>0 || customModules.length>0 || examTargets.length>0;
@@ -1623,7 +1665,7 @@ async function connectSync(code){
     // cloud copy reflects the merged practice progress too, not just library.
     await ref.set({
       library, customModules, examTargets,
-      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(),
+      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(), activityDays: collectActivityDays(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedFrom: deviceId
     });
     syncCode = code;
@@ -1654,6 +1696,7 @@ function subscribeToCloud(code){
     mergeQbankSummaries(remote.qbankSummaries);
     mergeWrongTracking(remote.wrongTracking);
     mergeModuleTime(remote.moduleTime);
+    mergeActivityDays(remote.activityDays);
     refresh();
     showToast('Library updated from another device');
   }, err=>{
@@ -1677,7 +1720,7 @@ function pushToCloud(){
   syncPushTimer = setTimeout(()=>{
     db.collection('libraries').doc(syncCode).set({
       library, customModules, examTargets,
-      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(),
+      qbankSummaries: collectQbankSummaries(), wrongTracking: collectWrongTracking(), moduleTime: collectModuleTime(), activityDays: collectActivityDays(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedFrom: deviceId
     }).then(()=>{ syncLastAt='just now'; }).catch(e=>{
@@ -2034,15 +2077,17 @@ async function checkAllLinks(){
     return;
   }
   showToast('Checking links...');
-  for(const item of library){
+  // Each item's status is independent, so checking them all at once is a
+  // safe win — no shared state, nothing to coordinate.
+  await Promise.allSettled(library.map(async item=>{
     try{
       const isRelative = !/^https?:\/\//i.test(item.link);
-      const res = await fetch(item.link, {method: isRelative ? 'GET' : 'HEAD', mode: isRelative ? 'same-origin' : 'no-cors'});
+      await fetch(item.link, {method: isRelative ? 'GET' : 'HEAD', mode: isRelative ? 'same-origin' : 'no-cors'});
       item.linkStatus = 'ok';
     }catch(e){
       item.linkStatus = 'broken';
     }
-  }
+  }));
   persist();
   renderMain();
   const broken = library.filter(x=>x.linkStatus==='broken').length;
@@ -2143,6 +2188,10 @@ function renderStreakCard(){
     const k=dayKey(new Date(it.lastOpened));
     counts[k]=(counts[k]||0)+1;
   });
+  // Q-Bank, Mixed Quiz, and module-wide Wrong Answers sessions don't touch
+  // any PYQ library item, so they never showed up in counts above — this
+  // activity log (written on every answer, in every mode) fills that gap.
+  const activeDays = collectActivityDays();
 
   const today=new Date(); today.setHours(0,0,0,0);
   const todayLabel = today.toLocaleDateString(undefined,{month:'short',day:'numeric'});
@@ -2151,21 +2200,25 @@ function renderStreakCard(){
     const d=new Date(today); d.setDate(d.getDate()-i);
     const k=dayKey(d);
     const n=counts[k]||0;
-    const level = n===0?0 : n===1?1 : n===2?2 : 3;
+    const active = n>0 || !!activeDays[k];
+    const level = n===0 ? (active?1:0) : n===1?1 : n===2?2 : 3;
     const isToday = i===0;
     const label = d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
-    cells+=`<div class="streak-day${isToday?' is-today':''}" data-level="${level}" title="${label}: ${n} quiz${n===1?'':'zes'} opened"></div>`;
+    const tip = n>0 ? `${label}: ${n} quiz${n===1?'':'zes'} opened` : (active ? `${label}: practiced (Q-Bank/other)` : `${label}: no activity`);
+    cells+=`<div class="streak-day${isToday?' is-today':''}" data-level="${level}" title="${tip}"></div>`;
   }
 
-  // current streak: consecutive days ending today with at least 1 quiz opened
+  // Current streak: consecutive days ending today with ANY activity — a
+  // PYQ open, or Q-Bank/Mixed/Wrong-Answers practice, either counts.
   let streak=0;
   for(let i=0;i<DAYS;i++){
     const d=new Date(today); d.setDate(d.getDate()-i);
-    if(counts[dayKey(d)]) streak++; else break;
+    const k=dayKey(d);
+    if(counts[k] || activeDays[k]) streak++; else break;
   }
   const summary = streak>0
     ? `🔥 ${streak}-day streak — keep it going`
-    : `Opena quiz today to start a streak`;
+    : `Open a quiz today to start a streak`;
 
   card.innerHTML = `
     <div class="insight-card-title"><span>📅 Study Streak</span><span class="streak-today-badge">${todayLabel}</span></div>
@@ -2215,29 +2268,73 @@ function renderWeakTopicsCard(){
     <button class="btn btn-ghost btn-sm" onclick="computeWeakTopics()">Show my weak topics</button>`;
 }
 
-async function computeWeakTopics(){
-  const card=document.getElementById('weak-topics-card');
-  card.innerHTML = `<div class="insight-card-title">📊 Weak Topics</div><div class="field-hint">Scanning your quizzes…</div>`;
-  const opened = library.filter(it=>it.progress); // skip quizzes never opened — nothing to aggregate yet
-  const topicWrong={};
-  for(const item of opened){
+// Scans a set of PYQ library items for wrong-flagged questions, adding
+// counts per topic into the shared accumulator passed in.
+async function gatherPyqTopicWrongCounts(items, topicWrong){
+  // Fetch every quiz's data concurrently instead of one-by-one — this
+  // shares fetchQuizData's cache too, so it also benefits any earlier
+  // feature (Wrong Answers, Mixed Quiz) that already pulled the same file.
+  const fetched = await Promise.allSettled(items.map(async item=>{
     const dataPath=extractDataPath(item.link);
-    if(!dataPath) continue;
+    if(!dataPath) throw new Error('not a data-file quiz');
+    const data = await fetchQuizData(dataPath);
+    return {item, data};
+  }));
+  // Processing itself stays a plain sequential loop — it only touches
+  // localStorage and the shared topicWrong accumulator, no awaits, so
+  // there's no race to worry about here.
+  fetched.forEach(r=>{
+    if(r.status!=='fulfilled') return;
+    const {item, data} = r.value;
     try{
-      const res=await fetch(dataPath);
-      if(!res.ok) continue;
-      const src=await res.text();
-      const data=new Function('window', src+'\nreturn window.CBT_QUIZ;')({});
-      if(!data || !Array.isArray(data.questions)) continue;
       const srcId=computeQuizId((data.config&&data.config.pageTitle)||item.title, data.questions.length);
       const rawFlag=localStorage.getItem('cbt_wrongflag_'+srcId);
-      if(!rawFlag) continue;
+      if(!rawFlag) return;
       const flags=JSON.parse(rawFlag);
-      if(!Array.isArray(flags)||flags.length!==data.questions.length) continue;
+      if(!Array.isArray(flags)||flags.length!==data.questions.length) return;
       data.questions.forEach((q,i)=>{
         if(flags[i] && q.topic){ topicWrong[q.topic]=(topicWrong[q.topic]||0)+1; }
       });
-    }catch(e){ /* skip quizzes that fail to load — don't block the rest */ }
+    }catch(e){ /* skip malformed local data for this quiz — don't block the rest */ }
+  });
+}
+// Same idea, but for a module's Q-Bank sets — this was missing entirely
+// before, so any wrong answers made in Q-Bank practice (a first-class
+// practice source now, not PYQ's understudy) never showed up as weak topics.
+async function gatherQbankTopicWrongCounts(moduleNo, topicWrong){
+  const info = qbankStatsCache.modules[moduleNo];
+  if(!info || !info.questions) return;
+  try{
+    const bankData = await loadQBankModuleData('Module '+moduleNo);
+    const pool = bankData.questions;
+    const size = info.setSize || QBANK_DEFAULT_SET_SIZE;
+    const totalSets = info.totalSets || Math.ceil(pool.length/size);
+    for(let setNo=1; setNo<=totalSets; setNo++){
+      const start=(setNo-1)*size;
+      const end=Math.min(start+size, pool.length);
+      const count=end-start;
+      if(count<=0) continue;
+      const quizId=computeQuizId(`Module ${moduleNo} Q-Bank · ${size}Q · Set ${setNo}`, count);
+      try{
+        const rawFlag=localStorage.getItem('cbt_wrongflag_'+quizId);
+        if(!rawFlag) continue;
+        const flags=JSON.parse(rawFlag);
+        if(!Array.isArray(flags)||flags.length!==count) continue;
+        for(let i=0;i<count;i++){
+          if(flags[i]){ const q=pool[start+i]; if(q && q.topic) topicWrong[q.topic]=(topicWrong[q.topic]||0)+1; }
+        }
+      }catch(e){}
+    }
+  }catch(e){ /* Q-Bank unavailable for this module — PYQ topics still work */ }
+}
+
+async function computeWeakTopics(){
+  const card=document.getElementById('weak-topics-card');
+  card.innerHTML = `<div class="insight-card-title">📊 Weak Topics</div><div class="field-hint">Scanning your quizzes…</div>`;
+  const topicWrong={};
+  await gatherPyqTopicWrongCounts(library.filter(it=>it.progress), topicWrong);
+  for(const modNo of Object.keys(qbankStatsCache.modules||{})){
+    await gatherQbankTopicWrongCounts(modNo, topicWrong);
   }
   weakTopicsComputed = Object.entries(topicWrong).sort((a,b)=>b[1]-a[1]).slice(0,8);
   renderWeakTopicsList(card, weakTopicsComputed);
@@ -2471,25 +2568,10 @@ async function showTargetWeakTopics(targetId, moduleName){
   const wrap = document.getElementById('target-weak-'+targetId);
   if(!wrap) return;
   wrap.innerHTML = 'Scanning…';
-  const items = library.filter(it=>it.module===moduleName && it.progress);
   const topicWrong={};
-  for(const item of items){
-    const dataPath=extractDataPath(item.link);
-    if(!dataPath) continue;
-    try{
-      const res=await fetch(dataPath);
-      if(!res.ok) continue;
-      const src=await res.text();
-      const data=new Function('window', src+'\nreturn window.CBT_QUIZ;')({});
-      if(!data || !Array.isArray(data.questions)) continue;
-      const srcId=computeQuizId((data.config&&data.config.pageTitle)||item.title, data.questions.length);
-      const rawFlag=localStorage.getItem('cbt_wrongflag_'+srcId);
-      if(!rawFlag) continue;
-      const flags=JSON.parse(rawFlag);
-      if(!Array.isArray(flags)||flags.length!==data.questions.length) continue;
-      data.questions.forEach((q,i)=>{ if(flags[i] && q.topic){ topicWrong[q.topic]=(topicWrong[q.topic]||0)+1; } });
-    }catch(e){}
-  }
+  await gatherPyqTopicWrongCounts(library.filter(it=>it.module===moduleName && it.progress), topicWrong);
+  const modNo = qbankModuleNumber(moduleName);
+  if(modNo) await gatherQbankTopicWrongCounts(modNo, topicWrong);
   const list = Object.entries(topicWrong).sort((a,b)=>b[1]-a[1]).slice(0,5);
   targetWeakTopicsCache[targetId] = list;
   wrap.innerHTML = list.length
@@ -2739,9 +2821,15 @@ async function loadQBankModuleData(moduleName, force=false){
 
   if(!files.length) throw new Error(`No Q-Bank files are listed for Module ${mod} in ${QBANK_MANIFEST_PATH}.`);
 
+  // Fetch every file for this module at once instead of one-by-one —
+  // browsers happily run many small requests concurrently, so this is
+  // several times faster than sequential for modules with multiple files.
+  // Files are still concatenated back in their original manifest order
+  // afterward (not resolution order), since Set numbering depends on it.
+  const results = await Promise.all(files.map(path=>loadQBankJsFile(path)));
   const all=[];
-  for(const path of files){
-    const data=await loadQBankJsFile(path);
+  results.forEach((data, fileIdx)=>{
+    const path = files[fileIdx];
     data.questions.forEach((q,idx)=>{
       all.push(Object.assign({},q,{
         __qbankModule:mod,
@@ -2749,7 +2837,7 @@ async function loadQBankModuleData(moduleName, force=false){
         __qbankSourceIndex:idx
       }));
     });
-  }
+  });
   qbankCache[mod]={questions:all,files};
   return qbankCache[mod];
 }
@@ -3342,6 +3430,25 @@ function extractDataPath(link){
   }catch(e){ return null; }
 }
 
+// Weak Topics, the module-wide Wrong Answers gatherer, and the Mixed Quiz
+// Generator each fetch and parse PYQ data files independently — often the
+// SAME files, if you use more than one of these in the same visit. This
+// cache means a file only ever gets fetched once per session, no matter
+// how many of these features touch it. (Not used for Answer Mapping's
+// question editor — that one always wants the freshest raw text, since
+// it's about to save an edit based on it.)
+const quizDataCache = {};
+async function fetchQuizData(dataPath){
+  if(quizDataCache[dataPath]) return quizDataCache[dataPath];
+  const res = await fetch(dataPath);
+  if(!res.ok) throw new Error('fetch failed: '+dataPath);
+  const src = await res.text();
+  const data = new Function('window', src + '\nreturn window.CBT_QUIZ;')({});
+  if(!data || !Array.isArray(data.questions)) throw new Error('invalid quiz data: '+dataPath);
+  quizDataCache[dataPath] = data;
+  return data;
+}
+
 function shuffleArray(arr){
   for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
   return arr;
@@ -3354,24 +3461,29 @@ async function generateMixedQuiz(){
   const skipped=[];
   const allQuestions=[];
 
-  for(const item of selected){
+  // Fetch every selected source concurrently — order doesn't matter here
+  // since the combined result gets shuffled right after anyway.
+  const results = await Promise.allSettled(selected.map(async item=>{
     const dataPath = extractDataPath(item.link);
-    if(!dataPath){ skipped.push(item.title+' (not a data-file quiz)'); continue; }
+    if(!dataPath) return {item, skip:' (not a data-file quiz)'};
     try{
-      const res = await fetch(dataPath);
-      if(!res.ok) throw new Error('fetch failed');
-      const src = await res.text();
-      const sandbox = {};
-      const fn = new Function('window', src + '\nreturn window.CBT_QUIZ;');
-      const data = fn(sandbox);
-      if(!data || !Array.isArray(data.questions) || !data.questions.length) throw new Error('no questions');
-      const srcTotal = data.questions.length;
-      const srcId = computeQuizId((data.config && data.config.pageTitle) || item.title, srcTotal);
-      data.questions.forEach((q, idx)=>{
-        allQuestions.push(Object.assign({}, q, { __srcId: srcId, __srcIdx: idx, __srcTotal: srcTotal }));
-      });
-    }catch(e){ skipped.push(item.title); }
-  }
+      const data = await fetchQuizData(dataPath);
+      if(!data.questions.length) throw new Error('no questions');
+      return {item, data};
+    }catch(e){ return {item, skip:''}; }
+  }));
+
+  results.forEach(r=>{
+    if(r.status!=='fulfilled') return; // defensive — the mapper above never actually rejects
+    const val = r.value;
+    if(val.skip!==undefined){ skipped.push(val.item.title+val.skip); return; }
+    const {item, data} = val;
+    const srcTotal = data.questions.length;
+    const srcId = computeQuizId((data.config && data.config.pageTitle) || item.title, srcTotal);
+    data.questions.forEach((q, idx)=>{
+      allQuestions.push(Object.assign({}, q, { __srcId: srcId, __srcIdx: idx, __srcTotal: srcTotal }));
+    });
+  });
 
   if(!allQuestions.length){ showToast('Could not load any of the selected quizzes'); return; }
 
@@ -3419,26 +3531,27 @@ async function gatherModuleWrongAnswers(moduleName){
 
   // ---- PYQ side: check each PYQ quiz's own wrongflag list ----
   const pyqItems = library.filter(x=>x.module===moduleName);
-  for(const item of pyqItems){
+  const pyqFetched = await Promise.allSettled(pyqItems.map(async item=>{
     const dataPath = extractDataPath(item.link);
-    if(!dataPath) continue;
+    if(!dataPath) throw new Error('not a data-file quiz');
+    const data = await fetchQuizData(dataPath);
+    return {item, data};
+  }));
+  pyqFetched.forEach(r=>{
+    if(r.status!=='fulfilled') return;
+    const {item, data} = r.value;
     try{
-      const res = await fetch(dataPath);
-      if(!res.ok) continue;
-      const src = await res.text();
-      const data = new Function('window', src+'\nreturn window.CBT_QUIZ;')({});
-      if(!data || !Array.isArray(data.questions)) continue;
       const total = data.questions.length;
       const srcId = computeQuizId((data.config && data.config.pageTitle) || item.title, total);
       const rawFlag = localStorage.getItem('cbt_wrongflag_'+srcId);
-      if(!rawFlag) continue;
+      if(!rawFlag) return;
       const flags = JSON.parse(rawFlag);
-      if(!Array.isArray(flags) || flags.length!==total) continue;
+      if(!Array.isArray(flags) || flags.length!==total) return;
       data.questions.forEach((q, idx)=>{
         if(flags[idx]) pooled.push(Object.assign({}, q, {__srcId:srcId, __srcIdx:idx, __srcTotal:total}));
       });
-    }catch(e){ /* skip quizzes that fail to load — don't block the rest */ }
-  }
+    }catch(e){ /* skip malformed local data for this quiz — don't block the rest */ }
+  });
 
   // ---- Q-Bank side: same manifest+files your Q-Bank view already reads,
   // then check each set's own wrongflag list the same way ----
@@ -3593,75 +3706,113 @@ window.addEventListener('resize',()=>{ if(activeTip) hideTip(); });
 // ===================== Q-BANK DASHBOARD STATS =====================
 // Reads the current manifest and every listed Q-Bank file.
 // Totals therefore update automatically whenever the manifest/files change.
+// Q-Bank dashboard stats used to re-fetch and re-parse EVERY Q-Bank file on
+// EVERY page load, just to count questions per module — for a library with
+// hundreds of sets, that's hundreds of network round-trips before the
+// dashboard could show accurate numbers, every single time you opened it.
+//
+// The actual question COUNTS only change when you edit the manifest/files
+// themselves — not every time you practice. So those are now cached in
+// localStorage, fingerprinted against the manifest's own raw text: if the
+// manifest hasn't changed since last time, we already know the counts are
+// still correct and skip every file fetch entirely.
+//
+// completedSets, by contrast, changes constantly (every question you
+// attempt) — but computing it is pure localStorage reads via
+// qbankProgressInfo(), no network at all, so it's always recomputed fresh
+// regardless of whether the cache above was reused. You get accurate
+// progress every load, without paying network cost for it.
+const QBANK_STATS_CACHE_KEY = 'cbt_qbank_stats_cache_v1';
+
+// Turns a module -> total-question-count map into the full qbankStatsCache
+// shape (adding the always-fresh completedSets) and repaints. Called both
+// from cache instantly on load, and again once a live fetch resolves.
+function applyQbankQuestionCounts(questionCounts, setSize){
+  let totalQuestions = 0;
+  const moduleTotals = {};
+  Object.keys(questionCounts).forEach(moduleNo=>{
+    const moduleQuestions = questionCounts[moduleNo] || 0;
+    const totalSets = moduleQuestions > 0 ? Math.ceil(moduleQuestions / setSize) : 0;
+    let completedSets = 0;
+    for(let i=1;i<=totalSets;i++){
+      const start = (i-1)*setSize;
+      const end = Math.min(start+setSize, moduleQuestions);
+      const setCount = end-start;
+      if(setCount>0 && qbankProgressInfo(moduleNo, setSize, i, setCount).pct>=100) completedSets++;
+    }
+    moduleTotals[moduleNo] = { questions: moduleQuestions, totalSets, completedSets, setSize };
+    totalQuestions += moduleQuestions;
+  });
+
+  qbankStatsCache = {
+    totalQuestions,
+    totalSets50: Math.ceil(totalQuestions / 50),
+    modules: moduleTotals
+  };
+  renderStatsBar();
+  if(!activeModule) renderModuleGrid();
+}
+
 async function refreshQBankDashboardStats(){
   if(location.protocol === 'file:') return;
+  const dashboardSetSize = Number(localStorage.getItem('cbt_qbank_set_size')) || QBANK_DEFAULT_SET_SIZE;
+
+  // Paint immediately from whatever was cached last time, so the dashboard
+  // never sits at "0 Q-Bank sets" while this fetch is in flight — then the
+  // fetch below silently corrects it if anything's actually changed.
+  let cached = null;
+  try{ cached = JSON.parse(localStorage.getItem(QBANK_STATS_CACHE_KEY)||'null'); }catch(e){}
+  if(cached && cached.questionCounts){
+    applyQbankQuestionCounts(cached.questionCounts, dashboardSetSize);
+  }
 
   try{
     const manifestRes = await fetch('qbank-manifest.json?v=' + Date.now(), {cache:'no-store'});
     if(!manifestRes.ok) throw new Error(`Manifest HTTP ${manifestRes.status}`);
-    const manifest = await manifestRes.json();
+    const manifestText = await manifestRes.text();
 
-    // "Sets Completed" uses the same set size your Q-Bank view uses (your
-    // last chosen size if you've changed it, else the default), so the
-    // count on the module tile always matches what you'd actually see if
-    // you opened that module's Q-Bank right now.
-    const dashboardSetSize = Number(localStorage.getItem('cbt_qbank_set_size')) || QBANK_DEFAULT_SET_SIZE;
-
-    let totalQuestions = 0;
-    const moduleTotals = {};
-
-    for(const [moduleNo, info] of Object.entries(manifest.modules || {})){
-      const files = Array.isArray(info && info.files) ? info.files : [];
-      let moduleQuestions = 0;
-
-      for(const filePath of files){
-        try{
-          const res = await fetch(filePath + '?v=' + Date.now(), {cache:'no-store'});
-          if(!res.ok) throw new Error(`HTTP ${res.status}`);
-          const source = await res.text();
-
-          const isolatedWindow = {};
-          const quiz = new Function(
-            'window',
-            source + '\n;return window.CBT_QUIZ || window.quizData || window.QUIZ_DATA || null;'
-          )(isolatedWindow);
-
-          const count = quiz && Array.isArray(quiz.questions) ? quiz.questions.length : 0;
-          moduleQuestions += count;
-        }catch(fileErr){
-          console.warn('Q-Bank stats: could not read', filePath, fileErr);
-        }
-      }
-
-      // Completed-set count: reuses the same qbankProgressInfo() the Q-Bank
-      // view itself reads from — pure localStorage lookups, no extra
-      // network calls, since we already have moduleQuestions from the fetch above.
-      const totalSets = moduleQuestions > 0 ? Math.ceil(moduleQuestions / dashboardSetSize) : 0;
-      let completedSets = 0;
-      for(let i=1;i<=totalSets;i++){
-        const start = (i-1)*dashboardSetSize;
-        const end = Math.min(start+dashboardSetSize, moduleQuestions);
-        const setCount = end-start;
-        if(setCount>0 && qbankProgressInfo(moduleNo, dashboardSetSize, i, setCount).pct>=100) completedSets++;
-      }
-
-      moduleTotals[moduleNo] = { questions: moduleQuestions, totalSets, completedSets, setSize: dashboardSetSize };
-      totalQuestions += moduleQuestions;
+    if(cached && cached.manifestText===manifestText){
+      // Manifest identical to last time — the files it points to haven't
+      // changed either (they're only ever edited alongside it), so the
+      // cached counts are still correct. Nothing further to fetch.
+      return;
     }
 
-    qbankStatsCache = {
-      totalQuestions,
-      totalSets50: Math.ceil(totalQuestions / 50),
-      modules: moduleTotals
-    };
+    const manifest = JSON.parse(manifestText);
+    const questionCounts = {};
+    for(const [moduleNo, info] of Object.entries(manifest.modules || {})){
+      const files = Array.isArray(info && info.files) ? info.files : [];
+      // Fetch this module's files concurrently rather than one at a time —
+      // this only runs when the manifest has actually changed (rare), but
+      // no reason to make it slower than it needs to be when it does.
+      const results = await Promise.allSettled(files.map(async filePath=>{
+        const res = await fetch(filePath + '?v=' + Date.now(), {cache:'no-store'});
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        const source = await res.text();
+        const isolatedWindow = {};
+        const quiz = new Function(
+          'window',
+          source + '\n;return window.CBT_QUIZ || window.quizData || window.QUIZ_DATA || null;'
+        )(isolatedWindow);
+        return (quiz && Array.isArray(quiz.questions)) ? quiz.questions.length : 0;
+      }));
+      let moduleQuestions = 0;
+      results.forEach((r, idx)=>{
+        if(r.status==='fulfilled') moduleQuestions += r.value;
+        else console.warn('Q-Bank stats: could not read', files[idx], r.reason);
+      });
+      questionCounts[moduleNo] = moduleQuestions;
+    }
 
-    renderStatsBar();
-    if(!activeModule) renderModuleGrid();
+    try{ localStorage.setItem(QBANK_STATS_CACHE_KEY, JSON.stringify({manifestText, questionCounts})); }catch(e){}
+    applyQbankQuestionCounts(questionCounts, dashboardSetSize);
   }catch(err){
     console.warn('Q-Bank dashboard stats unavailable:', err);
-    qbankStatsCache = { totalQuestions:0, totalSets50:0, modules:{} };
-    renderStatsBar();
-    if(!activeModule) renderModuleGrid();
+    if(!cached){
+      qbankStatsCache = { totalQuestions:0, totalSets50:0, modules:{} };
+      renderStatsBar();
+      if(!activeModule) renderModuleGrid();
+    }
   }
 }
 
@@ -3684,13 +3835,18 @@ refresh = function(){
 };
 
 // ===================== INIT =====================
+// Everything the library actually needs to render is here, running
+// immediately — none of it depends on Firebase, so none of it waits on it.
 applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 load();
 checkForSharedLibraryInUrl();
 refresh();
 refreshQBankDashboardStats();
-initSyncOnLoad();
 initInfoTooltips();
+
+// Cloud sync connects a moment later, in the background — see
+// loadFirebaseScripts()/initFirebase() above for why this is deferred.
+loadFirebaseScripts(initFirebase);
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
