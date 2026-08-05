@@ -3217,7 +3217,7 @@ function renderCard(it){
     ${it.progress?`
     <div style="display:flex;align-items:center;gap:10px;margin:2px 0;">
       ${ring}
-      <div class="card-progress-label" style="flex-direction:column;align-items:flex-start;gap:2px;"><span>✔ ${it.progress.correct} ✘ ${it.progress.wrong} – ${it.progress.skip}</span></div>
+      <div class="card-progress-label" style="flex-direction:column;align-items:flex-start;gap:2px;"><span><span style="color:var(--correct);font-weight:700;">✔ ${it.progress.correct}</span> <span style="color:var(--wrong);font-weight:700;">✘ ${it.progress.wrong}</span> <span style="color:var(--skip);font-weight:700;">– ${it.progress.skip}</span></span></div>
     </div>
     `:`<div class="field-hint" style="margin:0;">Not yet opened this session</div>`}
     <div class="field-hint" style="margin:0;">Last opened: ${timeAgo(it.lastOpened)}</div>
@@ -3414,7 +3414,7 @@ function renderMixedHistory(){
     <div class="mixed-history-row">
       <div class="mixed-history-pct" style="color:${h.pct>=75?'var(--correct)':h.pct>=50?'var(--gold)':'var(--wrong)'}">${h.pct}%</div>
       <div class="mixed-history-info">
-        <div class="mixed-history-title">${h.total}Q — ✔${h.correct} ✘${h.wrong} –${h.skip}</div>
+        <div class="mixed-history-title">${h.total}Q — <span style="color:var(--correct);font-weight:700;">✔${h.correct}</span> <span style="color:var(--wrong);font-weight:700;">✘${h.wrong}</span> <span style="color:var(--skip);font-weight:700;">–${h.skip}</span></div>
         <div class="mixed-history-date">${new Date(h.date).toLocaleString()}${h.sourceSummary?' · '+escHtml(h.sourceSummary):''}</div>
       </div>
       <button class="icon-btn" onclick="deleteMixedHistoryEntry('${h.id}')" title="Delete this attempt">🗑</button>
