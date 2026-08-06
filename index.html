@@ -1015,13 +1015,14 @@ select.sort-select{background:var(--panel);border:1.5px solid var(--border);bord
       <div class="sidebar-desktop-label">⚙ Tools</div>
       <div class="filter-tags-row" id="tag-filter-row"></div>
       <div class="sidebar-tools">
+        <button class="btn btn-primary btn-sm" onclick="exportPublicLibrary()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-export"/></svg>Publish Library</button>
         <button class="btn btn-ghost btn-sm" onclick="exportLibrary()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-export"/></svg>Export Library</button>
         <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-file').click()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-import"/></svg>Import Library</button>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importLibrary(event)"/>
         <button class="btn btn-ghost btn-sm" onclick="copyShareLink()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-link"/></svg>Copy Share Link</button>
         <button class="btn btn-ghost btn-sm" onclick="checkAllLinks()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-check-circle"/></svg>Check Links</button>
         <button class="btn btn-ghost btn-sm" onclick="openAnswerMappingModal()"><svg width="14" height="14" style="margin-right:5px"><use href="#i-settings"/></svg>Answer Mapping</button>
-        <div class="sidebar-hint">Export/Import back up this list (.json) — to add a quiz itself, use <strong>+ Add CBT</strong> above. "Check Links" only works once this dashboard is hosted online (not as a local file).</div>
+        <div class="sidebar-hint"><strong>Publish Library</strong> downloads <code>library-manifest.json</code> — upload that to your host to update what every visitor sees, no code required on their end. Export/Import (below it) is your own personal backup of this list, progress and all — to add a quiz itself, use <strong>+ Add CBT</strong> above. "Check Links" only works once this dashboard is hosted online (not as a local file).</div>
       </div>
     </div>
   </div>
@@ -1321,6 +1322,22 @@ const TARGETS_KEY = 'cbt_exam_targets_v1';
 const THEME_KEY = 'cbt_library_theme';
 const TCOLORS = ['#60b4ff','#f0b429','#a78bfa','#4ade80','#f87171','#fb923c','#2dd4bf'];
 
+// ===== PUBLIC LIBRARY (site mode) =====
+// If library-manifest.json exists next to this file on your host, every
+// visitor's browser fetches it automatically — same idea as your existing
+// qbank-manifest.json — no code, no login, no database read just to see
+// your content. You build it with the "Publish Library" button in the
+// sidebar (Tools), which exports your current library stripped of
+// anything personal (see stripPersonalFields() below) — the same deploy
+// step you already do for quiz data files. Nothing here ever depends on
+// Sync Codes or Firestore, which stay scoped purely to mirroring YOUR OWN
+// progress across YOUR OWN devices.
+//
+// If the file doesn't exist, this silently does nothing — this dashboard
+// keeps working exactly as it always has, purely personal and local.
+const LIBRARY_MANIFEST_PATH = 'library-manifest.json';
+let publicLibraryLoadAttempted = false;
+
 let library = [];
 let customModules = []; // modules created via "+ Add Module" before any CBT is added to them
 let examTargets = []; // {id, module, examDate, label, goalCoverage, goalAccuracy, createdAt, archived}
@@ -1333,11 +1350,17 @@ const openWindows = {}; // id -> window handle, for postMessage progress trackin
 // Natural sort so "2024" < "2025" and "Session 2" < "Session 10" (also used for module names).
 function naturalSort(a,b){ return a.localeCompare(b, undefined, {numeric:true, sensitivity:'base'}); }
 
-// All module names — union of modules already used by CBTs and empty ones
-// created via "+ Add Module" — deduped and naturally sorted.
+// All module names — union of modules already used by CBTs, empty ones
+// created via "+ Add Module", AND modules that only exist in the Q-Bank
+// manifest (no PYQs added yet) — without this last part, a module with
+// Q-Bank content but zero PYQs simply wouldn't show up as a tile at all.
 function getAllModuleNames(){
   const fromItems = library.map(x=>x.module).filter(Boolean);
-  return [...new Set([...fromItems, ...customModules])].sort(naturalSort);
+  const named = [...fromItems, ...customModules];
+  const fromQbank = Object.keys(qbankStatsCache.modules||{})
+    .filter(modNo => (qbankStatsCache.modules[modNo].questions||0) > 0)
+    .map(modNo => named.find(m => qbankModuleNumber(m)===modNo) || ('Module '+modNo));
+  return [...new Set([...named, ...fromQbank])].sort(naturalSort);
 }
 
 // ===================== PERSISTENCE =====================
@@ -1465,6 +1488,31 @@ function initFirebase(){
     db = firebase.firestore();
   }catch(e){ console.error('Firebase init failed', e); }
   initSyncOnLoad();
+}
+
+// Fetches library-manifest.json — a plain static file, exactly like your
+// existing qbank-manifest.json — and merges its content in, stripped of
+// anything personal. Doesn't touch Firebase/Firestore at all, so it works
+// immediately on page load without waiting for anything else, and there's
+// no live, writable document exposed to visitors — just a public file,
+// same trust model as any other asset on your site. If the file doesn't
+// exist (e.g. you haven't published one, or this is a purely personal/
+// local install), this silently does nothing.
+async function loadPublicLibraryManifest(){
+  try{
+    const res = await fetch(LIBRARY_MANIFEST_PATH + '?v=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('no manifest published');
+    const data = await res.json();
+    const items = Array.isArray(data.library) ? data.library.map(stripPersonalFields) : [];
+    const modNames = Array.isArray(data.customModules) ? data.customModules : [];
+    mergeImportedEntries(items, modNames, {silent:true});
+  }catch(e){
+    // No manifest, or it's unreachable — not an error worth surfacing,
+    // just means there's no public content configured for this install.
+  }finally{
+    publicLibraryLoadAttempted = true;
+    if(!activeModule) renderModuleGrid();
+  }
 }
 
 function genSyncCode(){
@@ -1969,6 +2017,25 @@ function bulkTag(){
 }
 
 // ===================== EXPORT / IMPORT =====================
+// Downloads library-manifest.json — the file every visitor's browser
+// automatically fetches (see loadPublicLibraryManifest() near the top).
+// Stripped of anything personal via stripPersonalFields(), same as Share
+// Link. Upload the result to your host alongside qbank-manifest.json and
+// your quiz data files — this is the "deploy" step for content updates.
+function exportPublicLibrary(){
+  const payload = {
+    library: library.map(stripPersonalFields),
+    customModules
+  };
+  const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='library-manifest.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Downloaded library-manifest.json — upload it to your host to publish these changes');
+}
+
 function exportLibrary(){
   const payload = {library, customModules};
   const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
@@ -2000,7 +2067,8 @@ function importLibrary(evt){
   reader.readAsText(file);
 }
 
-function mergeImportedEntries(data, moduleNames){
+function mergeImportedEntries(data, moduleNames, opts){
+  const silent = !!(opts && opts.silent);
   const existingIds = new Set(library.map(x=>x.id));
   const existingLinks = new Set(library.map(x=>(x.link||'').trim().toLowerCase()));
   let added=0, skipped=0;
@@ -2025,15 +2093,36 @@ function mergeImportedEntries(data, moduleNames){
     persistModules();
   }
   persist();
-  activeModule = null; // land on the module picker so new/changed modules are visible
-  refresh();
-  showToast(skipped>0 ? `Imported ${added}, skipped ${skipped} duplicate(s)` : `Imported ${added} quiz(zes)`);
+  // A silent (background/automatic) import only disrupts the view if it
+  // actually changed something — an explicit user-triggered import (Import
+  // Library, Share Link) always lands on the module picker and says so,
+  // even if nothing new came in, so the action visibly completes.
+  if(!silent || added>0){
+    activeModule = null;
+    refresh();
+  }
+  if(!silent){
+    showToast(skipped>0 ? `Imported ${added}, skipped ${skipped} duplicate(s)` : `Imported ${added} quiz(zes)`);
+  }else if(added>0){
+    showToast(`${added} new quiz${added===1?'':'zes'} added to the library`);
+  }
+}
+
+// Strips everything personal from a library item, leaving only what
+// describes the quiz itself — used anywhere content is being handed to
+// someone else (Share Link, the public library feed below), so another
+// person's progress, pins, or "last opened" timestamps never leak out
+// through a shared code or link.
+function stripPersonalFields(item){
+  const {pinned, lastOpened, progress, linkStatus, ...content} = item;
+  return content;
 }
 
 // ===================== SHARE LINK =====================
 function copyShareLink(){
   try{
-    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({library, customModules}))));
+    const contentOnly = library.map(stripPersonalFields);
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({library:contentOnly, customModules}))));
     const url = location.origin + location.pathname + '#lib=' + encoded;
     document.getElementById('share-link-text').value = url;
     document.getElementById('share-modal-overlay').classList.add('show');
@@ -2360,7 +2449,17 @@ function renderModuleGrid(){
   const modules = getAllModuleNames();
   const wrap = document.getElementById('module-grid');
   if(modules.length===0){
-    wrap.innerHTML = `
+    // If this site has public content configured and it just hasn't
+    // finished its one-time fetch yet, say so — a first-time visitor
+    // shouldn't see "add your first module" and think they're meant to
+    // build their own library from scratch.
+    const stillLoading = !publicLibraryLoadAttempted;
+    wrap.innerHTML = stillLoading ? `
+      <div class="empty-state" style="grid-column:1/-1;">
+        <div class="empty-state-icon">📚</div>
+        <div class="empty-state-title">Loading your modules…</div>
+        <div class="empty-state-sub">This should only take a moment.</div>
+      </div>` : `
       <div class="empty-state" style="grid-column:1/-1;">
         <div class="empty-state-icon">📚</div>
         <div class="empty-state-title">No modules yet</div>
@@ -3842,10 +3941,13 @@ load();
 checkForSharedLibraryInUrl();
 refresh();
 refreshQBankDashboardStats();
+loadPublicLibraryManifest();
 initInfoTooltips();
 
 // Cloud sync connects a moment later, in the background — see
 // loadFirebaseScripts()/initFirebase() above for why this is deferred.
+// Purely personal — your own progress across your own devices — and has
+// nothing to do with the public content loaded above.
 loadFirebaseScripts(initFirebase);
 
 if('serviceWorker' in navigator){
