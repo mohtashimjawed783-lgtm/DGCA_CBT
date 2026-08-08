@@ -417,7 +417,8 @@ body:not(.is-owner) .owner-only{display:none !important;}
 .streak-summary{font-size:0.82rem;color:var(--gold);margin-bottom:14px;position:relative;z-index:1;font-weight:600;}
 .streak-grid{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;position:relative;z-index:1;}
 .streak-day{aspect-ratio:1;border-radius:5px;background:var(--border);transition:transform .15s,box-shadow .15s;}
-.streak-day:hover{transform:scale(1.35);z-index:2;position:relative;box-shadow:0 0 10px rgba(34,211,238,.55);}
+.streak-day:hover{transform:scale(1.35);z-index:2;position:relative;}
+.streak-day:not([data-level="0"]):hover{box-shadow:0 0 10px rgba(34,211,238,.55);}
 .streak-day[data-level="1"]{background:color-mix(in srgb, var(--accent) 25%, var(--panel));}
 .streak-day[data-level="2"]{background:color-mix(in srgb, var(--accent) 45%, var(--panel));}
 .streak-day[data-level="3"]{background:color-mix(in srgb, var(--accent) 65%, var(--panel));box-shadow:0 0 4px rgba(34,211,238,.25);}
