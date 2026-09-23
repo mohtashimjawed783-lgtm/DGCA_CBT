@@ -1,1 +1,71 @@
-.github/workflows/build-m11a.yml
+name: Build M11a Combined File
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  combine-m11a:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Combine all M11a sessions
+        shell: bash
+        run: |
+          output="data/M11a_ALL_SESSIONS_COMBINED.js"
+
+          echo "window.CBT_QUIZ = {" > "$output"
+          echo "  config: {" >> "$output"
+          echo "    pageTitle: 'DGCA Module 11a - All Sessions'," >> "$output"
+          echo "    headerLeft: 'DGCA'," >> "$output"
+          echo "    headerRight: 'Module 11a - All Available Sessions'," >> "$output"
+          echo "    resultsTitle: '✈ QUIZ COMPLETE'," >> "$output"
+          echo "    resultsSubtitle: 'DGCA Module 11a - All Available Sessions'" >> "$output"
+          echo "  }," >> "$output"
+          echo "  questions: [" >> "$output"
+
+          first=1
+
+          for file in $(find data -maxdepth 1 -type f \
+            -iname 'M11a_[0-9][0-9][0-9][0-9]_S[0-9]*.js' \
+            ! -name 'M11a_ALL_SESSIONS_COMBINED.js' | sort -V); do
+
+            echo "" >> "$output"
+            echo "    // ============================================================" >> "$output"
+            echo "    // $(basename "$file")" >> "$output"
+            echo "    // ============================================================" >> "$output"
+
+            # Extract only the question objects from each session file.
+            sed -n '/questions: \[/,/^[[:space:]]*]/p' "$file" \
+              | sed '1d;$d' \
+              | sed 's/^[[:space:]]*/    /' \
+              | sed '$s/},$/},/' >> "$output"
+
+            # Add comma between sessions where required.
+            echo "," >> "$output"
+          done
+
+          # Remove the final unnecessary comma before closing array.
+          sed -i '$d' "$output"
+
+          echo "  ]" >> "$output"
+          echo "};" >> "$output"
+
+      - name: Commit combined file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/M11a_ALL_SESSIONS_COMBINED.js
+
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Create combined M11a session file"
+            git push
+          fi
